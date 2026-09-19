@@ -5,7 +5,7 @@
 'require fs';
 'require ui';
 'require poll';
-'require ikev2-manager.shared-v7 as common';
+'require ikev2-manager.shared-v8 as common';
 
 // Shadow the global _() with the project translator for this module only;
 // see the note in shared.js about not replacing window._.

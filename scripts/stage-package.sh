@@ -78,7 +78,11 @@ done
 
 install_file 644 luci-ikev2-manager/menu.json /usr/share/luci/menu.d/luci-app-ikev2-manager.json
 install_file 644 luci-ikev2-manager/acl.json /usr/share/rpcd/acl.d/luci-app-ikev2-manager.json
-install_file 644 luci-ikev2-manager/shared.js /www/luci-static/resources/ikev2-manager/shared-v7.js
+install_file 644 luci-ikev2-manager/shared.js /www/luci-static/resources/ikev2-manager/shared-v8.js
+install_file 644 luci-ikev2-manager/fonts/Vazirmatn-Regular.woff2 \
+	/www/luci-static/resources/ikev2-manager/fonts/Vazirmatn-Regular.woff2
+install_file 644 luci-ikev2-manager/fonts/OFL.txt \
+	/www/luci-static/resources/ikev2-manager/fonts/OFL.txt
 install_file 644 luci-ikev2-manager/status-widget.js \
 	/www/luci-static/resources/view/status/include/06_ikev2-manager.js
 # LuCI asks for a view resource with its own version in the query string, which

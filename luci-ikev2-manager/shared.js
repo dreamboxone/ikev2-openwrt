@@ -996,12 +996,55 @@ var ru = {
 	'zapret': 'zapret'
 };
 
+// Persian covers the application chrome and all controls used during normal
+// setup. Strings added by future pages deliberately fall back to English until
+// translated here; this avoids pretending a partial machine translation is a
+// complete locale.
+var fa = {
+	'English': 'انگلیسی', 'Russian': 'روسی', 'Persian': 'فارسی', 'Language': 'زبان',
+	'Overview': 'نمای کلی', 'Outbound Tunnel': 'تونل خروجی',
+	'Inbound Server': 'سرور ورودی', 'Policy Routing': 'مسیریابی سیاستی',
+	'VPN Users': 'کاربران VPN', 'Save': 'ذخیره', 'Save & Apply': 'ذخیره و اعمال',
+	'Apply': 'اعمال', 'Cancel': 'انصراف', 'Close': 'بستن', 'Delete': 'حذف',
+	'Edit': 'ویرایش', 'Add': 'افزودن', 'Refresh': 'نوسازی', 'Reset': 'بازنشانی',
+	'Connect': 'اتصال', 'Disconnect': 'قطع اتصال', 'Connected': 'متصل',
+	'Disconnected': 'قطع شده', 'Connecting': 'در حال اتصال', 'Enabled': 'فعال',
+	'Disabled': 'غیرفعال', 'Status': 'وضعیت', 'Settings': 'تنظیمات',
+	'Advanced settings': 'تنظیمات پیشرفته', 'Technical details': 'جزئیات فنی',
+	'Install dependencies': 'نصب وابستگی‌ها', 'Installing dependencies...': 'در حال نصب وابستگی‌ها...',
+	'Dependencies installed.': 'وابستگی‌ها نصب شدند.', 'Dependencies': 'وابستگی‌ها',
+	'WAN interface': 'رابط WAN', 'Protected networks': 'شبکه‌های محافظت‌شده',
+	'Managed mode': 'حالت مدیریت‌شده', 'Client': 'کلاینت', 'Server': 'سرور',
+	'Remote address': 'نشانی سرور', 'Remote identity': 'شناسهٔ سرور',
+	'EAP username': 'نام کاربری EAP', 'Password': 'گذرواژه',
+	'Authentication method': 'روش احراز هویت', 'Certificate (X.509)': 'گواهی (X.509)',
+	'Client certificate path': 'مسیر گواهی کلاینت', 'Client private key path': 'مسیر کلید خصوصی کلاینت',
+	'Path to the PEM-encoded client certificate on the router.': 'مسیر گواهی PEM کلاینت روی روتر.',
+	'Path to the PEM-encoded private key on the router.': 'مسیر کلید خصوصی PEM روی روتر.',
+	'EAP-MSCHAPv2 uses username and password. Certificate and EAP-TLS require a client certificate and private key on the router.': 'EAP-MSCHAPv2 از نام کاربری و گذرواژه استفاده می‌کند. گواهی و EAP-TLS به گواهی کلاینت و کلید خصوصی روی روتر نیاز دارند.',
+	'CA certificate': 'گواهی CA', 'Certificate': 'گواهی', 'Certificate present': 'گواهی موجود است',
+	'No certificate': 'گواهی وجود ندارد', 'Request certificate': 'درخواست گواهی',
+	'Tunnel DNS': 'DNS تونل', 'DoH servers': 'سرورهای DoH', 'Add DoH server': 'افزودن سرور DoH',
+	'Router DNS upstream': 'DNS بالادستی روتر', 'Policy routing': 'مسیریابی سیاستی',
+	'Routing and services': 'مسیریابی و سرویس‌ها', 'Devices': 'دستگاه‌ها',
+	'Domains': 'دامنه‌ها', 'Networks': 'شبکه‌ها', 'Custom': 'سفارشی',
+	'Fail-closed': 'بدون نشت به WAN', 'Traffic protected': 'ترافیک محافظت شد',
+	'Users': 'کاربران', 'Add user': 'افزودن کاربر', 'Delete user': 'حذف کاربر',
+	'Client profiles': 'پروفایل‌های کلاینت', 'Download': 'دانلود',
+	'Diagnostic': 'عیب‌یابی', 'Run diagnostic': 'اجرای عیب‌یابی',
+	'Unknown': 'نامشخص', 'Error': 'خطا', 'Warning': 'هشدار',
+	'Success': 'موفق', 'Saving...': 'در حال ذخیره...', 'Saved.': 'ذخیره شد.',
+	'Applying...': 'در حال اعمال...', 'Please wait...': 'لطفاً صبر کنید...'
+};
+
 function defaultLanguage() {
 	if (typeof window === 'undefined')
 		return 'en';
 	var saved = window.localStorage && window.localStorage.getItem(LANG_KEY);
-	if (saved === 'ru' || saved === 'en')
+	if (saved === 'ru' || saved === 'fa' || saved === 'en')
 		return saved;
+	if (window.navigator && /^fa\b/i.test(window.navigator.language || ''))
+		return 'fa';
 	return (window.navigator && /^ru\b/i.test(window.navigator.language || '')) ? 'ru' : 'en';
 }
 
@@ -1009,6 +1052,8 @@ function translate(text) {
 	var value = nativeTranslate ? nativeTranslate(text) : text;
 	if (defaultLanguage() === 'ru' && ru[text])
 		return ru[text];
+	if (defaultLanguage() === 'fa' && fa[text])
+		return fa[text];
 	return value;
 }
 
@@ -1071,7 +1116,8 @@ function formatDate(value) {
 	var date = new Date(value);
 	if (isNaN(date.getTime()))
 		return value || _('Unknown');
-	return new Intl.DateTimeFormat(defaultLanguage() === 'ru' ? 'ru-RU' : 'en-US', {
+	return new Intl.DateTimeFormat(defaultLanguage() === 'ru' ? 'ru-RU' :
+		(defaultLanguage() === 'fa' ? 'fa-IR' : 'en-US'), {
 		year: 'numeric',
 		month: 'short',
 		day: 'numeric'
@@ -1098,6 +1144,22 @@ var CSS = `
 				initial-value: 0;
 			}
 
+			@font-face {
+				font-family: "Vazirmatn";
+				src: url("/luci-static/resources/ikev2-manager/fonts/Vazirmatn-Regular.woff2") format("woff2");
+				font-style: normal;
+				font-weight: 400 700;
+				font-display: swap;
+			}
+			html[lang="fa"] .ikev2-page,
+			html[lang="fa"] .ikev2-page button,
+			html[lang="fa"] .ikev2-page input,
+			html[lang="fa"] .ikev2-page select,
+			html[lang="fa"] .ikev2-page textarea {
+				font-family: "Vazirmatn", sans-serif;
+			}
+			html[dir="rtl"] .ikev2-page { direction: rtl; text-align: right; }
+			html[dir="rtl"] .ikev2-header-actions { justify-content: flex-start; }
 			.ikev2-page {
 				--ikev2-accent: #4f7dff;
 				--ikev2-accent-2: #8b5cf6;
@@ -2936,7 +2998,8 @@ function icon(name) {
 function languageSwitch() {
 	var select = E('select', { 'class': 'cbi-input-select' }, [
 		E('option', { 'value': 'en', 'selected': defaultLanguage() === 'en' ? '' : null }, [ _('English') ]),
-		E('option', { 'value': 'ru', 'selected': defaultLanguage() === 'ru' ? '' : null }, [ _('Russian') ])
+		E('option', { 'value': 'ru', 'selected': defaultLanguage() === 'ru' ? '' : null }, [ _('Russian') ]),
+		E('option', { 'value': 'fa', 'selected': defaultLanguage() === 'fa' ? '' : null }, [ _('Persian') ])
 	]);
 	select.addEventListener('change', function() {
 		if (window.localStorage)
@@ -2971,6 +3034,15 @@ function localizeNav() {
 	}
 }
 
+function applyLanguageLayout() {
+	if (typeof document === 'undefined' || !document.documentElement ||
+		!document.documentElement.setAttribute)
+		return;
+	var persian = defaultLanguage() === 'fa';
+	document.documentElement.setAttribute('dir', persian ? 'rtl' : 'ltr');
+	document.documentElement.setAttribute('lang', persian ? 'fa' : defaultLanguage());
+}
+
 function header(title, subtitle, actions) {
 	var actionItems = [ languageSwitch() ];
 	if (actions) {
@@ -2981,6 +3053,7 @@ function header(title, subtitle, actions) {
 	}
 
 	if (typeof window !== 'undefined') {
+		applyLanguageLayout();
 		window.setTimeout(localizeNav, 0);
 		window.setTimeout(localizeNav, 300);
 	}
