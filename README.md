@@ -64,24 +64,12 @@ Services -> IKEv2 Manager -> Overview
 ### OpenWrt 25.12
 
 ```sh
-wget -O /tmp/nikitid-feed.sh \
-  https://raw.githubusercontent.com/Nikitid/openwrt-feed/feed/install.sh
-sh /tmp/nikitid-feed.sh luci-app-ikev2-manager
+apk add --allow-untrusted /tmp/luci-app-ikev2-manager_*.apk
 ```
 
-Установщик проверяет публичный ключ издателя по закреплённой контрольной сумме,
-подключает общий подписанный репозиторий приложений Nikitid и устанавливает
-только указанный пакет. Установка, выполненная до появления общего репозитория,
-переводится на него автоматически при обновлении пакета.
-
-Последующие обновления:
-
-```sh
-apk update
-apk upgrade luci-app-ikev2-manager
-```
-
-Команда обновляет только IKEv2 Manager, а не все системные пакеты.
+Сначала скачайте APK для точной цели роутера из GitHub Release в `/tmp`.
+APK намеренно не подписан, поэтому требуется `--allow-untrusted`. На OpenWrt
+24.10 используйте IPK: APK и IPK не взаимозаменяемы.
 
 ## Маршрутизация
 

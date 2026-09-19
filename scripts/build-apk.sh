@@ -19,9 +19,10 @@ public_key="$root/$OPENWRT_APK_KEY_FILE"
 
 [ -n "$sdk" ] || fail 'OPENWRT_SDK_DIR is required'
 [ -d "$sdk" ] || fail "SDK directory not found: $sdk"
-[ -n "$signing_key" ] || fail 'OPENWRT_APK_SIGNING_KEY is required'
-[ -r "$signing_key" ] || fail "signing key not readable: $signing_key"
-[ -r "$public_key" ] || fail "public key not found: $public_key"
+if [ -n "$signing_key" ]; then
+	[ -r "$signing_key" ] || fail "signing key not readable: $signing_key"
+	[ -r "$public_key" ] || fail "public key not found: $public_key"
+fi
 
 case "$(basename "$sdk")" in
 	"${OPENWRT_APK_SDK_ARCHIVE%.tar.zst}") ;;
@@ -32,9 +33,11 @@ for command in make openssl python3 rsync sha256sum; do
 	command -v "$command" >/dev/null 2>&1 || fail "required command is missing: $command"
 done
 
-actual_key_hash="$(sha256sum "$public_key" | awk '{ print $1 }')"
-[ "$actual_key_hash" = "$OPENWRT_APK_TRUST_SHA256" ] ||
-	fail "public key checksum mismatch: $actual_key_hash"
+if [ -n "$signing_key" ]; then
+	actual_key_hash="$(sha256sum "$public_key" | awk '{ print $1 }')"
+	[ "$actual_key_hash" = "$OPENWRT_APK_TRUST_SHA256" ] ||
+		fail "public key checksum mismatch: $actual_key_hash"
+fi
 
 tmp="$(mktemp -d)"
 cleanup() {
@@ -42,10 +45,12 @@ cleanup() {
 }
 trap cleanup EXIT HUP INT TERM
 
-openssl ec -in "$signing_key" -pubout -out "$tmp/derived-public.pem" >/dev/null 2>&1 ||
-	fail 'invalid EC signing key'
-cmp -s "$tmp/derived-public.pem" "$public_key" ||
-	fail 'signing key does not match the tracked public release key'
+if [ -n "$signing_key" ]; then
+	openssl ec -in "$signing_key" -pubout -out "$tmp/derived-public.pem" >/dev/null 2>&1 ||
+		fail 'invalid EC signing key'
+	cmp -s "$tmp/derived-public.pem" "$public_key" ||
+		fail 'signing key does not match the tracked public release key'
+fi
 
 sdk_package="$sdk/package/luci-app-ikev2-manager"
 rm -rf "$sdk_package"
@@ -68,10 +73,12 @@ if [ "${OPENWRT_SDK_PREPARED:-0}" = 1 ]; then
 	# Feed registration may legitimately touch .config after the SDK target was
 	# prepared. Verify the immutable target identity instead of rejecting that
 	# cache solely because of timestamps.
-	grep -Fxq 'CONFIG_TARGET_mediatek=y' "$sdk/.config" &&
-		grep -Fxq 'CONFIG_TARGET_mediatek_filogic=y' "$sdk/.config" &&
-		grep -Fxq 'CONFIG_TARGET_ARCH_PACKAGES="aarch64_cortex-a53"' "$sdk/.config" ||
-		fail 'prepared SDK target configuration does not match mediatek/filogic'
+	target_family="${OPENWRT_APK_TARGET%%/*}"
+	target_subtarget="${OPENWRT_APK_TARGET#*/}"
+	grep -Fxq "CONFIG_TARGET_${target_family}=y" "$sdk/.config" &&
+		grep -Fxq "CONFIG_TARGET_${target_family}_${target_subtarget}=y" "$sdk/.config" &&
+		grep -Fxq "CONFIG_TARGET_ARCH_PACKAGES=\"${OPENWRT_APK_ARCH}\"" "$sdk/.config" ||
+		fail "prepared SDK target configuration does not match ${OPENWRT_APK_TARGET}"
 	run_make() {
 		target="${1##*/}"
 		shift
@@ -99,9 +106,13 @@ package_path="$(find "$sdk/bin/packages" -type f \
 	-name "${PKG_NAME}-${PKG_VERSION}.apk" -print -quit)"
 [ -n "$package_path" ] || fail 'built APK was not found'
 
-"$apk_tool" --allow-untrusted adbsign \
-	--sign-key "$signing_key" "$package_path"
-"$apk_tool" --keys-dir "$root/keys" verify "$package_path"
+if [ -n "$signing_key" ]; then
+	"$apk_tool" --allow-untrusted adbsign \
+		--sign-key "$signing_key" "$package_path"
+	"$apk_tool" --keys-dir "$root/keys" verify "$package_path"
+else
+	printf '%s\n' 'build-apk: producing an unsigned APK; install it with apk add --allow-untrusted'
+fi
 "$apk_tool" --keys-dir "$root/keys" adbdump --format json \
 	"$package_path" >"$tmp/package.json"
 python3 - "$tmp/package.json" >"$tmp/pre-deinstall" <<'PY'
@@ -135,4 +146,4 @@ cp "$package_path" "$output/$(basename "$package_path")"
 	sha256sum "$(basename "$package_path")" >SHA256SUMS.apk
 )
 
-printf 'signed APK built in %s\n' "$output"
+printf 'APK built in %s\n' "$output"

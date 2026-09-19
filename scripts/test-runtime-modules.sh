@@ -357,6 +357,10 @@ eval "$(sed -n \
 	-e '/^strongswan_cohort_version() {/,/^}/p' \
 	-e '/^runtime_install_arguments() {/,/^}/p' \
 	"$root/ikev2-manager-runtime/ikev2-manager-system.sh")"
+runtime_packages | grep -Fxq strongswan-mod-eap-tls || {
+	echo 'EAP-TLS is exposed by the client but its strongSwan plugin is not installed' >&2
+	exit 1
+}
 TEST_APK_INSTALLED='strongswan strongswan-charon'
 TEST_STRONGSWAN_VERSION=6.0.3
 TEST_STRONGSWAN_PLUGIN_VERSION=6.0.3

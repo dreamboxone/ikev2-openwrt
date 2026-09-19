@@ -773,7 +773,7 @@ doctor() {
 		dependencies_ok=0
 	fi
 
-	for plugin in kernel-netlink vici openssl eap-mschapv2 x509; do
+	for plugin in kernel-netlink vici openssl eap-mschapv2 eap-tls x509; do
 		if find /usr/lib/ipsec/plugins -name "libstrongswan-${plugin}.so" -print 2>/dev/null |
 			grep -q .; then
 			printf 'strongswan_%s=ok\n' "$(sanitize "$plugin")"
@@ -844,6 +844,7 @@ strongswan-mod-attr
 strongswan-mod-constraints
 strongswan-mod-eap-identity
 strongswan-mod-eap-mschapv2
+strongswan-mod-eap-tls
 strongswan-mod-gcm
 strongswan-mod-gmp
 strongswan-mod-hmac

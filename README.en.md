@@ -62,26 +62,13 @@ recovery are covered in [Operations](docs/OPERATIONS.md).
 ### OpenWrt 25.12
 
 ```sh
-wget -O /tmp/nikitid-feed.sh \
-  https://raw.githubusercontent.com/Nikitid/openwrt-feed/feed/install.sh
-sh /tmp/nikitid-feed.sh luci-app-ikev2-manager
+apk add --allow-untrusted /tmp/luci-app-ikev2-manager_*.apk
 ```
 
-The installer verifies the release public key and registers the shared signed
-stable APK repository for Nikitid OpenWrt applications without redirects. The
-legacy key and `/etc/apk/repositories.d/ikev2-manager.list` path remain
-compatible. If the application was installed before version `1.1.9`, run these
-two commands once more: the installer upgrades the package and moves the
-existing installation to the stable repository.
-
-Later updates:
-
-```sh
-apk update
-apk upgrade luci-app-ikev2-manager
-```
-
-This upgrades only IKEv2 Manager, not all system packages.
+Download the target-matched APK from the GitHub Release to `/tmp` first.
+Release APKs are deliberately unsigned, so `--allow-untrusted` is required.
+Use the IPK package on OpenWrt 24.10; an APK is not interchangeable with an
+IPK.
 
 ## Policy routing
 

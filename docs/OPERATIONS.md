@@ -22,85 +22,21 @@ opkg install /tmp/luci-app-ikev2-manager_*_all.ipk
 Configuration, users, custom destinations, cached service lists and
 certificates are preserved.
 
-### OpenWrt 25.12 signed feed
+### OpenWrt 25.12 unsigned APK
 
-The supported first-install path for OpenWrt 25.12 is the shared feed
-bootstrap:
-
-```sh
-wget -O /tmp/nikitid-feed.sh \
-  https://raw.githubusercontent.com/Nikitid/openwrt-feed/feed/install.sh
-sh /tmp/nikitid-feed.sh luci-app-ikev2-manager
-```
-
-It checks the exact OpenWrt release, target and architecture, verifies the
-publisher public-key checksum against a pinned value, installs the key under
-`/etc/apk/keys/`, writes `/etc/apk/repositories.d/nikitid-openwrt.list`,
-retires the superseded per-application list and key, refreshes the indexes and
-simulates the transaction before installing or upgrading. Only the packages
-named on its command line are touched; it never upgrades unrelated packages and
-does not enable VPN, PBR, DNS replacement or firewall rules. It requires working
-HTTPS access to GitHub and the official OpenWrt feeds.
-
-Subsequent updates use:
+Download the APK matching the router's exact OpenWrt release, target and
+architecture from the GitHub Release, verify its published SHA-256 checksum,
+then install it explicitly:
 
 ```sh
-apk update
-apk upgrade luci-app-ikev2-manager
+apk add --allow-untrusted /tmp/luci-app-ikev2-manager_*.apk
 ```
 
-### Repository rename and feed move
-
-The project repository was renamed from `ikev2-manager-openwrt` to
-`ikev2-openwrt`, and the signed feed then moved out of this repository into
-`Nikitid/openwrt-feed`. GitHub keeps serving the previous paths, so existing
-installations were never interrupted, but that alias is not a guarantee and
-stops working if an old name is reused.
-
-The package postinst therefore moves an installation off the superseded list.
-It rewrites `/etc/apk/repositories.d/ikev2-manager.list` to the shared
-`nikitid-openwrt.list` when, and only when, it still holds one of this
-project's own previous URLs. A list an operator or another project points
-elsewhere is left untouched, an existing shared list is never overwritten, and
-a missing list is not created. Trusted keys are not touched: the key material
-is identical under either file name.
-
-Verify a migrated router with:
-
-```sh
-cat /etc/apk/repositories.d/nikitid-openwrt.list
-apk update
-```
-
-### Never install the package from a file
-
-```sh
-apk add /tmp/luci-app-ikev2-manager-1.2.3.apk     # do not do this
-```
-
-apk records an identity constraint in `/etc/apk/world` that pins the package to
-that exact build. The feed publishes a different build, so the constraint keeps
-the router on the file it was given, and it does so silently: `apk update`
-succeeds, `apk upgrade luci-app-ikev2-manager` reports nothing to do, and the
-router looks healthy while never receiving another fix.
-
-Check for it with:
-
-```sh
-grep '><Q' /etc/apk/world
-```
-
-A package name followed by `><Q...` is pinned. Running the shared feed
-installer with that package name releases the constraint and then upgrades
-normally. Install from the feed instead:
-
-```sh
-apk update
-apk upgrade luci-app-ikev2-manager
-```
-
-Always name the package. A bare `apk upgrade` would touch every installed
-package on the router, including kernel modules tied to the running kernel.
+The project deliberately does not publish an APK signing key or an APK feed.
+`--allow-untrusted` is therefore required. The command changes only the named
+package and its dependencies; do not run a bare `apk upgrade` on a production
+router. Repeat the same file-install command with a newly downloaded release
+APK to update it.
 
 ### Controlled runtime updates
 
@@ -140,7 +76,6 @@ reuse that state:
 
 ```sh
 OPENWRT_SDK_DIR=/path/to/openwrt-sdk \
-OPENWRT_APK_SIGNING_KEY=/path/to/release-private.pem \
 OPENWRT_SDK_PREPARED=1 \
 ./scripts/build-apk.sh
 ```
@@ -150,7 +85,9 @@ cleans and compiles only `luci-app-ikev2-manager`. Omit
 `OPENWRT_SDK_PREPARED` for clean release or CI builds that must run the full SDK
 preparation path. Prepared mode checks the exact mediatek/filogic target values
 rather than timestamps because registering a feed can touch `.config` without
-changing the already-prepared target toolchain.
+changing the already-prepared target toolchain. The optional
+`OPENWRT_APK_SIGNING_KEY` is accepted only for private builds that need a
+signature; public releases are intentionally unsigned.
 
 ## Diagnostics
 
