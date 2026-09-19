@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Nikitid
 'use strict';
 
 // shared.js was stubbed out by every other JS test, so nothing ever evaluated

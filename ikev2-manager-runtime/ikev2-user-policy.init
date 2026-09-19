@@ -1,4 +1,6 @@
 #!/bin/sh /etc/rc.common
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 
 # Install the fail-closed inbound guard before strongSwan loads client
 # connections. The table is valid with empty session sets and is populated by

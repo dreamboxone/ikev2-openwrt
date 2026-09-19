@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 """Transition regressions from the installed-runtime audit; offline only."""
 import json
 import os

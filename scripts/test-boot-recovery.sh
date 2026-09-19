@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 
 # A boot-time start_action may run before WAN source-address selection is
 # possible. Verify that recovery recognises only the resulting loopback-bound

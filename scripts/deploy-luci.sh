@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 #
 # Push the LuCI assets straight to a router for iteration, without cutting a
 # version, a tag, a release or a feed rebuild. This is for trying a layout on a

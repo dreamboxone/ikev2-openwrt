@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 # File-backed UCI emulator for the shell test suites.
 #
 # Copy or link this as `uci` into a test's PATH and point UCI_STUB_DIR at a

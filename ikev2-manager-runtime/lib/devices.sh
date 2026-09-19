@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 # Device policy model shared by the routing helpers and the LuCI backend.
 #
 # Per-device settings live in named `device_policy` sections of the application

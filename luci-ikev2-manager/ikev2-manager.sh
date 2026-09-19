@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 
 set -eu
 umask 077
@@ -193,13 +195,17 @@ consume_client_input() {
 	tunnel_dns_provider="$(sed -n '10p' "$client_input_file")"
 	tunnel_dns_upstream="$(sed -n '11p' "$client_input_file")"
 	tunnel_dns_bootstrap="$(sed -n '12p' "$client_input_file")"
-	extra="$(sed -n '13,$p' "$client_input_file" | sed '/^[[:space:]]*$/d')"
+	auth_method="$(sed -n '13p' "$client_input_file")"
+	client_cert="$(sed -n '14p' "$client_input_file")"
+	client_key="$(sed -n '15p' "$client_input_file")"
+	extra="$(sed -n '16,$p' "$client_input_file" | sed '/^[[:space:]]*$/d')"
 	[ -n "$reconnect_cooldown" ] || reconnect_cooldown=15
 	[ -n "$tunnel_dns_provider" ] || tunnel_dns_provider=google
 	[ -n "$tunnel_dns_upstream" ] ||
 		tunnel_dns_upstream='https://dns.google/dns-query https://dns.cloudflare.com/dns-query'
 	[ -n "$tunnel_dns_bootstrap" ] ||
 		tunnel_dns_bootstrap='8.8.8.8:53 8.8.4.4:53 1.1.1.1:53 1.0.0.1:53'
+	[ -n "$auth_method" ] || auth_method=eap-mschapv2
 	rm -f "$client_input_file"
 	[ -z "$extra" ] || die 'Client input contains unexpected fields'
 
@@ -211,6 +217,10 @@ consume_client_input() {
 	[ -z "$username" ] || valid_user "$username" || die 'Invalid username'
 	[ -z "$password" ] || valid_password "$password" ||
 		die 'Password must be at most 256 characters without control characters'
+	case "$auth_method" in
+		eap-mschapv2 | pubkey | eap-tls) ;;
+		*) die 'Authentication method must be eap-mschapv2, pubkey, or eap-tls' ;;
+	esac
 	if [ "$enabled" = 1 ]; then
 		if [ "$mode" = set ]; then
 			[ "$(getv globals configured)" = 1 ] ||
@@ -220,8 +230,18 @@ consume_client_input() {
 		valid_host_list "$remote_address" || die 'Invalid remote address list'
 		valid_host "$remote_id" || die 'Invalid remote identity'
 		valid_user "$username" || die 'Invalid username'
-		[ -s "$client_secret_db" ] || [ -n "$password" ] ||
-			die 'EAP password is required when enabling the client'
+		case "$auth_method" in
+			eap-mschapv2)
+				[ -s "$client_secret_db" ] || [ -n "$password" ] ||
+					die 'EAP password is required when enabling the client'
+				;;
+			pubkey | eap-tls)
+				[ -n "$client_cert" ] ||
+					die 'Client certificate path is required for certificate-based authentication'
+				[ -n "$client_key" ] ||
+					die 'Client private key path is required for certificate-based authentication'
+				;;
+		esac
 	fi
 	in_range "$dpd" 10 300 || die 'DPD must be 10-300 seconds'
 	in_range "$mtu" 1280 1500 || die 'MTU must be 1280-1500'
@@ -634,9 +654,12 @@ restore_client_state() {
 
 commit_client_settings() {
 	uci set "$uci_config.client.enabled=$enabled" || return 1
+	uci set "$uci_config.client.auth_method=$auth_method" || return 1
 	uci set "$uci_config.client.remote_address=$(normalize_host_list "$remote_address")" || return 1
 	uci set "$uci_config.client.remote_id=$remote_id" || return 1
 	uci set "$uci_config.client.username=$username" || return 1
+	uci set "$uci_config.client.client_cert=$client_cert" || return 1
+	uci set "$uci_config.client.client_key=$client_key" || return 1
 	uci set "$uci_config.client.dpd=$dpd" || return 1
 	uci set "$uci_config.client.mtu=$mtu" || return 1
 	uci set "$uci_config.client.reconnect_cooldown=$reconnect_cooldown" || return 1
@@ -644,11 +667,19 @@ commit_client_settings() {
 	uci set "$uci_config.client.tunnel_dns_upstream=$tunnel_dns_upstream" || return 1
 	uci set "$uci_config.client.tunnel_dns_bootstrap=$tunnel_dns_bootstrap" || return 1
 	uci commit "$uci_config" || return 1
-	if [ -n "$password" ]; then
-		set_client_secret "$username" "$password" || return 1
-	else
-		sync_client_secret_identity "$username" || return 1
-	fi
+	case "$auth_method" in
+		eap-mschapv2)
+			if [ -n "$password" ]; then
+				set_client_secret "$username" "$password" || return 1
+			else
+				sync_client_secret_identity "$username" || return 1
+			fi
+			;;
+		pubkey | eap-tls)
+			# Certificate-based auth: install cert and key for strongSwan
+			install_client_certificate "$client_cert" "$client_key" || return 1
+			;;
+	esac
 	render_client || return 1
 	render_client_secret
 }
@@ -1145,9 +1176,9 @@ connections {
 				dpd_action = clear
 				start_action = none
 			}
-			}
 		}
 	}
+}
 pools {
 	router_pool4 {
 		addrs = $pool4
@@ -1832,6 +1863,25 @@ sync_client_ca() {
 	done
 }
 
+install_client_certificate() {
+	local cert_src="$1" key_src="$2"
+	local cert_dst="$root/etc/swanctl/x509/ikev2-client.pem"
+	local key_dst="$root/etc/swanctl/private/ikev2-client.key"
+	mkdir -p "$root/etc/swanctl/x509" "$root/etc/swanctl/private"
+	[ -f "$cert_src" ] || {
+		printf '%s\n' "Client certificate file not found: $cert_src" >&2
+		return 1
+	}
+	[ -f "$key_src" ] || {
+		printf '%s\n' "Client private key file not found: $key_src" >&2
+		return 1
+	}
+	cp "$cert_src" "${cert_dst}.new" || return 1
+	atomic_install "${cert_dst}.new" "$cert_dst" 644
+	cp "$key_src" "${key_dst}.new" || return 1
+	atomic_install "${key_dst}.new" "$key_dst" 600
+}
+
 render_client() {
 	enabled="$(getv client enabled)"
 	tmp="${outbound_conf}.new"
@@ -1842,10 +1892,14 @@ render_client() {
 		return
 	fi
 
-	if ! "$system_helper" strongswan-security client >/dev/null 2>&1; then
-		echo '# Managed by IKEv2 Manager. Outbound client is blocked: installed strongSwan is unsafe for EAP-MSCHAPv2.' >"$tmp"
-		atomic_install "$tmp" "$outbound_conf" 600
-		return
+	auth_method="$(getv_default client auth_method eap-mschapv2)"
+
+	if [ "$auth_method" = eap-mschapv2 ]; then
+		if ! "$system_helper" strongswan-security client >/dev/null 2>&1; then
+			echo '# Managed by IKEv2 Manager. Outbound client is blocked: installed strongSwan is unsafe for EAP-MSCHAPv2.' >"$tmp"
+			atomic_install "$tmp" "$outbound_conf" 600
+			return
+		fi
 	fi
 
 	if [ "$(getv_default client custom_config 0)" = 1 ]; then
@@ -1865,13 +1919,70 @@ render_client() {
 	username="$(getv client username)"
 	dpd="$(getv client dpd)"
 	remote_addrs="$(normalize_host_list "$remote_address" | sed 's/ /, /g')"
+	client_cert="$(getv_default client client_cert '')"
+	client_key="$(getv_default client client_key '')"
+
+	# Build local auth block based on auth_method
+	local_auth=""
+	case "$auth_method" in
+		eap-mschapv2)
+			local_auth="$(cat <<-LOCALAUTH
+		local {
+			auth = eap-mschapv2
+			id = $username
+			eap_id = $username
+		}
+			LOCALAUTH
+			)"
+			;;
+		pubkey)
+			[ -n "$client_cert" ] || {
+				printf '%s\n' 'Client certificate path is required for pubkey authentication' >&2
+				return 1
+			}
+			[ -n "$client_key" ] || {
+				printf '%s\n' 'Client private key path is required for pubkey authentication' >&2
+				return 1
+			}
+			local_auth="$(cat <<-LOCALAUTH
+		local {
+			auth = pubkey
+			certs = $client_cert
+			id = $username
+		}
+			LOCALAUTH
+			)"
+			;;
+		eap-tls)
+			[ -n "$client_cert" ] || {
+				printf '%s\n' 'Client certificate path is required for EAP-TLS authentication' >&2
+				return 1
+			}
+			[ -n "$client_key" ] || {
+				printf '%s\n' 'Client private key path is required for EAP-TLS authentication' >&2
+				return 1
+			}
+			local_auth="$(cat <<-LOCALAUTH
+		local {
+			auth = eap-tls
+			id = $username
+			eap_id = $username
+		}
+			LOCALAUTH
+			)"
+			;;
+		*)
+			printf '%s\n' "Unknown authentication method: $auth_method" >&2
+			return 1
+			;;
+	esac
 
 	cat >"$tmp" <<EOF
 connections {
 	proxy-out {
 		version = 2
 		remote_addrs = $remote_addrs
-		proposals = aes256gcm16-prfsha384-ecp384
+		proposals = aes256gcm16-prfsha384-ecp384,aes256gcm16-prfsha256-ecp256,aes256-sha256-modp2048
 		vips = 0.0.0.0
 		mobike = yes
 		fragmentation = yes
@@ -1879,11 +1990,7 @@ connections {
 		reauth_time = 0
 		keyingtries = 0
 
-		local {
-			auth = eap-mschapv2
-			id = $username
-			eap_id = $username
-		}
+$local_auth
 
 		remote {
 			auth = pubkey
@@ -1894,7 +2001,7 @@ connections {
 			proxy4 {
 				local_ts = 0.0.0.0/0
 				remote_ts = 0.0.0.0/0
-				esp_proposals = aes256gcm16-ecp384
+				esp_proposals = aes256gcm16-ecp384,aes256gcm16-ecp256,aes256gcm16-modp2048,aes256gcm16,aes256-sha256-modp2048,aes256-sha256
 				if_id_in = 42
 				if_id_out = 42
 				start_action = start

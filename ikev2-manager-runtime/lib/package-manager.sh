@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 # Package-manager compatibility helpers for OpenWrt 24.10 (opkg) and
 # OpenWrt 25.12+ (apk). Callers keep policy decisions; this file only hides
 # command syntax differences.

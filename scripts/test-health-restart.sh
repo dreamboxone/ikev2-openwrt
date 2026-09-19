@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 
 # The health watcher is a shell script; the running instance keeps executing the
 # copy it already read, so after an upgrade it behaves like the previous version

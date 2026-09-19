@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 # Routing invariants shared by apply, doctor and operational self-tests.
 
 # ip route del with metric 0 can match any priority. The flush selector is

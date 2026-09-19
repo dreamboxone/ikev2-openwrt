@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 #
 # Fail if the package identity drifts between the canonical source of truth
 # (release.env, used by stage-package.sh) and the secondary OpenWrt SDK Makefile

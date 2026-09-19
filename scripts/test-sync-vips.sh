@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 #
 # The outbound VIP sync must claim only this application's own virtual IP.
 # A router can run a second, unrelated IKEv2 client (a site link, for example);

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 """Pack a staged package tree into an opkg-installable .ipk.
 
 macOS-safe alternative to the OpenWrt SDK ``ipkg-build``. The system ``tar``

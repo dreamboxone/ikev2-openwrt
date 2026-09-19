@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 
 # Every string the pages pass through the translator must have a Russian
 # entry, and no entry may be defined twice. A missing one shows an English

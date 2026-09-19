@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 # Shared detached-action primitives for IKEv2 Manager backends.
 #
 # Callers provide:

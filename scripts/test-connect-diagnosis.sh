@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 
 # charon reports why a handshake failed to syslog, not through VICI, so the
 # operator used to get "the CHILD_SA failed; see logread" and a dead end. The

@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 
 # A parse check proves only that the file is syntactically valid. A LuCI page
 # dies at render time instead - a control referenced before it is declared, a

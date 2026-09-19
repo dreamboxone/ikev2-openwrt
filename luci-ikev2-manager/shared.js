@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Nikitid
 'use strict';
 'require baseclass';
 'require fs';

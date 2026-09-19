@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 
 # The feed moved out of this repository into Nikitid/openwrt-feed. Routers that
 # only run `apk update && apk upgrade <package>` never re-run a bootstrap

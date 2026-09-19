@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 #
 # Read-only sweep across routers: version, service health, WAN, DNS, tunnel,
 # and whether the page's own rpcd writes are permitted.

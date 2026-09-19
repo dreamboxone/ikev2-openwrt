@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 #
 # template: check-index v3 (repo-templates)
 # Formatted with `shfmt -i 2 -bn -ci` so it passes the strictest consumer;

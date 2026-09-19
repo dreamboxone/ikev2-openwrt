@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 
 # Router-side scripts run against BusyBox applets, not GNU coreutils. Developer
 # machines and CI runners provide the GNU versions, so a GNU-only option is

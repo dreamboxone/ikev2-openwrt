@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 # IKEv2 Manager for OpenWrt compatibility and runtime controller.
 
 set -eu

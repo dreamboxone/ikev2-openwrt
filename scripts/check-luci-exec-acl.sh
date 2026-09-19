@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 #
 # Every helper subcommand a page names must be granted in acl.json, and every
 # grant must be named by a page.

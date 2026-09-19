@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 
 # Persistent ownership record for the runtime dependency transaction. It lets
 # removal restore only packages that this application added.

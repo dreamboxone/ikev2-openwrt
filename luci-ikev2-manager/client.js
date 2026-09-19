@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 Nikitid
 'use strict';
 'require view';
 'require fs';
@@ -574,10 +576,30 @@ return view.extend({
 		});
 		var remoteId = input('text', value.remote_id);
 		var username = input('text', value.username, { 'autocomplete': 'off' });
+		var authMethodSelect = E('select', { 'class': 'cbi-input-select' }, [
+			E('option', { 'value': 'eap-mschapv2', 'selected': (value.auth_method || 'eap-mschapv2') === 'eap-mschapv2' ? '' : null }, 'EAP-MSCHAPv2'),
+			E('option', { 'value': 'pubkey', 'selected': value.auth_method === 'pubkey' ? '' : null }, _('Certificate (X.509)')),
+			E('option', { 'value': 'eap-tls', 'selected': value.auth_method === 'eap-tls' ? '' : null }, 'EAP-TLS')
+		]);
+		var clientCert = input('text', value.client_cert || '', {
+			'placeholder': '/etc/ikev2-manager/client.pem'
+		});
+		var clientKey = input('text', value.client_key || '', {
+			'placeholder': '/etc/ikev2-manager/client.key'
+		});
 			var password = input('password', '', {
 				'placeholder': _('Leave blank to keep the current password'),
 				'autocomplete': 'new-password'
 		});
+		function updateAuthFields() {
+			var method = authMethodSelect.value;
+			var isEapMschap = method === 'eap-mschapv2';
+			password.style.display = isEapMschap ? '' : 'none';
+			clientCert.style.display = isEapMschap ? 'none' : '';
+			clientKey.style.display = isEapMschap ? 'none' : '';
+		}
+		authMethodSelect.addEventListener('change', updateAuthFields);
+		updateAuthFields();
 		var dpd = common.choiceWithCustom(value.dpd, [
 			{ value: '30', label: '30 ' + _('seconds') + ' — ' + _('recommended') },
 			{ value: '60', label: '60 ' + _('seconds') },
@@ -700,7 +722,10 @@ return view.extend({
 				reconnectCooldown.value(),
 				'custom',
 				tunnelUpstream.join(' '),
-				tunnelBootstrap.join(' ')
+				tunnelBootstrap.join(' '),
+				authMethodSelect.value,
+				clientCert.value.trim(),
+				clientKey.value.trim()
 			].join('\n') + '\n';
 				return fs.write('/var/run/ikev2-manager-client-' + token + '.in', payload, 384 /* 0600 */)
 					.then(function() { return token; });
@@ -1201,6 +1226,15 @@ return view.extend({
 							remoteId,
 							common.fieldLabel(_('EAP username')),
 							username,
+							common.fieldLabel(_('Authentication method'),
+								_('EAP-MSCHAPv2 uses username and password. Certificate and EAP-TLS require a client certificate and private key on the router.')),
+							authMethodSelect,
+							common.fieldLabel(_('Client certificate path'),
+								_('Path to the PEM-encoded client certificate on the router.')),
+							clientCert,
+							common.fieldLabel(_('Client private key path'),
+								_('Path to the PEM-encoded private key on the router.')),
+							clientKey,
 							common.fieldLabel(_('New EAP password'),
 								_('Visible while editing; leave blank to preserve the saved secret.')),
 							password

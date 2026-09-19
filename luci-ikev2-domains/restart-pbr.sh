@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 
 lock_dir="${IKEV2_PBR_RESTART_LOCK:-/var/run/ikev2-domains-pbr-restart.lock}"
 global_lock_dir="${IKEV2_ACTION_LOCK:-/var/run/ikev2-action.lock}"

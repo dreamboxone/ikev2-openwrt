@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Nikitid
 
 [ "$#" -eq 0 ] || {
 	printf '%s\n' 'usage: ikev2-health' >&2
