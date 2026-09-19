@@ -577,9 +577,9 @@ return view.extend({
 		var remoteId = input('text', value.remote_id);
 		var username = input('text', value.username, { 'autocomplete': 'off' });
 		var authMethodSelect = E('select', { 'class': 'cbi-input-select' }, [
-			E('option', { 'value': 'eap-mschapv2', 'selected': (value.auth_method || 'eap-mschapv2') === 'eap-mschapv2' ? '' : null }, 'EAP-MSCHAPv2'),
-			E('option', { 'value': 'pubkey', 'selected': value.auth_method === 'pubkey' ? '' : null }, _('Certificate (X.509)')),
-			E('option', { 'value': 'eap-tls', 'selected': value.auth_method === 'eap-tls' ? '' : null }, 'EAP-TLS')
+			E('option', { 'value': 'eap-mschapv2', 'selected': (value.auth_method || 'eap-mschapv2') === 'eap-mschapv2' ? '' : null }, [ 'EAP-MSCHAPv2' ]),
+			E('option', { 'value': 'pubkey', 'selected': value.auth_method === 'pubkey' ? '' : null }, [ _('Certificate (X.509)') ]),
+			E('option', { 'value': 'eap-tls', 'selected': value.auth_method === 'eap-tls' ? '' : null }, [ 'EAP-TLS' ])
 		]);
 		var clientCert = input('text', value.client_cert || '', {
 			'placeholder': '/etc/ikev2-manager/client.pem'
