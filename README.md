@@ -34,15 +34,31 @@ PBR، sing-box، dnsmasq و nftables را فقط پس از انتخاب صریح
 پشتیبانی می‌شود. firmware سازنده، snapshot، firewall3 و feedهای نامنطبق پیش
 از نصب dependency رد می‌شوند.
 
-| نسخهٔ OpenWrt | قالب | وضعیت |
+| روتر و نسخهٔ OpenWrt | فایل صحیح | وضعیت و اقدام کاربر |
 | --- | --- | --- |
-| `24.10.x` | IPK با `opkg` | کد برنامه مستقل از معماری است؛ dependencyها باید با firmware روتر هماهنگ باشند. |
-| `25.12.x` | APK با `apk` | APK به target و ABI دقیق وابسته است. |
+| firmware رسمی `24.10.x` با `opkg` و firewall4 | IPK | قالب برنامه مستقل از معماری است؛ پس IPK را نصب کنید، اما پیش از Apply اجازه دهید برنامه dependencyهای همان روتر را بررسی کند. |
+| firmware رسمی `25.12.x` با `apk` و firewall4 | APK دقیق همان target/ABI | فقط APKی را نصب کنید که نام target، release و معماری آن با خروجی روتر یکسان است. |
+| OpenWrt `23.05.x` و قدیمی‌تر | هیچ‌کدام | **ناسازگار و عمداً رد می‌شود.** ابتدا firmware رسمی را به نسخهٔ پشتیبانی‌شده ارتقا دهید. |
+| snapshot، firmware سازنده، firewall3، یا feed غیررسمی | هیچ‌کدام | **ناسازگار و عمداً رد می‌شود.** firmware رسمی پایدار و feedهای رسمی لازم است. |
+| APK برای target/ABI دیگر | هیچ‌کدام | **ناسازگار.** APK را نصب نکنید؛ SDK و خروجی مخصوص همان روتر لازم است. |
 
-در حال حاضر هدفی که باید با روتر واقعی تأیید شود Google WiFi (Gale) با
-`25.12.5`، target `ipq40xx/chromium` و ARMv7
-`arm_cortex-a7_neon-vfpv4` است. ARM64 شامل A53 و A72، MIPS و x86_64 به SDK و
-تست جداگانه نیاز دارند؛ APK یک target را هرگز روی target دیگر نصب نکنید.
+هدف APK تعریف‌شده برای آزمون عملی Google WiFi (Gale) با `25.12.5`، target
+`ipq40xx/chromium` و ARMv7 `arm_cortex-a7_neon-vfpv4` است. ARM64 شامل A53 و
+A72، MIPS و x86_64 به SDK، APK و آزمون مستقل نیاز دارند؛ وجود کد مشترک به معنی
+سازگاری تأییدشدهٔ آن‌ها نیست.
+
+### تشخیص روتر پیش از دانلود
+
+در SSH روتر این فرمان را اجرا کنید و خروجی را با نام فایل Release تطبیق دهید:
+
+```sh
+ubus call system board
+cat /etc/openwrt_release
+apk --print-arch 2>/dev/null || opkg print-architecture
+```
+
+فیلدهای `version`، `target` و `DISTRIB_ARCH` باید با APK دقیقاً هم‌خوان باشند.
+اگر روتر `opkg` دارد، IPK را انتخاب کنید؛ اگر `apk` دارد، IPK را نصب نکنید.
 
 ## نصب
 
