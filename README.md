@@ -26,7 +26,7 @@ PBR، sing-box، dnsmasq و nftables را فقط پس از انتخاب صریح
   پورت‌های عمومی، اینترنت و شبکهٔ محلی؛
 - ساخت profile برای Apple، Android و Windows VPNv2/NRPT؛
 - کارت وضعیت در `Status → Overview` برای تونل، PBR و کاربران ورودی؛
-- رابط LuCI روسی و انگلیسی، همراه با ACME برای گواهی سرور ورودی.
+- رابط LuCI فارسی، روسی و انگلیسی، همراه با ACME برای گواهی سرور ورودی.
 
 ## محدودیت و سازگاری
 
@@ -118,6 +118,128 @@ IPK و APK قابل جایگزینی با هم نیستند. از `apk upgrade` 
 
 تا وقتی اتصال خروجی سالم نشده است، دامنه یا دستگاهی را به سیاست VPN اضافه
 نکنید. نخست یک اتصال و یک مقصد آزمایشی را بررسی کنید.
+
+## راهنمای کامل تب‌ها و گزینه‌ها
+
+### ۱. Overview — آماده‌سازی و وضعیت کلی
+
+این صفحه نقطهٔ شروع هر نصب است. تا وقتی کارت‌های بررسی سبز نشده‌اند، managed
+mode را فعال نکنید.
+
+| گزینه | کاربرد | نکتهٔ عملی |
+| --- | --- | --- |
+| **Install dependencies** | وابستگی‌های نبودۀ VPN، DNS و PBR را نصب می‌کند. | ممکن است برای جایگزینی `dnsmasq-full`، DNS/DHCP برای چند لحظه restart شود. پیش از زدن دکمه، اتصال LuCI خود را از یک شبکهٔ پایدار نگه دارید. |
+| **Tunnel routing: Pause/Resume** | Pause مسیر انتخاب‌شده را موقتاً از VPN به WAN می‌فرستد، بدون حذف تنظیمات. | در حالت Pause تضمین fail-closed وجود ندارد؛ فقط برای عیب‌یابی یا دسترسی اضطراری استفاده کنید. Resume همان سیاست قبلی را بازمی‌گرداند. |
+| **WAN network** | رابط اینترنت اصلی روتر را مشخص می‌کند. | باید همان uplink واقعی باشد. در سرور ورودی، UDP 500 و 4500 روی همین WAN استفاده می‌شوند. |
+| **Protected networks** | شبکه‌های LAN/VLAN که سیاست دامنه و VPN روی آن‌ها اعمال می‌شود. | WAN یا شبکهٔ مدیریت بیرونی را به‌عنوان protected انتخاب نکنید. |
+| **Managed mode** | مالکیت route، PBR، DNS و firewall موردنیاز برنامه را فعال می‌کند. | پیش از حذف برنامه یا تغییر عمدهٔ شبکه آن را خاموش کنید. |
+| **Device rules** | فهرست دستگاه‌های LAN و استثناءهای آن‌ها را نشان می‌دهد. | هر استثناء می‌تواند PBR، رهگیری DNS و DPI را جداگانه دور بزند. |
+| **Redirect plain DNS** | TCP/UDP پورت 53 دستگاه‌های protected را به DNS روتر هدایت می‌کند. | برای کارکرد مسیردهی دامنه مفید است؛ اگر resolver محلی خاص دارید، ابتدا سازگاری آن را بررسی کنید. |
+| **Block DNS-over-TLS** | خروجی پورت 853 به WAN را block می‌کند. | از دور زدن دسته‌بندی دامنه با DoT جلوگیری می‌کند، اما بعضی کلاینت‌ها را تحت‌تأثیر می‌گذارد. |
+| **Reset application** | برنامه را برای حذف آماده می‌کند، state مدیریت‌شده را برمی‌گرداند و وابستگی‌های مالکیت‌دار را پاک می‌کند. | تنظیمات، کاربرها و secretها پاک می‌شوند؛ قبل از اجرا backup بگیرید. بسته‌های مشترک موردنیاز نرم‌افزارهای دیگر نگه داشته می‌شوند. |
+
+**Runtime dependencies** فقط وضعیت را نشان می‌دهد. اگر نسخه‌های strongSwan به‌صورت
+ناهمگون نصب شده باشند، برنامه عمداً آن‌ها را مخلوط نمی‌کند؛ ابتدا firmware و
+feedهای رسمی را درست کنید.
+
+### ۲. Outbound Tunnel — اتصال این روتر به سرور IKEv2
+
+این تب فقط برای اتصال **روتر به سرور VPN** است؛ با تب Inbound Server اشتباه
+نگیرید. ترتیب امن پیکربندی: آدرس سرور، شناسه، روش احراز هویت، CA، ذخیره، سپس
+Connect.
+
+| گزینه | مقدار/رفتار | انتخاب پیشنهادی |
+| --- | --- | --- |
+| **Enabled** | اجازه می‌دهد health watcher بعد از boot و قطع WAN اتصال را بازیابی کند. | پس از یک اتصال دستی موفق روشن کنید. |
+| **Remote address** | IPv4 یا hostname سرور IKEv2. | hostname باید از خود روتر resolve شود. |
+| **Remote ID** | هویت مورد انتظار سرور در گواهی IKEv2. | معمولاً FQDN گواهی سرور است، نه لزوماً IP. |
+| **EAP username / Password** | secret روش EAP-MSCHAPv2. | گذرواژه در UI فقط برای تغییر نوشته می‌شود؛ خالی گذاشتن آن secret قبلی را حفظ می‌کند. |
+| **Authentication method** | `EAP-MSCHAPv2`، `Certificate (X.509)` یا `EAP-TLS`. | فقط روشی را انتخاب کنید که سرور واقعاً فعال کرده است. |
+| **Client certificate path / private key path** | مسیر فایل PEM روی خود روتر برای Certificate و EAP-TLS. | فایل‌ها باید پیش از Apply روی روتر موجود و خواندنی باشند؛ مسیر فایل لپ‌تاپ قابل استفاده نیست. |
+| **CA certificate / identity** | ریشهٔ اعتماد و هویت مورد انتظار gateway. | بررسی گواهی را دور نزنید؛ خطای CA را با chain صحیح سرور حل کنید. |
+| **DPD، MTU، rekey و reauth** | تایمر زنده‌بودن، اندازهٔ بسته و زمان نوسازی SA. | مقادیر recommended را تغییر ندهید مگر سرور یا شبکه دلیل مشخصی داشته باشد. MTU کوچک‌تر برای شبکه‌های محدود مفید است. |
+| **Custom strongSwan config** | generated profile را با تنظیم خام جایگزین می‌کند. | فقط کاربر متخصص؛ در این حالت فرم عادی در runtime اثر ندارد تا Reset to generated را بزنید. |
+| **Connect / Disconnect** | اتصال یا خاتمهٔ SA خروجی. | Connect ابتدا اعتبارسنجی را اجرا می‌کند و علت‌هایی مانند certificate، proposal یا DNS را گزارش می‌دهد. |
+
+#### Tunnel DNS و Destination DNS segments
+
+`Tunnel DNS` نام‌های مقصدهای VPN را از داخل تونل resolve می‌کند. اولین endpoint
+اصلی و بقیه fallback ترتیبی‌اند. bootstrap باید IPهای IPv4 معتبر پورت 53 باشد تا
+خود resolver برای پیدا کردن resolver دیگری به DNS عمومی وابسته نشود.
+
+`Destination DNS segments` برای suffixهای مشخص (مثلاً یک دامنهٔ سازمانی) گروه
+resolver مستقل می‌سازد. در هر segment نام، suffixها، protocol، upstream،
+bootstrap، fallback و حالت load-balance/ordered را وارد کنید. segment با suffix
+متداخل با segment دیگر رد می‌شود. تغییر segment فقط همان segment را Apply کنید.
+
+### ۳. Policy Routing — چه چیزی از VPN عبور کند
+
+این تب **سرور VPN را تغییر نمی‌دهد**؛ فقط تصمیم می‌گیرد ترافیک protected LAN به
+کدام مقصدها وارد `ipsec-out` شود.
+
+| بخش | شرح و روش استفاده |
+| --- | --- |
+| **Domain routing engine** | Standard mode دامنه را با IP عمومی آن دسته‌بندی می‌کند. Reliable mode از FakeIP/TProxy استفاده می‌کند و با تغییر IP مقصد پایدارتر است. برای سرویس‌هایی با CDN یا IP متغیر، Reliable را انتخاب کنید. |
+| **Route router services by domain policy** | در Reliable mode، درخواست‌های خود روتر به دامنه‌های انتخاب‌شده را نیز از تونل می‌برد. آدرس‌های مدیریت محلی و transport تونل مستقیم می‌مانند. |
+| **Logging** | Errors only و Warnings برای استفادهٔ روزمره مناسب‌اند. Information/Debug/Trace log ring روتر را سریع پر می‌کنند. Capture debug log فقط ۶۰ ثانیه است و بعد سطح قبلی را برمی‌گرداند. |
+| **Services** | chip سرویس را انتخاب کنید و سپس Save صفحه را بزنید؛ انتخاب chip به‌تنهایی policy را اعمال نمی‌کند. گزینهٔ broad ممکن است سایت‌های نامرتبط را هم route کند. |
+| **Manage services** | service آماده را inspect/edit می‌کند یا service جدید می‌سازد. Identifier فقط حروف کوچک، رقم و underscore دارد و بعداً تغییر نمی‌کند. برای هر دامنه یا IPv4/CIDR یک خط وارد کنید. Restore prepared service فقط override محلی را حذف می‌کند. |
+| **Custom domains** | هر خط یک suffix ساده مانند `example.com` است؛ subdomainها خودکار شامل می‌شوند. این فهرست با update سرویس‌ها overwrite نمی‌شود. |
+| **Custom IPv4 addresses and networks** | هر خط یک IPv4 یا CIDR مانند `203.0.113.5` یا `203.0.113.0/24` است و بدون DNS کار می‌کند. شبکهٔ بسیار broad وارد نکنید. |
+| **Router traffic** | مشخص می‌کند ترافیک خود روتر از سیاست دامنه تبعیت کند یا مستقیم بماند. قبل از فعال‌کردن، اطمینان حاصل کنید endpoint تونل و نشانی مدیریت روتر در policy نیستند. |
+
+پس از Save، کارت policy را بررسی کنید. اگر تونل قطع باشد، مقصدهای انتخاب‌شده در
+حالت عادی block می‌شوند؛ این نشانهٔ خطا نیست، رفتار fail-closed است.
+
+### ۴. Inbound Server — اتصال دستگاه‌های بیرونی به این روتر
+
+این تب اختیاری است. فقط وقتی لازم است که موبایل، لپ‌تاپ یا کاربر بیرونی به
+**خود روتر** وصل شود آن را فعال کنید. برای استفادهٔ صرف از تونل خروجی، آن را
+خاموش نگه دارید.
+
+| گزینه | کاربرد |
+| --- | --- |
+| **Enabled / Public identity** | فعال‌سازی سرور و نام DNS عمومی موجود در گواهی. باید از اینترنت به WAN روتر برسد. |
+| **Client IPv4 pool / Pool gateway** | محدودهٔ IP اختصاصی کاربران ورودی و gateway رابط `ipsec-in`. با LAN، WAN یا pool دیگر overlap نداشته باشد. |
+| **DNS for VPN clients** | DNSی که به کلاینت ورودی داده می‌شود. معمولاً IP روتر یا resolver مورد اعتماد است. |
+| **Traffic selectors** | تعیین می‌کند کاربر ورودی all IPv4 traffic را از تونل بفرستد یا فقط شبکه‌های داخلی روتر را ببیند. |
+| **Router/WAN zones** | zoneهای firewall خودکارند؛ فقط در topology غیرعادی آن‌ها را تغییر دهید. |
+| **MTU، DPD، rekey، reauth** | رفتار session ورودی. recommendedها برای حالت معمول مناسب‌اند. |
+| **Global access policy** | default دسترسی همهٔ کاربران به روتر، پورت‌های عمومی، اینترنت و LAN است؛ تب Users می‌تواند برای یک کاربر override بسازد. |
+| **Edit raw config** | کل profile generated را جایگزین می‌کند. در custom mode، فرم عادی فقط ذخیره می‌شود و runtime را تغییر نمی‌دهد. Reset to generated برای بازگشت است. |
+
+#### ACME certificate
+
+برای اعتماد دستگاه‌ها به سرور ورودی گواهی معتبر لازم است. در DNS-01، provider و
+credential API را وارد کنید؛ برای provider چندمتغیره هر `VAR="value"` یک خط
+است. در HTTP-01، پورت ورودی 80 باید از اینترنت به روتر برسد. ابتدا `Save ACME
+settings` و سپس `Request certificate` را بزنید. staging فقط آزمایش است و
+دستگاه‌های عادی آن را trusted نمی‌دانند.
+
+### ۵. VPN Users — کاربران سرور ورودی
+
+این تب فقط با Inbound Server فعال معنی دارد.
+
+| گزینه | کاربرد |
+| --- | --- |
+| **Add user** | نام کاربری با حرف، عدد، نقطه، خط تیره یا underscore و گذرواژه می‌سازد. برای هر دستگاه حساب جدا بسازید. |
+| **Access policy** | `Use global setting` از policy سرور ارث می‌برد؛ Allow/Deny آن بخش را برای همان کاربر تغییر می‌دهد. |
+| **Router access** | دسترسی کاربر به خود روتر. DNS همچنان ممکن است در دسترس بماند. |
+| **Public router ports** | TCP/UDPهای عمومی مجاز؛ پورت یا بازه را با space/comma جدا کنید. این گزینه حتی اگر Router access deny باشد می‌تواند پورت مشخص را باز کند. |
+| **Internet access** | اجازهٔ خروج عادی به WAN و مقصدهای مجاز پروژه. |
+| **Local network access** | All local networks، Only selected addresses/CIDR، یا Deny. در حالت limited حداقل یک IPv4/CIDR معتبر لازم است. |
+| **PBR participation** | کاربر از policy پروژه پیروی کند یا Direct WAN باشد. Direct WAN، policy دامنه پروژه را برای همان کاربر bypass می‌کند. |
+| **Download iOS/Windows/Android profile** | profile همان کاربر را می‌سازد. فایل Apple/Android شامل گذرواژه است؛ آن را مثل secret نگه دارید و پس از import حذف کنید. |
+| **Change password / Delete / Disconnect** | secret را جایگزین، کاربر را حذف، یا session فعال را قطع می‌کند. حذف کاربر دسترسی آینده را می‌بندد. |
+| **Capture for 60 seconds** | trace کوتاه strongSwan برای خطای اتصال ورودی می‌گیرد؛ پس از پایان خودکار متوقف می‌شود. |
+
+## ترتیب پیشنهادی برای استفادهٔ روزمره
+
+1. Overview: dependencyها، WAN و protected networkها را تنظیم کنید.
+2. Outbound Tunnel: ابتدا یک اتصال EAP-MSCHAPv2 یا certificate را دستی تست کنید.
+3. Policy Routing: یک domain/CIDR کوچک اضافه و نتیجه را آزمایش کنید.
+4. فقط در صورت نیاز Inbound Server و سپس Users را فعال کنید.
+5. پس از هر تغییر مهم، `doctor` و `swanctl --list-sas` را بررسی کنید.
 
 ## مسیردهی و DNS
 
