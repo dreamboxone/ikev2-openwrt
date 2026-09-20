@@ -632,53 +632,53 @@ those whole is cheap enough.
 524  updateSetupState
 557  refreshSetupState
 
-## luci-ikev2-manager/shared.js - 4196 lines
+## luci-ikev2-manager/shared.js - 4306 lines
 
-1684  defaultLanguage
-1693  translate
-1711  parseKeyValues
-1721  parseSwanmon
-1731  formatBytes
-1742  formatDuration
-1757  formatDate
-1769  daysUntil
-3601  styles  - The Status Overview include re-renders on every poll. Returning a fresh
-3609  pill
-3613  setPill
-3620  icon
-3640  languageSwitch
-3660  localizeNav  - LuCI renders the secondary nav titles from menu.json in its own locale,
-3679  applyLanguageLayout
-3688  header
-3712  card
-3720  section
-3737  advancedPanel  - Advanced options belong to the section they modify. A square toggle in that
-3763  keyValueTable
-3772  fieldLabel
-3779  setBusy
-3818  errorMessage  - rpcd refuses a call the session's ACL does not cover. On its own its wording
-3827  execChecked
-3836  delay
-3842  pollAction  - Poll a key=value status command for one exact backend action id. A unique id
-3847  once
-3868  runAction  - Standard action lifecycle for every button:
-3896  runJob  - Start a detached backend action. The starter must return action_id=<id>
-3951  copyText
-3964  switchLabel
-3975  choiceWithCustom  - A finite set of safe presets with an explicit final Custom… branch. The
-3991  hasChoice
-3997  sync
-4003  setValue
-4027  multiChoiceWithCustom  - Multi-value counterpart used for detected firewall zones. Known values are
-4055  sync
-4060  setValue
-4089  toggleRow  - A labelled toggle row: title/description on the left, switch on the right.
-4104  netPick  - Selectable network card (modern replacement for a bare checkbox). Returns
-4114  setChecked
-4124  inlineResult  - Inline status chip shown next to an action button instead of a top-of-page
-4126  set
-4142  inputToken
-4147  gate
+1774  defaultLanguage
+1783  translate
+1801  parseKeyValues
+1811  parseSwanmon
+1821  formatBytes
+1832  formatDuration
+1847  formatDate
+1859  daysUntil
+3709  styles  - The Status Overview include re-renders on every poll. Returning a fresh
+3717  pill
+3721  setPill
+3728  icon
+3748  languageSwitch
+3768  localizeNav  - LuCI renders the secondary nav titles from menu.json in its own locale,
+3787  applyLanguageLayout
+3798  header
+3822  card
+3830  section
+3847  advancedPanel  - Advanced options belong to the section they modify. A square toggle in that
+3873  keyValueTable
+3882  fieldLabel
+3889  setBusy
+3928  errorMessage  - rpcd refuses a call the session's ACL does not cover. On its own its wording
+3937  execChecked
+3946  delay
+3952  pollAction  - Poll a key=value status command for one exact backend action id. A unique id
+3957  once
+3978  runAction  - Standard action lifecycle for every button:
+4006  runJob  - Start a detached backend action. The starter must return action_id=<id>
+4061  copyText
+4074  switchLabel
+4085  choiceWithCustom  - A finite set of safe presets with an explicit final Custom… branch. The
+4101  hasChoice
+4107  sync
+4113  setValue
+4137  multiChoiceWithCustom  - Multi-value counterpart used for detected firewall zones. Known values are
+4165  sync
+4170  setValue
+4199  toggleRow  - A labelled toggle row: title/description on the left, switch on the right.
+4214  netPick  - Selectable network card (modern replacement for a bare checkbox). Returns
+4224  setChecked
+4234  inlineResult  - Inline status chip shown next to an action button instead of a top-of-page
+4236  set
+4252  inputToken
+4257  gate
 
 ## luci-ikev2-manager/status-widget.js - 359 lines
 

@@ -1681,6 +1681,96 @@ Object.assign(faExtra, {
 // FA_EXTRA_ENTRIES
 Object.assign(fa, faExtra);
 
+// Final reviewed Persian copy. Keep product and protocol names such as
+// strongSwan, IKEv2, PBR, XFRM and DNS in their original form; translating a
+// product name makes diagnostics and package names impossible to recognize.
+Object.assign(fa, {
+	'Policy Routing': 'مدیریت مسیریابی',
+	'Network integration': 'اتصال اینترنت و شبکه‌های تحت پوشش',
+	'Choose the WAN uplink and the networks this app protects. Firewall zones are detected automatically.': 'اتصال اینترنت و شبکه‌هایی را انتخاب کن که برنامه باید محافظت کند. محدوده‌های فایروال خودکار شناسایی می‌شوند.',
+	'The internet uplink. Receives UDP 500/4500 when the inbound server is enabled.': 'اتصال اینترنت روتر. هنگام فعال‌بودن سرور ورودی، پورت‌های UDP 500 و 4500 از این مسیر استفاده می‌شوند.',
+	'Networks whose selected domains use the outbound tunnel.': 'شبکه‌هایی که دامنه‌های انتخاب‌شده‌شان از اتصال خروجی استفاده می‌کنند.',
+	'Let the app manage the router': 'اجازه بده برنامه روتر را مدیریت کند',
+	'Master switch: lets the app create and own the router routing, firewall and PBR. Network and DNS changes are applied together by the button at the bottom.': 'با فعال‌کردن این گزینه، برنامه تنظیمات مسیریابی، فایروال و PBR روتر را مدیریت می‌کند. تغییرات شبکه و DNS را با دکمهٔ پایین صفحه اعمال کن.',
+	'Install the runtime dependencies below first — then this switch becomes available.': 'ابتدا وابستگی‌های لازم را نصب کن؛ سپس این گزینه فعال می‌شود.',
+	'Install runtime dependencies': 'وابستگی‌ها را نصب کن',
+	'Install missing runtime packages now? DNS/DHCP may restart briefly while dnsmasq-full replaces dnsmasq.': 'بسته‌های لازم را الآن نصب کنم؟ هنگام جایگزینی dnsmasq با dnsmasq-full، سرویس‌های DNS و DHCP ممکن است کوتاه‌مدت راه‌اندازی شوند.',
+	'Apply': 'اعمال کن',
+	'Apply DNS': 'DNS را اعمال کن',
+	'Connect': 'وصل کن',
+	'Disconnect': 'قطع کن',
+	'Reconnect': 'دوباره وصل کن',
+	'Save': 'ذخیره کن',
+	'Save and connect': 'ذخیره و وصل کن',
+	'Save custom config': 'تنظیمات سفارشی را ذخیره کن',
+	'Save segment': 'بخش را ذخیره کن',
+	'Save server': 'سرور را ذخیره کن',
+	'Save server settings': 'تنظیمات سرور را ذخیره کن',
+	'Save service': 'سرویس را ذخیره کن',
+	'Save ACME settings': 'تنظیمات ACME را ذخیره کن',
+	'Request certificate': 'گواهی بگیر',
+	'Update lists now': 'فهرست‌ها را به‌روزرسانی کن',
+	'Reset to generated': 'به تنظیمات خودکار برگردان',
+	'Remove': 'حذف کن',
+	'Delete': 'حذف کن',
+	'Add': 'اضافه کن',
+	'Add user': 'کاربر اضافه کن',
+	'Add VPN user': 'کاربر VPN اضافه کن',
+	'Add DNS server': 'سرور DNS اضافه کن',
+	'Add fallback server': 'سرور جایگزین اضافه کن',
+	'Add bootstrap server': 'سرور راه‌انداز اضافه کن',
+	'Capture for 60 seconds': 'گزارش ۶۰ ثانیه‌ای بگیر',
+	'Capture debug log for 60 seconds': 'گزارش عیب‌یابی ۶۰ ثانیه‌ای بگیر',
+	'Resolve all names through the tunnel': 'دامنه‌ها از طریق تونل پیدا شوند',
+	'Saved. All names now resolve through the tunnel.': 'ذخیره شد. دامنه‌ها از طریق تونل پیدا می‌شوند.',
+	'Saved. Ordinary names resolve over WAN again.': 'ذخیره شد. دامنه‌های عادی دوباره از اینترنت مستقیم پیدا می‌شوند.',
+	'Client routes and access': 'مسیرها و دسترسی کلاینت‌ها',
+	'Inbound VPN Server': 'سرور ورودی VPN',
+	'Client IPv4 pool': 'محدودهٔ IP کلاینت‌ها',
+	'Pool gateway': 'دروازهٔ شبکهٔ کلاینت‌ها',
+	'VPN address plan': 'تنظیمات آدرس VPN',
+	'DNS for VPN clients': 'DNS کلاینت‌های VPN',
+	'All IPv4 traffic (full tunnel)': 'تمام ترافیک IPv4 (تونل کامل)',
+	'Custom…': 'سفارشی…',
+	'Enabled — no certificate': 'فعال است؛ گواهی ندارد',
+	'Enabled — not loaded': 'فعال است؛ هنوز بارگذاری نشده',
+	'Advertised IPv4 destinations': 'مسیرهای IPv4 برای کلاینت‌ها',
+	'Space-separated CIDRs. Use 0.0.0.0/0 for a full-tunnel client route.': 'شبکه‌ها را با فاصله جدا کن. برای عبور همهٔ ترافیک کلاینت از VPN، مقدار 0.0.0.0/0 را وارد کن.',
+	'Allow Internet': 'اجازهٔ دسترسی به اینترنت',
+	'Allow internal networks': 'اجازهٔ دسترسی به شبکه‌های داخلی',
+	'Internal firewall zones': 'شبکه‌های داخلی مجاز',
+	'Allow router itself': 'اجازهٔ دسترسی به خود روتر',
+	'Allow all router ports': 'همهٔ پورت‌های روتر مجاز باشند',
+	'Allowed router ports': 'پورت‌های مجاز روتر',
+	'Global defaults for inbound clients. Individual overrides are configured on the VPN Users page.': 'تنظیمات پیش‌فرض دسترسی کلاینت‌های ورودی. دسترسی هر کاربر را از برگهٔ کاربران VPN می‌توانی جداگانه تغییر دهی.',
+	'Remote devices connect to the router over IKEv2. Routes advertised by strongSwan and firewall permissions are controlled independently.': 'دستگاه‌های بیرونی از طریق IKEv2 به روتر وصل می‌شوند. مسیرهای ارائه‌شده توسط strongSwan و مجوزهای فایروال جداگانه تنظیم می‌شوند.',
+	'Advanced strongSwan configuration': 'تنظیمات پیشرفتهٔ strongSwan',
+	'Roaming behavior, timers, certificate paths and raw strongSwan configuration.': 'تنظیمات جابه‌جایی شبکه، زمان‌بندی، مسیر گواهی‌ها و پیکربندی دستی strongSwan.',
+	'How an established session survives a client changing network. Timers, certificate paths and the raw strongSwan profile are in the advanced options.': 'مشخص می‌کند اتصال هنگام جابه‌جایی کلاینت بین شبکه‌ها چگونه برقرار بماند. زمان‌بندی، مسیر گواهی‌ها و پیکربندی دستی strongSwan در گزینه‌های پیشرفته هستند.',
+	'Advanced connection settings': 'تنظیمات پیشرفتهٔ اتصال',
+	'Connection behavior': 'رفتار اتصال',
+	'IKE fragmentation': 'تکه‌تکه‌سازی IKE',
+	'Keeps the VPN session when a phone moves between Wi-Fi and mobile data.': 'هنگام جابه‌جایی گوشی بین Wi‑Fi و اینترنت همراه، اتصال VPN را برقرار نگه می‌دارد.',
+	'Avoids oversized IKE packets on constrained networks.': 'از بزرگ‌شدن بیش از حد بسته‌های IKE در شبکه‌های محدود جلوگیری می‌کند.',
+	'XFRM MTU': 'اندازهٔ MTU اتصال',
+	'Keep 1400 unless PMTU diagnostics show a problem.': 'مقدار ۱۴۰۰ را تغییر نده مگر گزارش MTU مشکل را نشان دهد.',
+	'This installs PBR, strongSwan, sing-box, dnsmasq-full, dnsproxy and XFRM/TProxy packages. VPN and routing stay disabled until managed mode is enabled.': 'بسته‌های PBR، strongSwan، sing-box، dnsmasq-full، dnsproxy و XFRM/TProxy نصب می‌شوند. تا زمانی که حالت مدیریت‌شده را فعال نکنی، VPN و مسیریابی خاموش می‌مانند.',
+	'Install PBR and strongSwan on the Overview page, then this page becomes available.': 'PBR و strongSwan را از برگهٔ نمای کلی نصب کن؛ سپس این برگه در دسترس می‌شود.',
+	'Installing strongSwan, PBR, sing-box and XFRM packages...': 'در حال نصب بسته‌های strongSwan، PBR، sing-box و XFRM...',
+	'Removing strongSwan, PBR and XFRM packages...': 'در حال حذف بسته‌های strongSwan، PBR و XFRM...',
+	'Capture a short, separate strongSwan trace while the affected client tries to connect. The capture stops automatically and does not increase system-log verbosity.': 'هنگام تلاش کلاینت برای اتصال، گزارش کوتاه و جداگانهٔ strongSwan را بگیر. گزارش خودکار متوقف می‌شود و حجم گزارش سیستم را افزایش نمی‌دهد.',
+	'Inbound strongSwan version': 'نسخهٔ strongSwan برای اتصال ورودی',
+	'strongSwan package cohort': 'یکپارچگی نسخهٔ بسته‌های strongSwan',
+	'strongSwan monitoring': 'پایش strongSwan',
+	'strongSwan swanctl': 'ابزار swanctl از strongSwan',
+	'strongSwan kernel-netlink': 'افزونهٔ kernel-netlink برای strongSwan',
+	'strongSwan VICI': 'افزونهٔ VICI برای strongSwan',
+	'strongSwan OpenSSL': 'افزونهٔ OpenSSL برای strongSwan',
+	'strongSwan EAP-MSCHAPv2': 'افزونهٔ EAP-MSCHAPv2 برای strongSwan',
+	'strongSwan X.509': 'افزونهٔ X.509 برای strongSwan',
+	'strongSwan': 'strongSwan'
+});
+
 function defaultLanguage() {
 	if (typeof window === 'undefined')
 		return 'fa';
@@ -1793,12 +1883,20 @@ var CSS = `
 				font-weight: 400 700;
 				font-display: swap;
 			}
-			html[lang="fa"] .ikev2-page,
-			html[lang="fa"] .ikev2-page button,
-			html[lang="fa"] .ikev2-page input,
-			html[lang="fa"] .ikev2-page select,
-			html[lang="fa"] .ikev2-page textarea {
-				font-family: "Vazirmatn", sans-serif;
+			html.ikev2-persian .main,
+			html.ikev2-persian .main button,
+			html.ikev2-persian .main input,
+			html.ikev2-persian .main select,
+			html.ikev2-persian .main textarea,
+			html.ikev2-persian .main a,
+			html.ikev2-persian .main label,
+			html.ikev2-persian .main h1,
+			html.ikev2-persian .main h2,
+			html.ikev2-persian .main h3,
+			html.ikev2-persian .main h4,
+			html.ikev2-persian ul.tabs a,
+			html.ikev2-persian .cbi-tabmenu a {
+				font-family: "Vazirmatn", sans-serif !important;
 			}
 			html[dir="rtl"] .ikev2-page { direction: rtl; text-align: right; }
 			html[dir="rtl"] .ikev2-header-actions { justify-content: flex-start; }
@@ -2686,6 +2784,16 @@ var CSS = `
 				align-items: start;
 			}
 			.ikev2-form-grid-compact > .ikev2-field-label { padding-top: .48rem; }
+			html[dir="rtl"] .ikev2-form-grid {
+				grid-template-columns: minmax(0, 1fr) minmax(13rem, 24rem);
+			}
+			html[dir="rtl"] .ikev2-form-grid > .ikev2-field-label {
+				grid-column: 2;
+				text-align: right;
+			}
+			html[dir="rtl"] .ikev2-form-grid > :not(.ikev2-field-label) {
+				grid-column: 1;
+			}
 			.ikev2-form-grid-compact input[type="text"],
 			.ikev2-form-grid-compact input[type="password"],
 			.ikev2-form-grid-compact input[type="number"],
@@ -3683,6 +3791,8 @@ function applyLanguageLayout() {
 	var persian = defaultLanguage() === 'fa';
 	document.documentElement.setAttribute('dir', persian ? 'rtl' : 'ltr');
 	document.documentElement.setAttribute('lang', persian ? 'fa' : defaultLanguage());
+	if (document.documentElement.classList)
+		document.documentElement.classList.toggle('ikev2-persian', persian);
 }
 
 function header(title, subtitle, actions) {

@@ -57,7 +57,7 @@ carries a version suffix - see `luci-ikev2-manager/AGENTS.md` for why.
 | Status widget | `luci-ikev2-manager/status-widget.js` | `view/status/include/06_ikev2-manager.js` |
 
 `luci-ikev2-manager/shared.js` is the design system, the Russian dictionary and
-the action lifecycle used by all of them; it installs as `shared-v8.js`.
+the action lifecycle used by all of them; it installs as `shared-v9.js`.
 `luci-ikev2-manager/menu.json` wires the pages, `acl.json` grants every helper
 call and input-file write.
 
