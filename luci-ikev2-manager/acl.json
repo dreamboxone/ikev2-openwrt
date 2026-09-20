@@ -19,6 +19,8 @@
 				"/usr/libexec/ikev2-domains-community service-read *": [ "exec" ],
 				"/usr/libexec/ikev2-domains-community status *": [ "exec" ],
 				"/usr/libexec/ikev2-domain-router status": [ "exec" ],
+				"/usr/libexec/ikev2-iran-direct status": [ "exec" ],
+				"/usr/libexec/ikev2-iran-direct read": [ "exec" ],
 				"/usr/libexec/ikev2-manager users-show": [ "exec" ],
 				"/usr/libexec/ikev2-manager diagnostic-report": [ "exec" ],
 				"/usr/libexec/ikev2-manager widget-status": [ "exec" ],
@@ -52,14 +54,17 @@
 				"/tmp/ikev2-service-input-*.cidrs": [ "write" ],
 				"/var/run/ikev2-manager-user-*.in": [ "write" ],
 				"/var/run/ikev2-manager-client-*.in": [ "write" ],
+				"/var/run/ikev2-manager-material-*.in": [ "write" ],
 				"/var/run/ikev2-manager-server-*.in": [ "write" ],
 				"/var/run/ikev2-manager-profile-*.in": [ "write" ],
 				"/tmp/run/ikev2-manager-user-*.in": [ "write" ],
 				"/tmp/run/ikev2-manager-client-*.in": [ "write" ],
+				"/tmp/run/ikev2-manager-material-*.in": [ "write" ],
 				"/tmp/run/ikev2-manager-server-*.in": [ "write" ],
 				"/tmp/run/ikev2-manager-profile-*.in": [ "write" ],
 				"/usr/libexec/ikev2-manager user-secret-set *": [ "exec" ],
 				"/usr/libexec/ikev2-manager client-input *": [ "exec" ],
+				"/usr/libexec/ikev2-manager client-material-import *": [ "exec" ],
 				"/usr/libexec/ikev2-manager server-input *": [ "exec" ],
 				"/usr/libexec/ikev2-manager user-delete *": [ "exec" ],
 				"/usr/libexec/ikev2-manager disconnect *": [ "exec" ],
@@ -95,6 +100,11 @@
 				"/usr/libexec/ikev2-domain-router tunnel-resolve *": [ "exec" ],
 				"/usr/libexec/ikev2-domain-router log-level *": [ "exec" ],
 				"/usr/libexec/ikev2-domain-router diagnostic-start *": [ "exec" ]
+				,"/usr/libexec/ikev2-iran-direct enable-async": [ "exec" ]
+				,"/usr/libexec/ikev2-iran-direct refresh-async": [ "exec" ]
+				,"/usr/libexec/ikev2-iran-direct disable-async": [ "exec" ]
+				,"/tmp/ikev2-iran-input-*": [ "write" ]
+				,"/usr/libexec/ikev2-iran-direct write *": [ "exec" ]
 			},
 			"ubus": {
 				"file": [ "exec", "write" ]

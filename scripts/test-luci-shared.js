@@ -182,6 +182,69 @@ assert.strictEqual(windowStub._, nativeTranslate,
 assert.strictEqual(typeof common.t, 'function', 'common.t is not exported');
 assert.strictEqual(common.t('Overview'), 'نمای کلی',
 	'the Persian default translation is not applied');
+assert.strictEqual(common.t('Update lists now'), 'به‌روز رسانی لیست‌ها');
+assert.strictEqual(common.t('Restarting policy routing...'),
+	'در حال راه‌اندازی دوبارهٔ مسیریابی...');
+assert.strictEqual(common.t('List refresh failed: the selected lists could not be rebuilt; previous lists and policy preserved'),
+	'به‌روزرسانی فهرست‌ها ناموفق بود؛ فهرست‌ها و تنظیمات مسیریابی قبلی حفظ شدند.');
+assert.ok(!common.t('Prepared and user-created services stay in separate lists. Chips stage policy selection; the page Save button applies it. Service definitions are managed independently.').includes('چیپس'));
+assert.strictEqual(common.t('Disconnect all'), 'اتصال‌های فعال را قطع کن');
+assert.ok(/disconnect-all\)[\s\S]{0,100}swanctl_quiet --terminate/.test(
+	fsNode.readFileSync('luci-ikev2-manager/ikev2-manager.sh', 'utf8')),
+	'the disconnect label must describe terminating active sessions, not revoking users');
+assert.strictEqual(common.t('Passwords are write-only. Set a new password if one is lost; router backups still contain secrets.'),
+	'رمزهای ذخیره‌شده در این صفحه نمایش داده نمی‌شوند. اگر رمزی را فراموش کردی، برای همان کاربر رمز تازه‌ای تنظیم کن. نسخهٔ پشتیبان روتر همچنان ممکن است حاوی رمزها باشد.');
+assert.ok(common.t('Capture a short, separate strongSwan trace while the affected client tries to connect. The capture stops automatically and does not increase system-log verbosity.').includes('strongSwan'));
+assert.strictEqual(common.t('Capture a short, separate strongSwan trace while the affected client tries to connect. The capture stops automatically and does not increase system-log verbosity.'),
+	'هنگام تلاش کاربر برای اتصال، گزارش کوتاه و جداگانه‌ای از strongSwan بگیر. ثبت گزارش پس از ۶۰ ثانیه خودکار متوقف می‌شود و سطح گزارش‌نویسی سیستم را تغییر نمی‌دهد.');
+assert.ok(!/قوی سوان|قوی قو|چیپس|فقط خواندنی/.test(source),
+	'misleading machine-translated Persian copy reappeared');
+for (const filename of [
+	'ikev2-manager-runtime/ikev2-manager-system.sh',
+	'luci-ikev2-domains/community-domains.sh'
+]) {
+	const backend = fsNode.readFileSync(filename, 'utf8');
+	const messages = backend.matchAll(
+		/(?:deps_status\s+(?:running|error|ok)|write_simple_status\s+"\$action_id"\s+(?:running|error))\s+'([^']+)'/g);
+	for (const match of messages)
+		assert.ok(!common.t(match[1]).startsWith('native:'),
+			'Persian backend status missing: ' + match[1]);
+}
+const communityBackend = fsNode.readFileSync('luci-ikev2-domains/community-domains.sh', 'utf8');
+for (const match of communityBackend.matchAll(/apply_failed '([^']+)'/g))
+	assert.ok(!common.t(match[1]).startsWith('native:'),
+		'Persian list-rebuild reason missing: ' + match[1]);
+const managerBackend = fsNode.readFileSync('luci-ikev2-manager/ikev2-manager.sh', 'utf8');
+for (const match of managerBackend.matchAll(/action_status "\$id" (?:running|error|ok) '([^']+)'/g))
+	assert.ok(!common.t(match[1]).startsWith('native:'),
+		'Persian router-action status missing: ' + match[1]);
+const systemBackend = fsNode.readFileSync('ikev2-manager-runtime/ikev2-manager-system.sh', 'utf8');
+for (const match of systemBackend.matchAll(/action_status "\$id" (?:running|error|ok) '([^']+)'/g))
+	assert.ok(!common.t(match[1]).startsWith('native:'),
+		'Persian system-action status missing: ' + match[1]);
+assert.strictEqual(common.t('Applying and verifying device routing...'),
+	'در حال اعمال و بررسی مسیر ترافیک دستگاه...');
+assert.ok(common.t('Tunnel did not come up: connection refused').startsWith('تونل برقرار نشد:'));
+assert.ok(common.t('Settings were saved, but the tunnel did not come up: connection refused')
+	.startsWith('تنظیمات ذخیره شد، اما تونل برقرار نشد:'));
+assert.strictEqual(common.t('List refresh failed: the selected lists could not be rebuilt; previous lists and policy preserved'),
+	'به‌روزرسانی فهرست‌ها ناموفق بود؛ فهرست‌ها و تنظیمات مسیریابی قبلی حفظ شدند.');
+assert.ok(common.t('Service update failed: invalid service identifier; previous service, selection and policy preserved')
+	.includes('شناسهٔ سرویس معتبر نیست'));
+assert.ok(common.t('OpenWrt 24.10.x with opkg or 25.12.x with apk is required; found 23.05.5 with opkg')
+	.includes('23.05.5'));
+assert.ok(source.includes("var STYLE_ID = 'ikev2-manager-styles-v6';"));
+assert.ok(/html\[dir="rtl"\] \.ikev2-form-grid\s*\{[^}]*grid-template-columns:\s*minmax\(13rem, 24rem\) minmax\(0, 1fr\)/.test(source),
+	'RTL form grid must place labels in the right-hand column');
+assert.ok(!/html\[dir="rtl"\] \.ikev2-form-grid > :not\(\.ikev2-field-label\)\s*\{[^}]*grid-column/.test(source),
+	'RTL form controls use forced columns and move to the next row');
+assert.ok(/@media \(max-width: 600px\)[\s\S]*html\[dir="rtl"\] \.ikev2-form-grid\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/.test(source),
+	'RTL form fields do not collapse to one column on narrow screens');
+assert.strictEqual(common.t('Use global setting'), 'طبق تنظیمات عمومی');
+assert.strictEqual(common.t('Use project PBR policy'), 'طبق PBR برنامه');
+assert.strictEqual(common.t('Remote gateway'), 'گیت‌وی از راه دور');
+assert.ok(!source.includes('window.setTimeout(localizeNav'),
+	'page navigation still changes tab labels after the first paint');
 
 // Spot-check a couple of exported helpers actually run.
 assert.strictEqual(common.formatBytes(0), '0 B');
@@ -232,7 +295,7 @@ assert.strictEqual(select.disabled, false, 'setBusy did not restore select state
 	// The result line is where a failure explains itself. Clipping it to one
 	// line turns the messages that say what to do into a fragment.
 	const styles = fsNode.readFileSync('luci-ikev2-manager/shared.js', 'utf8');
-	const resultRule = styles.slice(styles.indexOf('.ikev2-result {'),
+	const resultRule = styles.slice(styles.indexOf('\n\t\t\t.ikev2-result {'),
 		styles.indexOf('.ikev2-result.busy'));
 	assert.ok(!/white-space:\s*nowrap/.test(resultRule),
 		'the result line is clipped to one line again');

@@ -51,6 +51,7 @@ python3 ./scripts/test-audit-regressions.py
 ./scripts/test-sync-vips.sh
 ./scripts/test-community-domains.sh
 ./scripts/test-pbr-restart.sh
+./scripts/test-iran-direct.sh
 ./scripts/test-discord-voice-routing.sh
 ./scripts/test-device-routing.sh
 ./scripts/test-user-credentials.sh

@@ -45,7 +45,7 @@ done
 curl --fail --location --silent --show-error "$base_url/sha256sums" \
 	--output "$tmp/sha256sums"
 sdk_line="$(awk -v prefix="openwrt-sdk-$release-$safe_target" '
-	$2 ~ ("^" prefix "_.*\\.tar\\.zst$") { print; exit }
+	$2 ~ ("^\\*" prefix "_.*\\.tar\\.zst$") { print $1 " " substr($2, 2); exit }
 ' "$tmp/sha256sums")"
 [ -n "$sdk_line" ] || fail "official SDK not found for $release $target"
 sdk_sha="${sdk_line%% *}"

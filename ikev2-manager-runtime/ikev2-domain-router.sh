@@ -8,6 +8,7 @@ config='ikev2-manager'
 domain_file="${IKEV2_DOMAIN_FILE:-/etc/pbr-ikev2-domains.txt}"
 config_file="${IKEV2_DOMAIN_CONFIG:-/etc/ikev2-manager/domain-router.json}"
 ruleset_file="${IKEV2_DOMAIN_RULESET:-/etc/ikev2-manager/domain-router-rules.json}"
+iran_ruleset_file="${IKEV2_IRAN_RULESET:-/etc/ikev2-manager/domain-router-iran-rules.json}"
 work_dir="${IKEV2_DOMAIN_WORK_DIR:-/etc/ikev2-manager/domain-router}"
 state_file="${IKEV2_DOMAIN_STATE:-/var/run/ikev2-domain-router.status}"
 tunnel_dns_state="${IKEV2_TUNNEL_DNS_STATE:-/var/run/ikev2-tunnel-dns.state}"
@@ -432,6 +433,18 @@ render_ruleset() {
 		>"${ruleset_file}.new"
 	chmod 600 "${ruleset_file}.new"
 	mv "${ruleset_file}.new" "$ruleset_file"
+	if [ "$(defaultv domains iran_direct 0)" = 1 ]; then
+		iran_domains='/etc/ikev2-manager/iran-domains.txt'
+		iran_cidrs='/etc/ikev2-manager/iran-cidrs.txt'
+		[ -s "$iran_domains" ] && [ -s "$iran_cidrs" ] ||
+			die 'Iran direct lists are missing'
+		iran_domain_array="$(json_array_file "$iran_domains")"
+		iran_cidr_array="$(json_array_file "$iran_cidrs")"
+		printf '{"version":3,"rules":[{"domain_suffix":%s,"ip_cidr":%s}]}\n' \
+			"$iran_domain_array" "$iran_cidr_array" >"${iran_ruleset_file}.new"
+		chmod 600 "${iran_ruleset_file}.new"
+		mv "${iran_ruleset_file}.new" "$iran_ruleset_file"
+	fi
 }
 
 render_config() {
@@ -491,6 +504,31 @@ EOF
 	fi
 	segment_server_blocks="$(dns_segment_server_blocks)"
 	segment_rule_blocks="$(dns_segment_rule_blocks)"
+	iran_dns_rule=''
+	iran_route_rule=''
+	iran_ruleset_entry=''
+	if [ "$(defaultv domains iran_direct 0)" = 1 ]; then
+		iran_dns_rule='
+      {
+        "rule_set": [ "iran-direct" ],
+        "action": "route",
+        "server": "upstream"
+      },'
+		iran_route_rule='
+      {
+        "inbound": [ "tproxy-in", "tproxy-router-in" ],
+        "rule_set": [ "iran-direct" ],
+        "action": "route",
+        "outbound": "direct-out"
+      },'
+		iran_ruleset_entry=',
+      {
+        "type": "local",
+        "tag": "iran-direct",
+        "format": "source",
+        "path": "'"$iran_ruleset_file"'"
+      }'
+	fi
 	# Ordinary names are resolved over WAN, where per-protocol DNS filtering is
 	# applied. Sending them through the tunnel-bound resolver instead removes
 	# that exposure, but couples every lookup to tunnel health: while the tunnel
@@ -553,6 +591,7 @@ EOF
       }
     ],
     "rules": [
+$iran_dns_rule
       {
         "rule_set": [ "ikev2-domains" ],
         "query_type": [ "HTTPS" ],
@@ -635,6 +674,7 @@ $segment_https_rule
         "action": "sniff",
         "timeout": "300ms"
       },
+$iran_route_rule
       {
         "inbound": [ "tproxy-direct-in" ],
         "action": "route",
@@ -664,7 +704,7 @@ $segment_https_rule
         "tag": "ikev2-domains",
         "format": "source",
         "path": "$ruleset_file"
-      }
+      }$iran_ruleset_entry
     ],
     "final": "direct-out",
     "default_domain_resolver": "upstream"

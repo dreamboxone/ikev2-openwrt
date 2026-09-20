@@ -113,10 +113,22 @@ const L = {
 	Poll: { add() {}, remove() {} }
 };
 const baseclass = { extend: function(o) { return o; } };
+const materialWrites = [];
+const materialImports = [];
 const fsStub = {
-	exec: function() { return Promise.resolve({ code: 0, stdout: '' }); },
+	exec: function(helper, args) {
+		if (args && args[0] === 'client-material-import') {
+			materialImports.push(args);
+			return Promise.resolve({ code: 0, stdout: 'path=/etc/ikev2-manager/client-imported-' +
+				(args[1] === 'cert' ? 'cert' : 'key') + '.pem\n' });
+		}
+		return Promise.resolve({ code: 0, stdout: '' });
+	},
 	stat: function() { return Promise.resolve({}); },
-	write: function() { return Promise.resolve(); }
+	write: function() {
+		materialWrites.push(Array.prototype.slice.call(arguments));
+		return Promise.resolve();
+	}
 };
 const uiStub = {
 	createHandlerFn: function(self, fn) { return fn; },
@@ -510,5 +522,40 @@ advanced.toggle.listeners.click({});
 if (advanced.panel.style.display !== 'none')
 	fail('the advanced toggle did not close the panel again');
 
-process.stdout.write('client UI render tests OK\n');
+// Both visible path fields must have a real local-file picker. Choosing a file
+// uploads PEM bytes and fills the router path, without applying the connection.
+function visit(node, found) {
+	if (!node || typeof node !== 'object') return;
+	if (node.attrs && node.attrs['class'] === 'ikev2-file-picker') found.push(node);
+	(node.children || []).forEach(function(child) { visit(child, found); });
+}
+const pickers = [];
+visit(page, pickers);
+if (pickers.length !== 2)
+	fail('expected certificate and private-key path fields with browse buttons');
+global.FileReader = class {
+	readAsText(file) {
+		this.result = file.content;
+		this.onload();
+	}
+};
+Promise.all(pickers.map(function(picker, index) {
+	const field = picker.children[0];
+	const button = picker.children[1];
+	const chooser = picker.children[2];
+	if (button.tagName !== 'BUTTON' || chooser.attrs.type !== 'file')
+		fail('path field lacks a browse button and local file input');
+	chooser.files = [ { size: 64, content: index ? 'PRIVATE KEY PEM' : 'CERTIFICATE PEM' } ];
+	return chooser.listeners.change().then(function() {
+		if (field.value !== '/etc/ikev2-manager/client-imported-' +
+			(index ? 'key' : 'cert') + '.pem')
+			fail('uploaded router path was not written into the matching field');
+	});
+})).then(function() {
+	if (materialWrites.length !== 2 || materialImports.length !== 2)
+		fail('the local files were not uploaded through the restricted helper');
+	if (!materialWrites.every(function(entry) { return entry[2] === 384; }))
+		fail('uploaded PEM input did not request mode 0600');
+	process.stdout.write('client UI render and file picker tests OK\n');
+}).catch(function(error) { fail(error.stack || String(error)); });
 JS

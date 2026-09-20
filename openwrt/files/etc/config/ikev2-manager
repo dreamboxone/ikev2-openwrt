@@ -65,6 +65,7 @@ config dns 'dns'
 	option timeout '4s'
 
 config domains 'domains'
+	option iran_direct '0'
 	option engine 'nftset'
 	option fakeip_ttl '60'
 	option cache_capacity '8192'

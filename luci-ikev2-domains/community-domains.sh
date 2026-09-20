@@ -672,6 +672,12 @@ restore_output() {
 }
 
 restart_policy() {
+	# Lists may be refreshed before the router is handed over to this app.
+	# In that state no managed PBR runtime exists to restart or health-check.
+	if command -v uci >/dev/null 2>&1 &&
+	   [ "$(uci -q get ikev2-manager.globals.configured 2>/dev/null || true)" = 0 ]; then
+		return 0
+	fi
 	if [ "${IKEV2_ACTION_LOCK_HELD:-0}" = 1 ]; then
 		"$restart_helper" --wait --lock-held
 	else
@@ -779,8 +785,14 @@ apply_once() {
 	else
 		[ ! -e "$final_file" ] || cp "$final_file" "$work/final.before"
 		[ ! -e "$cidr_file" ] || cp "$cidr_file" "$work/cidrs.before"
-		[ -z "$action_id" ] ||
-			write_simple_status "$action_id" running 'Restarting policy routing...' || true
+		if [ -n "$action_id" ]; then
+			if command -v uci >/dev/null 2>&1 &&
+			   [ "$(uci -q get ikev2-manager.globals.configured 2>/dev/null || true)" = 0 ]; then
+				write_simple_status "$action_id" running 'Saving lists; router management is disabled.' || true
+			else
+				write_simple_status "$action_id" running 'Restarting policy routing...' || true
+			fi
+		fi
 		if ! cp "$work/final" "$final_file.tmp" ||
 		   ! chmod 600 "$final_file.tmp" || ! mv "$final_file.tmp" "$final_file" ||
 		   ! cp "$work/cidrs" "$cidr_file.tmp" ||

@@ -145,6 +145,7 @@ define Package/luci-app-ikev2-manager/install
 	$(INSTALL_BIN) ./ikev2-manager-runtime/ikev2-health.sh $(1)/usr/libexec/ikev2-health
 	$(INSTALL_BIN) ./ikev2-manager-runtime/ikev2-sync-vips.sh $(1)/usr/libexec/ikev2-sync-vips
 	$(INSTALL_BIN) ./ikev2-manager-runtime/ikev2-domain-router.sh $(1)/usr/libexec/ikev2-domain-router
+	$(INSTALL_BIN) ./ikev2-manager-runtime/ikev2-iran-direct.sh $(1)/usr/libexec/ikev2-iran-direct
 	$(INSTALL_BIN) ./ikev2-manager-runtime/ikev2-discord-voice.sh $(1)/usr/libexec/ikev2-discord-voice
 	$(INSTALL_BIN) ./ikev2-manager-runtime/ikev2-device-routing.sh $(1)/usr/libexec/ikev2-device-routing
 	$(INSTALL_BIN) ./ikev2-manager-runtime/ikev2-user-policy.sh $(1)/usr/libexec/ikev2-user-policy
@@ -154,6 +155,7 @@ define Package/luci-app-ikev2-manager/install
 
 	$(INSTALL_DIR) $(1)/usr/share/pbr
 	$(INSTALL_BIN) ./ikev2-manager-runtime/pbr.user.ikev2out $(1)/usr/share/pbr/pbr.user.ikev2out
+	$(INSTALL_BIN) ./ikev2-manager-runtime/pbr.user.ikev2-iran $(1)/usr/share/pbr/pbr.user.ikev2-iran
 
 	$(INSTALL_DIR) $(1)/usr/share/ikev2-manager
 	echo "$(PKG_VERSION)" >$(1)/usr/share/ikev2-manager/version
@@ -176,7 +178,7 @@ define Package/luci-app-ikev2-manager/install
 	$(INSTALL_DATA) ./luci-ikev2-manager/acl.json $(1)/usr/share/rpcd/acl.d/luci-app-ikev2-manager.json
 
 	$(INSTALL_DIR) $(1)/www/luci-static/resources/ikev2-manager
-	$(INSTALL_DATA) ./luci-ikev2-manager/shared.js $(1)/www/luci-static/resources/ikev2-manager/shared-v9.js
+	$(INSTALL_DATA) ./luci-ikev2-manager/shared.js $(1)/www/luci-static/resources/ikev2-manager/shared-v20.js
 	$(INSTALL_DIR) $(1)/www/luci-static/resources/ikev2-manager/fonts
 	$(INSTALL_DATA) ./luci-ikev2-manager/fonts/Vazirmatn-Regular.woff2 $(1)/www/luci-static/resources/ikev2-manager/fonts/Vazirmatn-Regular.woff2
 	$(INSTALL_DATA) ./luci-ikev2-manager/fonts/OFL.txt $(1)/www/luci-static/resources/ikev2-manager/fonts/OFL.txt
@@ -186,13 +188,13 @@ define Package/luci-app-ikev2-manager/install
 	$(INSTALL_DATA) ./luci-ikev2-manager/status-widget.js $(1)/www/luci-static/resources/view/status/include/06_ikev2-manager.js
 
 	$(INSTALL_DIR) $(1)/www/luci-static/resources/view/ikev2-manager
-	$(INSTALL_DATA) ./luci-ikev2-manager/setup.js $(1)/www/luci-static/resources/view/ikev2-manager/setup-v3.js
-	$(INSTALL_DATA) ./luci-ikev2-manager/users.js $(1)/www/luci-static/resources/view/ikev2-manager/users-v7.js
-	$(INSTALL_DATA) ./luci-ikev2-manager/settings.js $(1)/www/luci-static/resources/view/ikev2-manager/settings-v3.js
-	$(INSTALL_DATA) ./luci-ikev2-manager/client.js $(1)/www/luci-static/resources/view/ikev2-manager/client-v3.js
+	$(INSTALL_DATA) ./luci-ikev2-manager/setup.js $(1)/www/luci-static/resources/view/ikev2-manager/setup-v12.js
+	$(INSTALL_DATA) ./luci-ikev2-manager/users.js $(1)/www/luci-static/resources/view/ikev2-manager/users-v16.js
+	$(INSTALL_DATA) ./luci-ikev2-manager/settings.js $(1)/www/luci-static/resources/view/ikev2-manager/settings-v12.js
+	$(INSTALL_DATA) ./luci-ikev2-manager/client.js $(1)/www/luci-static/resources/view/ikev2-manager/client-v12.js
 
 	$(INSTALL_DIR) $(1)/www/luci-static/resources/view/ikev2-domains
-	$(INSTALL_DATA) ./luci-ikev2-domains/editor.js $(1)/www/luci-static/resources/view/ikev2-domains/editor-v4.js
+	$(INSTALL_DATA) ./luci-ikev2-domains/editor.js $(1)/www/luci-static/resources/view/ikev2-domains/editor-v13.js
 endef
 
 define Package/luci-app-ikev2-manager/postinst
@@ -204,6 +206,7 @@ rm -rf /tmp/luci-modulecache
 # such orphans before this ran. Only names this package no longer ships are
 # removed, so nothing else in these directories is touched.
 	rm -f /www/luci-static/resources/ikev2-manager/shared.js \
+	/www/luci-static/resources/ikev2-manager/shared-v9.js \
 	/www/luci-static/resources/ikev2-manager/shared-v8.js \
 	/www/luci-static/resources/ikev2-manager/shared-v7.js \
 	/www/luci-static/resources/ikev2-manager/shared-v2.js \

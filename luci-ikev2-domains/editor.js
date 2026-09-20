@@ -3,7 +3,7 @@
 'use strict';
 'require view';
 'require fs';
-'require ikev2-manager.shared-v9 as common';
+'require ikev2-manager.shared-v20 as common';
 
 // Shadow the global _() with the project translator for this module only;
 // see the note in shared.js about not replacing window._.
@@ -16,6 +16,7 @@ var selectedFile  = '/etc/pbr-ikev2-community-selected.txt';
 var statusFile    = '/tmp/ikev2-domains-community.status';
 var communityHelper = '/usr/libexec/ikev2-domains-community';
 var domainRouterHelper = '/usr/libexec/ikev2-domain-router';
+var iranDirectHelper = '/usr/libexec/ikev2-iran-direct';
 var serviceSelection = {};
 var serviceRecords = [];
 
@@ -346,6 +347,12 @@ return view.extend({
 			L.resolveDefault(fs.read(manualAddressFile), ''),
 			L.resolveDefault(fs.exec(communityHelper, [ 'sources' ]), {
 				code: 1, stdout: ''
+			}),
+			L.resolveDefault(fs.exec(iranDirectHelper, [ 'read' ]), {
+				code: 1, stdout: ''
+			}),
+			L.resolveDefault(fs.exec(iranDirectHelper, [ 'status' ]), {
+				code: 1, stdout: ''
 			})
 		]);
 	},
@@ -430,6 +437,8 @@ return view.extend({
 		var status = (data[2] || '').trim();
 		var statusData = parseStatus(status);
 		var routerStatus = parseStatus(((data[5] || {}).stdout || ''));
+		var iranExtra = ((data[8] || {}).stdout || '');
+		var iranStatus = parseStatus(((data[9] || {}).stdout || ''));
 		var fakeipActive = routerStatus.engine === 'fakeip' &&
 			routerStatus.service === 'running' &&
 			routerStatus.nft === 'active' &&
@@ -457,6 +466,71 @@ return view.extend({
 		serviceSelection = Object.assign({}, selected);
 
 		var engineResult = common.inlineResult();
+		var iranResult = common.inlineResult();
+		var iranRefreshButton = E('button', {
+			'class': 'cbi-button cbi-button-action'
+		}, [ _('Update lists now') ]);
+		iranRefreshButton.addEventListener('click', function() {
+			return common.runJob({
+				button: iranRefreshButton,
+				result: iranResult,
+				busy: _('Downloading the current lists...'),
+				startPath: iranDirectHelper,
+				startArgs: [ 'refresh-async' ],
+				statusPath: iranDirectHelper,
+				statusArgs: [ 'status' ],
+				statusIdArg: false,
+				timeout: 240000,
+				failure: _('Unable to update Iranian routing'),
+				success: _('Lists updated.')
+			});
+		});
+		var iranExtraResult = common.inlineResult();
+		var iranExtraArea = E('textarea', {
+			'id': 'ikev2-iran-extra',
+			'class': 'cbi-input-textarea ikev2-domain-editor',
+			'spellcheck': 'false',
+			'placeholder': 'bale.ai\n5.160.0.0/16'
+		}, [ iranExtra ]);
+		var iranExtraSave = E('button', {
+			'class': 'cbi-button cbi-button-action'
+		}, [ _('Save additions') ]);
+		iranExtraSave.addEventListener('click', function() {
+			var token = common.inputToken();
+			iranExtraResult.busy(_('Saving...'));
+			return fs.write('/tmp/ikev2-iran-input-' + token + '.txt',
+				iranExtraArea.value, 384).then(function() {
+				return common.execChecked(iranDirectHelper, [ 'write', token ],
+					_('Unable to save the additions'));
+			}).then(function() {
+				iranExtraResult.ok(_('Saved. They apply with the next update.'));
+			}).catch(function(error) {
+				iranExtraResult.err(common.errorMessage(error,
+					_('Unable to save the additions')));
+			});
+		});
+		var iranToggle = E('input', {
+			'type': 'checkbox',
+			'class': 'cbi-input-checkbox',
+			'checked': iranStatus.enabled === '1' ? '' : null
+		});
+		iranToggle.addEventListener('change', function() {
+			var desired = iranToggle.checked;
+			return common.runJob({
+				button: iranToggle,
+				result: iranResult,
+				busy: desired ? _('Downloading and applying Iranian lists...') : _('Disabling Iranian direct routing...'),
+				startPath: iranDirectHelper,
+				startArgs: [ desired ? 'enable-async' : 'disable-async' ],
+				statusPath: iranDirectHelper,
+				statusArgs: [ 'status' ],
+				statusIdArg: false,
+				timeout: 240000,
+				failure: _('Unable to update Iranian routing'),
+				success: desired ? _('Iranian destinations use WAN.') : _('Iranian direct routing is off.'),
+				onError: function() { iranToggle.checked = !desired; }
+			});
+		});
 		var routerTraffic = E('input', {
 			'type': 'checkbox',
 			'class': 'cbi-input-checkbox',
@@ -992,6 +1066,31 @@ return view.extend({
 		renderCatalog();
 
 		var domainsContent = E('div', {}, [
+			common.section(_('Iranian destinations via WAN'),
+				_('When enabled, Iranian domains and public IP ranges use WAN before VPN rules. The lists include Iranian messengers. Downloads and routing changes are checked; a failed update keeps the previous rules. Shared CDN addresses and unknown destinations cannot be identified with certainty.'),
+				E('div', {}, [
+					common.toggleRow(iranToggle,
+						_('Send Iranian destinations directly'),
+						_('Applies to matching Iranian domains and IP networks; other destinations keep their existing routing.'),
+						iranResult.node),
+					E('div', { 'class': 'ikev2-actions', 'style': 'margin-top:.75rem' }, [
+						iranRefreshButton
+					]),
+					E('p', { 'class': 'ikev2-note' }, [
+						_('Current lists: %s domains, %s IP networks.').format(iranStatus.domains || '0', iranStatus.cidrs || '0')
+					]),
+					E('details', { 'class': 'ikev2-advanced', 'style': 'margin-top:1rem' }, [
+						E('summary', {}, [ _('Your own additions') ]),
+						E('p', { 'class': 'ikev2-note' }, [
+							_('One entry per line: a domain name, or an IP network in CIDR form. These are merged into the downloaded lists and are kept across upgrades. Private, reserved and documentation ranges are refused.')
+						]),
+						iranExtraArea,
+						E('div', { 'class': 'ikev2-actions' }, [
+							iranExtraResult.node,
+							iranExtraSave
+						])
+					])
+				])),
 			common.section(_('Domain routing engine'),
 				_('Reliable mode keeps selected domains on the IKEv2 route even when their public addresses change. Other traffic continues through the normal WAN.'),
 				E('div', { 'class': 'ikev2-engine' }, [

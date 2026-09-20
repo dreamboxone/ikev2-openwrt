@@ -52,6 +52,7 @@ install_file 644 ikev2-manager-runtime/lib/devices.sh /usr/libexec/ikev2-manager
 install_file 755 ikev2-manager-runtime/ikev2-health.sh /usr/libexec/ikev2-health
 install_file 755 ikev2-manager-runtime/ikev2-sync-vips.sh /usr/libexec/ikev2-sync-vips
 install_file 755 ikev2-manager-runtime/ikev2-domain-router.sh /usr/libexec/ikev2-domain-router
+install_file 755 ikev2-manager-runtime/ikev2-iran-direct.sh /usr/libexec/ikev2-iran-direct
 install_file 755 ikev2-manager-runtime/ikev2-discord-voice.sh /usr/libexec/ikev2-discord-voice
 install_file 755 ikev2-manager-runtime/ikev2-device-routing.sh /usr/libexec/ikev2-device-routing
 install_file 755 ikev2-manager-runtime/ikev2-user-policy.sh /usr/libexec/ikev2-user-policy
@@ -59,6 +60,7 @@ install_file 755 luci-ikev2-domains/community-domains.sh /usr/libexec/ikev2-doma
 install_file 755 luci-ikev2-domains/restart-pbr.sh /usr/libexec/ikev2-domains-restart
 install_file 755 luci-ikev2-domains/ikev2-devices.sh /usr/libexec/ikev2-devices
 install_file 755 ikev2-manager-runtime/pbr.user.ikev2out /usr/share/pbr/pbr.user.ikev2out
+install_file 755 ikev2-manager-runtime/pbr.user.ikev2-iran /usr/share/pbr/pbr.user.ikev2-iran
 
 install_file 644 ikev2-manager-runtime/ca/isrg-root-x1.pem /usr/share/ikev2-manager/ca/isrg-root-x1.pem
 install_file 644 ikev2-manager-runtime/ca/isrg-root-x2.pem /usr/share/ikev2-manager/ca/isrg-root-x2.pem
@@ -78,7 +80,7 @@ done
 
 install_file 644 luci-ikev2-manager/menu.json /usr/share/luci/menu.d/luci-app-ikev2-manager.json
 install_file 644 luci-ikev2-manager/acl.json /usr/share/rpcd/acl.d/luci-app-ikev2-manager.json
-install_file 644 luci-ikev2-manager/shared.js /www/luci-static/resources/ikev2-manager/shared-v9.js
+install_file 644 luci-ikev2-manager/shared.js /www/luci-static/resources/ikev2-manager/shared-v20.js
 install_file 644 luci-ikev2-manager/fonts/Vazirmatn-Regular.woff2 \
 	/www/luci-static/resources/ikev2-manager/fonts/Vazirmatn-Regular.woff2
 install_file 644 luci-ikev2-manager/fonts/OFL.txt \
@@ -91,13 +93,13 @@ install_file 644 luci-ikev2-manager/status-widget.js \
 # what the -vN suffixes are for.
 for view in settings client; do
 	install_file 644 "luci-ikev2-manager/$view.js" \
-		"/www/luci-static/resources/view/ikev2-manager/$view-v3.js"
+		"/www/luci-static/resources/view/ikev2-manager/$view-v12.js"
 done
 install_file 644 luci-ikev2-manager/setup.js \
-	/www/luci-static/resources/view/ikev2-manager/setup-v3.js
+	/www/luci-static/resources/view/ikev2-manager/setup-v12.js
 install_file 644 luci-ikev2-manager/users.js \
-	/www/luci-static/resources/view/ikev2-manager/users-v7.js
-install_file 644 luci-ikev2-domains/editor.js /www/luci-static/resources/view/ikev2-domains/editor-v4.js
+	/www/luci-static/resources/view/ikev2-manager/users-v16.js
+install_file 644 luci-ikev2-domains/editor.js /www/luci-static/resources/view/ikev2-domains/editor-v13.js
 
 # The pages show which build is installed. Stamping it here keeps status cheap:
 # no package-manager query on every poll.

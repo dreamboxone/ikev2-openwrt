@@ -22,6 +22,7 @@ outbound_secret="$root/etc/swanctl/conf.d/90-proxy-out-secret.conf"
 client_secret_db="$root/etc/ikev2-manager/client.secret"
 user_input_file="${IKEV2_USER_INPUT:-}"
 client_input_file="${IKEV2_CLIENT_INPUT:-}"
+material_input_dir="${IKEV2_MATERIAL_INPUT_DIR:-/var/run}"
 server_input_file="${IKEV2_SERVER_INPUT:-}"
 inbound_custom="$root/etc/ikev2-manager/inbound.custom.conf"
 outbound_custom="$root/etc/ikev2-manager/outbound.custom.conf"
@@ -61,6 +62,7 @@ input_file_for() {
 	case "$kind" in
 		user) printf '/var/run/ikev2-manager-user-%s.in\n' "$token" ;;
 		client) printf '/var/run/ikev2-manager-client-%s.in\n' "$token" ;;
+		material) printf '%s/ikev2-manager-material-%s.in\n' "$material_input_dir" "$token" ;;
 		server) printf '/var/run/ikev2-manager-server-%s.in\n' "$token" ;;
 		profile) printf '/var/run/ikev2-manager-profile-%s.in\n' "$token" ;;
 		acme) printf '/tmp/ikev2-acme-%s.in\n' "$token" ;;
@@ -1863,10 +1865,50 @@ sync_client_ca() {
 	done
 }
 
+import_client_material() {
+	local kind="$1" token="$2" source destination temporary bytes
+	case "$kind" in
+		cert) destination="$root/etc/ikev2-manager/client-imported-cert.pem" ;;
+		key) destination="$root/etc/ikev2-manager/client-imported-key.pem" ;;
+		*) die 'Invalid client material type' ;;
+	esac
+	source="$(input_file_for material "$token")"
+	[ -f "$source" ] && [ ! -L "$source" ] || die 'Uploaded PEM file is missing'
+	bytes="$(wc -c <"$source" | tr -d ' ')"
+	case "$bytes" in '' | *[!0-9]*) die 'Invalid uploaded PEM size' ;; esac
+	if [ "$bytes" -lt 1 ] || [ "$bytes" -gt 65536 ]; then
+		rm -f "$source"
+		die 'Uploaded PEM must be between 1 and 65536 bytes'
+	fi
+	if [ "$kind" = cert ]; then
+		if ! openssl x509 -in "$source" -noout >/dev/null 2>&1; then
+			rm -f "$source"
+			die 'Uploaded file is not a valid PEM X.509 certificate'
+		fi
+	elif ! openssl pkey -in "$source" -noout -passin pass: >/dev/null 2>&1; then
+		rm -f "$source"
+		die 'Uploaded file is not an unencrypted PEM private key'
+	fi
+	if ! mkdir -p "${destination%/*}"; then
+		rm -f "$source"
+		die 'Unable to create client certificate directory'
+	fi
+	temporary="${destination}.new.$$"
+	if ! cp "$source" "$temporary" ||
+	   ! chmod 600 "$temporary" ||
+	   ! mv "$temporary" "$destination"; then
+		rm -f "$source" "$temporary"
+		die 'Unable to store uploaded client material'
+	fi
+	rm -f "$source"
+	printf 'path=%s\n' "$destination"
+}
+
 install_client_certificate() {
 	local cert_src="$1" key_src="$2"
 	local cert_dst="$root/etc/swanctl/x509/ikev2-client.pem"
 	local key_dst="$root/etc/swanctl/private/ikev2-client.key"
+	local cert_public key_public
 	mkdir -p "$root/etc/swanctl/x509" "$root/etc/swanctl/private"
 	[ -f "$cert_src" ] || {
 		printf '%s\n' "Client certificate file not found: $cert_src" >&2
@@ -1874,6 +1916,12 @@ install_client_certificate() {
 	}
 	[ -f "$key_src" ] || {
 		printf '%s\n' "Client private key file not found: $key_src" >&2
+		return 1
+	}
+	cert_public="$(openssl x509 -in "$cert_src" -pubkey -noout 2>/dev/null)" || return 1
+	key_public="$(openssl pkey -in "$key_src" -pubout -passin pass: 2>/dev/null)" || return 1
+	[ -n "$cert_public" ] && [ "$cert_public" = "$key_public" ] || {
+		printf '%s\n' 'Client certificate and private key do not match' >&2
 		return 1
 	}
 	cp "$cert_src" "${cert_dst}.new" || return 1
@@ -3189,6 +3237,10 @@ case "${1:-}" in
 	client-input)
 		[ -n "$client_input_file" ] || client_input_file="$(input_file_for client "${2:-}")"
 		consume_client_input
+		;;
+	client-material-import)
+		[ "$#" -eq 3 ] || die 'Expected: cert|key input-token'
+		import_client_material "$2" "$3"
 		;;
 	reconnect-client)
 		[ "$(getv globals configured)" = 1 ] || die 'Complete and enable Overview first'

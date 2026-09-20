@@ -28,6 +28,7 @@ wan_dns_probe_interval=60
 pbr_dump_state='/var/run/ikev2-pbr-dump.state'
 pbr_dump_interval=60
 community_refresh_state='/var/run/ikev2-community-refresh.state'
+iran_refresh_state='/var/run/ikev2-iran-refresh.state'
 community_refresh_interval=900
 
 has_proxy4() {
@@ -286,6 +287,14 @@ while true; do
 		[ ! -x /usr/libexec/ikev2-domains-community ] ||
 			/usr/libexec/ikev2-domains-community refresh-if-due >/dev/null 2>&1 || :
 		mark_periodic "$loop_now" "$community_refresh_state"
+	fi
+	# The Iranian direct lists have their own daily schedule inside the helper;
+	# this only asks whether it is due, which costs a file read. The helper
+	# refuses while the feature is off, so this can never re-enable it.
+	if periodic_due "$loop_now" "$iran_refresh_state" "$community_refresh_interval"; then
+		[ ! -x /usr/libexec/ikev2-iran-direct ] ||
+			/usr/libexec/ikev2-iran-direct refresh-if-due >/dev/null 2>&1 || :
+		mark_periodic "$loop_now" "$iran_refresh_state"
 	fi
 	sleep 15
 done

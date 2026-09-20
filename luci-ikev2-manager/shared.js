@@ -993,7 +993,30 @@ var ru = {
 	'local': 'локальный',
 	'strongSwan': 'strongSwan',
 	'unknown error': 'неизвестная ошибка',
-	'zapret': 'zapret'
+	'Browse…': 'Выбрать файл',
+	'Uploading...': 'Загрузка файла...',
+	'Choose a PEM file no larger than 64 KiB.': 'Выберите PEM-файл размером не более 64 КиБ.',
+	'Unable to read the selected file.': 'Не удалось прочитать выбранный файл.',
+	'Unable to upload the PEM file.': 'Не удалось загрузить PEM-файл на роутер.',
+	'The router did not return the uploaded file path.': 'Роутер не вернул путь к загруженному файлу.',
+	'File stored on the router. Save the connection settings to use it.': 'Файл сохранён на роутере. Сохраните настройки подключения, чтобы использовать его.',
+	'zapret': 'zapret',
+	'Downloading the current lists...': 'Загружаю актуальные списки...',
+	'Unable to update Iranian routing': 'Не удалось обновить иранскую маршрутизацию',
+	'Save additions': 'Сохранить дополнения',
+	'Unable to save the additions': 'Не удалось сохранить дополнения',
+	'Saved. They apply with the next update.': 'Сохранено. Применится при следующем обновлении.',
+	'Downloading and applying Iranian lists...': 'Загружаю и применяю иранские списки...',
+	'Disabling Iranian direct routing...': 'Отключаю прямую иранскую маршрутизацию...',
+	'Iranian destinations use WAN.': 'Иранские направления идут через WAN.',
+	'Iranian direct routing is off.': 'Прямая иранская маршрутизация выключена.',
+	'Iranian destinations via WAN': 'Иранские направления через WAN',
+	'When enabled, Iranian domains and public IP ranges use WAN before VPN rules. The lists include Iranian messengers. Downloads and routing changes are checked; a failed update keeps the previous rules. Shared CDN addresses and unknown destinations cannot be identified with certainty.': 'Когда включено, иранские домены и публичные диапазоны адресов идут через WAN до правил VPN. Списки включают иранские мессенджеры. Загрузки и изменения маршрутизации проверяются; неудачное обновление сохраняет прежние правила. Общие адреса CDN и неизвестные направления нельзя определить наверняка.',
+	'Send Iranian destinations directly': 'Направлять иранские назначения напрямую',
+	'Applies to matching Iranian domains and IP networks; other destinations keep their existing routing.': 'Применяется к совпадающим иранским доменам и сетям; остальные направления сохраняют текущую маршрутизацию.',
+	'Current lists: %s domains, %s IP networks.': 'Текущие списки: %s доменов, %s сетей.',
+	'Your own additions': 'Ваши дополнения',
+	'One entry per line: a domain name, or an IP network in CIDR form. These are merged into the downloaded lists and are kept across upgrades. Private, reserved and documentation ranges are refused.': 'По одной записи в строке: доменное имя или сеть в формате CIDR. Они объединяются с загруженными списками и сохраняются при обновлении пакета. Частные, зарезервированные и документационные диапазоны отклоняются.',
 };
 
 // Persian contains every page string. The translation coverage test below
@@ -1032,7 +1055,25 @@ var fa = {
 	'Diagnostic': 'عیب‌یابی', 'Run diagnostic': 'اجرای عیب‌یابی',
 	'Unknown': 'نامشخص', 'Error': 'خطا', 'Warning': 'هشدار',
 	'Success': 'موفق', 'Saving...': 'در حال ذخیره...', 'Saved.': 'ذخیره شد.',
-	'Applying...': 'در حال اعمال...', 'Please wait...': 'لطفاً صبر کنید...'
+	'Applying...': 'در حال اعمال...', 'Please wait...': 'لطفاً صبر کنید...',
+	"Update lists now": "به‌روزرسانی فهرست‌ها",
+	"Downloading the current lists...": "در حال دریافت فهرست‌های روز...",
+	"Lists updated.": "فهرست‌ها به‌روز شدند.",
+	"Unable to update Iranian routing": "به‌روزرسانی مسیردهی ایران ممکن نشد",
+	"Save additions": "ذخیرهٔ افزوده‌ها",
+	"Unable to save the additions": "ذخیرهٔ افزوده‌ها ممکن نشد",
+	"Saved. They apply with the next update.": "ذخیره شد. با به‌روزرسانی بعدی اعمال می‌شود.",
+	"Downloading and applying Iranian lists...": "در حال دریافت و اعمال فهرست‌های ایران...",
+	"Disabling Iranian direct routing...": "در حال غیرفعال‌سازی مسیردهی مستقیم ایران...",
+	"Iranian destinations use WAN.": "مقصدهای ایران از WAN می‌روند.",
+	"Iranian direct routing is off.": "مسیردهی مستقیم ایران خاموش است.",
+	"Iranian destinations via WAN": "مقصدهای ایران از راه WAN",
+	"When enabled, Iranian domains and public IP ranges use WAN before VPN rules. The lists include Iranian messengers. Downloads and routing changes are checked; a failed update keeps the previous rules. Shared CDN addresses and unknown destinations cannot be identified with certainty.": "با فعال بودن، دامنه‌ها و محدوده‌های عمومی IP ایران پیش از قواعد VPN از WAN می‌روند. فهرست‌ها پیام‌رسان‌های ایرانی را هم دارند. دانلودها و تغییرات مسیردهی بررسی می‌شوند و به‌روزرسانی ناموفق قواعد قبلی را نگه می‌دارد. آدرس‌های CDN مشترک و مقصدهای ناشناس را نمی‌توان با قطعیت تشخیص داد.",
+	"Send Iranian destinations directly": "ارسال مستقیم مقصدهای ایران",
+	"Applies to matching Iranian domains and IP networks; other destinations keep their existing routing.": "روی دامنه‌ها و شبکه‌های ایرانیِ منطبق اعمال می‌شود؛ بقیهٔ مقصدها مسیردهی فعلی‌شان را نگه می‌دارند.",
+	"Current lists: %s domains, %s IP networks.": "فهرست‌های فعلی: %s دامنه، %s شبکهٔ IP.",
+	"Your own additions": "افزوده‌های شما",
+	"One entry per line: a domain name, or an IP network in CIDR form. These are merged into the downloaded lists and are kept across upgrades. Private, reserved and documentation ranges are refused.": "در هر خط یک ورودی: یک نام دامنه یا یک شبکهٔ IP به شکل CIDR. این‌ها با فهرست‌های دانلودی ادغام می‌شوند و هنگام ارتقا حفظ می‌شوند. محدوده‌های خصوصی، رزروشده و مستندسازی پذیرفته نمی‌شوند.",
 };
 
 var faExtra = {};
@@ -1122,7 +1163,7 @@ Object.assign(faExtra, {
 	"Build the IPv4 VPN policy from curated services, custom destinations and per-device modes.": "خط مشی VPN IPv4 را از سرویس های انتخاب شده، مقصدهای سفارشی و حالت های هر دستگاه بسازید.",
 	"Built into the package": "در بسته تعبیه شده است",
 	"Bypass Zapret processing": "دور زدن پردازش Zapret",
-	"Capture a short, separate strongSwan trace while the affected client tries to connect. The capture stops automatically and does not increase system-log verbosity.": "در حالی که کلاینت آسیب‌دیده سعی می‌کند متصل شود، یک ردیابی قوی سوان جداگانه و کوتاه بگیرید. ضبط به طور خودکار متوقف می شود و پرحرفی گزارش سیستم را افزایش نمی دهد.",
+	"Capture a short, separate strongSwan trace while the affected client tries to connect. The capture stops automatically and does not increase system-log verbosity.": "هنگام تلاش کاربر برای اتصال، گزارش کوتاه و جداگانه‌ای از strongSwan بگیر. ثبت گزارش خودکار متوقف می‌شود و سطح گزارش‌نویسی سیستم را تغییر نمی‌دهد.",
 	"Capture completed.": "ضبط کامل شد.",
 	"Capture debug log for 60 seconds": "گزارش اشکال زدایی را به مدت 60 ثانیه ضبط کنید",
 	"Capture failed.": "ضبط ناموفق بود.",
@@ -1189,7 +1230,7 @@ Object.assign(faExtra, {
 	"Delete user %s?": "کاربر %s حذف شود؟",
 	"Deleting service...": "در حال حذف سرویس...",
 	"Deleting...": "در حال حذف...",
-	"Deny": "تکذیب کنید",
+	"Deny": "ممنوع",
 	"Dependencies installed. Rechecking...": "وابستگی ها نصب شده است. در حال بررسی مجدد...",
 	"Dependencies missing": "وابستگی ها از دست رفته است",
 	"Destination DNS segments": "بخش های DNS مقصد",
@@ -1205,7 +1246,7 @@ Object.assign(faExtra, {
 	"Discard segment": "بخش را کنار بگذارید",
 	"Discard this local override and restore the prepared service?": "این لغو محلی کنار گذاشته شود و سرویس آماده شده بازیابی شود؟",
 	"Discard unsaved service changes?": "از تغییرات سرویس ذخیره نشده صرفنظر شود؟",
-	"Disconnect all": "همه را قطع کنید",
+	"Disconnect all": "اتصال‌های فعال را قطع کن",
 	"Disconnect all active VPN sessions?": "تمام جلسات VPN فعال قطع شود؟",
 	"Disconnecting...": "در حال قطع شدن...",
 	"DNS apply did not start": "اعمال DNS شروع نشد",
@@ -1298,13 +1339,13 @@ Object.assign(faExtra, {
 	"Identity": "هویت",
 	"IKE fragmentation": "تکه تکه شدن IKE",
 	"IKE rekey": "کلید مجدد IKE",
-	"IKEv2 Manager Overview": "نمای کلی مدیر IKEv2",
+	"IKEv2 Manager Overview": "برنامه مدیریت IKEv2",
 	"In Reliable mode, selected domains requested by services on this router use the outbound tunnel. Tunnel transport and local management addresses remain direct.": "در حالت Reliable، دامنه های انتخابی درخواست شده توسط سرویس ها در این روتر از تونل خروجی استفاده می کنند. آدرس های حمل و نقل تونل و مدیریت محلی مستقیم باقی می مانند.",
 	"Inbound clients (ipsec-in)": "مشتریان ورودی (ipsec-in)",
 	"Inbound connection diagnostics": "عیب یابی اتصال ورودی",
 	"Inbound server is disabled.": "سرور ورودی غیرفعال است.",
 	"Inbound session data is unavailable.": "داده های جلسه ورودی در دسترس نیست.",
-	"Inbound strongSwan version": "نسخه قوی سوان ورودی",
+	"Inbound strongSwan version": "نسخهٔ strongSwan سرور ورودی",
 	"Inbound VPN Server": "سرور VPN ورودی",
 	"Inbound VPN zone": "منطقه VPN ورودی",
 	"Include — all traffic through VPN": "شامل - تمام ترافیک از طریق VPN",
@@ -1451,7 +1492,7 @@ Object.assign(faExtra, {
 	"Permission denied by the router: this call is not covered by the application\\'s rpcd rules.": "مجوز رد شده توسط روتر: این تماس تحت پوشش قوانین rpcd برنامه نیست.",
 	"Policy error": "خطای خط مشی",
 	"Pool gateway": "دروازه استخر",
-	"Prepared and user-created services stay in separate lists. Chips stage policy selection; the page Save button applies it. Service definitions are managed independently.": "سرویس های آماده و ایجاد شده توسط کاربر در لیست های جداگانه باقی می مانند. انتخاب خط مشی مرحله چیپس؛ دکمه ذخیره صفحه آن را اعمال می کند. تعاریف خدمات به طور مستقل مدیریت می شوند.",
+	"Prepared and user-created services stay in separate lists. Chips stage policy selection; the page Save button applies it. Service definitions are managed independently.": "سرویس‌های آماده و سرویس‌های ساخته‌شده جداگانه نمایش داده می‌شوند. انتخاب سرویس‌ها پس از زدن دکمهٔ ذخیره اعمال می‌شود و تعریف هر سرویس جداگانه ویرایش می‌شود.",
 	"Prepared service restored and policy rebuilt.": "سرویس آماده بازیابی و خط مشی بازسازی شد.",
 	"Presets that overlap a connected router network are hidden.": "تنظیمات از پیش تعیین شده ای که روی یک شبکه روتر متصل همپوشانی دارند، پنهان هستند.",
 	"Primary DNS servers": "سرورهای DNS اولیه",
@@ -1473,7 +1514,7 @@ Object.assign(faExtra, {
 	"Received %s": "%s دریافت کرد",
 	"recommended": "توصیه می شود",
 	"Reconnect": "دوباره وصل شوید",
-	"Reconnect cooldown": "خنک کننده را دوباره وصل کنید",
+	"Reconnect cooldown": "فاصلهٔ حداقلی میان اتصال‌های دوباره",
 	"Reconnect failed": "اتصال مجدد انجام نشد",
 	"Reconnected": "دوباره وصل شد",
 	"Reconnecting...": "اتصال مجدد...",
@@ -1489,7 +1530,7 @@ Object.assign(faExtra, {
 	"Reliable-mode policy routing rule is missing.": "قانون مسیریابی خط مشی حالت قابل اعتماد وجود ندارد.",
 	"Reload the page to refresh the service catalog.": "برای بازخوانی کاتالوگ خدمات، صفحه را دوباره بارگیری کنید.",
 	"Remote devices connect to the router over IKEv2. Routes advertised by strongSwan and firewall permissions are controlled independently.": "دستگاه های راه دور از طریق IKEv2 به روتر متصل می شوند. مسیرهای تبلیغ شده توسط مجوزهای strongSwan و فایروال به طور مستقل کنترل می شوند.",
-	"Remote gateway": "دروازه راه دور",
+	"Remote gateway": "گیت‌وی از راه دور",
 	"Remove": "حذف کنید",
 	"Requesting...": "در حال درخواست...",
 	"Required VPN, routing and DNS components. Only warnings and failures are shown until technical details are opened.": "VPN، مسیریابی و اجزای DNS مورد نیاز. تا زمانی که جزئیات فنی باز نشود، فقط هشدارها و خرابی ها نشان داده می شوند.",
@@ -1574,12 +1615,12 @@ Object.assign(faExtra, {
 	"Stopped": "متوقف شد",
 	"Stored — leave empty to keep, or paste to replace": "ذخیره شده - خالی بگذارید تا نگه دارید، یا بچسبانید تا جایگزین کنید",
 	"strongSwan EAP-MSCHAPv2": "strongSwan EAP-MSCHAPv2",
-	"strongSwan kernel-netlink": "لینک قوی سوان کرنل",
-	"strongSwan monitoring": "نظارت قوی قو",
+	"strongSwan kernel-netlink": "افزونهٔ kernel-netlink برای strongSwan",
+	"strongSwan monitoring": "پایش strongSwan",
 	"strongSwan OpenSSL": "strongSwan OpenSSL",
-	"strongSwan package cohort": "گروه پکیج قوی سوان",
-	"strongSwan swanctl": "قوی قو قو",
-	"strongSwan VICI": "قوی سوان ویسی",
+	"strongSwan package cohort": "یکپارچگی نسخهٔ بسته‌های strongSwan",
+	"strongSwan swanctl": "ابزار swanctl از strongSwan",
+	"strongSwan VICI": "افزونهٔ VICI برای strongSwan",
 	"strongSwan X.509": "strongSwan X.509",
 	"System clock": "ساعت سیستم",
 	"Temporarily switches the FakeIP resolver to debug logging, then restores the selected normal level automatically. Starting and ending the capture restart the resolver.": "به طور موقت حل‌کننده FakeIP را به ثبت اشکال‌زدایی تغییر می‌دهد، سپس سطح عادی انتخاب‌شده را به‌طور خودکار بازیابی می‌کند. شروع و پایان گرفتن ضبط، حل کننده را دوباره راه اندازی کنید.",
@@ -1623,7 +1664,7 @@ Object.assign(faExtra, {
 	"Unavailable": "در دسترس نیست",
 	"unknown error": "خطای ناشناخته",
 	"Unknown failure": "شکست ناشناخته",
-	"Update lists now": "اکنون لیست ها را به روز کنید",
+	"Update lists now": "به‌روز رسانی لیست‌ها",
 	"updated %s": "%s به روز شد",
 	"Updating lists...": "در حال به روز رسانی لیست ها...",
 	"Uploaded": "آپلود شد",
@@ -1686,11 +1727,18 @@ Object.assign(fa, faExtra);
 // product name makes diagnostics and package names impossible to recognize.
 Object.assign(fa, {
 	'Policy Routing': 'مدیریت مسیریابی',
+	'Disconnect all': 'قطع دسترسی همه',
+	'Passwords are write-only. Set a new password if one is lost; router backups still contain secrets.': 'رمزهای ذخیره‌شده در این صفحه نمایش داده نمی‌شوند. اگر رمزی را فراموش کردی، برای همان کاربر رمز تازه‌ای تنظیم کن. نسخهٔ پشتیبان روتر همچنان ممکن است حاوی رمزها باشد.',
+	'Capture a short, separate strongSwan trace while the affected client tries to connect. The capture stops automatically and does not increase system-log verbosity.': 'هنگام تلاش کلاینت برای اتصال، گزارش کوتاه و جداگانه‌ای از strongSwan بگیر. ثبت گزارش به‌طور خودکار متوقف می‌شود و حجم گزارش برنامه بی‌دلیل افزایش نمی‌یابد.',
+	'Prepared and user-created services stay in separate lists. Chips stage policy selection; the page Save button applies it. Service definitions are managed independently.': 'سرویس‌های آماده و سرویس‌هایی که خودت ساخته‌ای جداگانه نمایش داده می‌شوند. انتخاب سرویس‌ها تا وقتی دکمهٔ «ذخیره کن» را نزنی اعمال نمی‌شود. دامنه‌ها و نشانی‌های هر سرویس را جداگانه از بخش مدیریت سرویس‌ها ویرایش کن.',
+	'Restarting policy routing...': 'در حال راه‌اندازی دوبارهٔ مسیریابی...',
+	'Saving lists; router management is disabled.': 'فهرست‌ها ذخیره می‌شوند؛ مدیریت روتر هنوز فعال نیست.',
+	'List refresh failed: the selected lists could not be rebuilt; previous lists and policy preserved': 'به‌روزرسانی فهرست‌ها ناموفق بود؛ فهرست‌ها و تنظیمات مسیریابی قبلی حفظ شدند.',
 	'Network integration': 'اتصال اینترنت و شبکه‌های تحت پوشش',
 	'Choose the WAN uplink and the networks this app protects. Firewall zones are detected automatically.': 'اتصال اینترنت و شبکه‌هایی را انتخاب کن که برنامه باید محافظت کند. محدوده‌های فایروال خودکار شناسایی می‌شوند.',
 	'The internet uplink. Receives UDP 500/4500 when the inbound server is enabled.': 'اتصال اینترنت روتر. هنگام فعال‌بودن سرور ورودی، پورت‌های UDP 500 و 4500 از این مسیر استفاده می‌شوند.',
 	'Networks whose selected domains use the outbound tunnel.': 'شبکه‌هایی که دامنه‌های انتخاب‌شده‌شان از اتصال خروجی استفاده می‌کنند.',
-	'Let the app manage the router': 'اجازه بده برنامه روتر را مدیریت کند',
+	'Let the app manage the router': 'فعال‌سازی برنامه',
 	'Master switch: lets the app create and own the router routing, firewall and PBR. Network and DNS changes are applied together by the button at the bottom.': 'با فعال‌کردن این گزینه، برنامه تنظیمات مسیریابی، فایروال و PBR روتر را مدیریت می‌کند. تغییرات شبکه و DNS را با دکمهٔ پایین صفحه اعمال کن.',
 	'Install the runtime dependencies below first — then this switch becomes available.': 'ابتدا وابستگی‌های لازم را نصب کن؛ سپس این گزینه فعال می‌شود.',
 	'Install runtime dependencies': 'وابستگی‌ها را نصب کن',
@@ -1709,7 +1757,11 @@ Object.assign(fa, {
 	'Save service': 'سرویس را ذخیره کن',
 	'Save ACME settings': 'تنظیمات ACME را ذخیره کن',
 	'Request certificate': 'گواهی بگیر',
-	'Update lists now': 'فهرست‌ها را به‌روزرسانی کن',
+	'Update lists now': 'به‌روز رسانی لیست‌ها',
+	'Updating lists...': 'در حال به‌روز رسانی لیست‌ها...',
+	'Lists updated.': 'لیست‌ها به‌روز شدند.',
+	'List sources': 'منابع لیست‌ها',
+	'Where each selected service gets its domains and networks. Lists update after every boot and then once a day; a failed download keeps the last good copy.': 'منبع دامنه‌ها و شبکه‌های هر سرویس انتخاب‌شده را اینجا ببین. لیست‌ها پس از هر راه‌اندازی و سپس روزی یک‌بار به‌روز می‌شوند. اگر دریافت ناموفق باشد، آخرین نسخهٔ سالم حفظ می‌شود.',
 	'Reset to generated': 'به تنظیمات خودکار برگردان',
 	'Remove': 'حذف کن',
 	'Delete': 'حذف کن',
@@ -1758,7 +1810,7 @@ Object.assign(fa, {
 	'Install PBR and strongSwan on the Overview page, then this page becomes available.': 'PBR و strongSwan را از برگهٔ نمای کلی نصب کن؛ سپس این برگه در دسترس می‌شود.',
 	'Installing strongSwan, PBR, sing-box and XFRM packages...': 'در حال نصب بسته‌های strongSwan، PBR، sing-box و XFRM...',
 	'Removing strongSwan, PBR and XFRM packages...': 'در حال حذف بسته‌های strongSwan، PBR و XFRM...',
-	'Capture a short, separate strongSwan trace while the affected client tries to connect. The capture stops automatically and does not increase system-log verbosity.': 'هنگام تلاش کلاینت برای اتصال، گزارش کوتاه و جداگانهٔ strongSwan را بگیر. گزارش خودکار متوقف می‌شود و حجم گزارش سیستم را افزایش نمی‌دهد.',
+	'Capture a short, separate strongSwan trace while the affected client tries to connect. The capture stops automatically and does not increase system-log verbosity.': 'هنگام تلاش کلاینت برای اتصال، گزارش کوتاه و جداگانه‌ای از strongSwan بگیر. ثبت گزارش به‌طور خودکار متوقف می‌شود و حجم گزارش برنامه بی‌دلیل افزایش نمی‌یابد.',
 	'Inbound strongSwan version': 'نسخهٔ strongSwan برای اتصال ورودی',
 	'strongSwan package cohort': 'یکپارچگی نسخهٔ بسته‌های strongSwan',
 	'strongSwan monitoring': 'پایش strongSwan',
@@ -1769,6 +1821,534 @@ Object.assign(fa, {
 	'strongSwan EAP-MSCHAPv2': 'افزونهٔ EAP-MSCHAPv2 برای strongSwan',
 	'strongSwan X.509': 'افزونهٔ X.509 برای strongSwan',
 	'strongSwan': 'strongSwan'
+});
+
+// Wording checked against the controls and the actions they actually run.
+Object.assign(fa, {
+	'Passwords are write-only. Set a new password if one is lost; router backups still contain secrets.': 'رمزهای ذخیره‌شده در این صفحه نمایش داده نمی‌شوند. اگر رمزی را فراموش کردی، برای همان کاربر رمز تازه‌ای تنظیم کن. نسخهٔ پشتیبان روتر همچنان ممکن است حاوی رمزها باشد.',
+	'Disconnect all': 'اتصال‌های فعال را قطع کن',
+	'Disconnect all active VPN sessions?': 'اتصال همهٔ کاربران فعال VPN قطع شود؟ کاربران می‌توانند دوباره وصل شوند.',
+	'All sessions disconnected.': 'اتصال‌های فعال قطع شدند.',
+	'Access list': 'کاربران و دسترسی‌ها',
+	'Access policy': 'تنظیمات دسترسی',
+	'Access policy saved.': 'تنظیمات دسترسی ذخیره شد.',
+	'Active inbound clients': 'کاربران متصل به سرور ورودی',
+	'Allow': 'مجاز',
+	'Deny': 'ممنوع',
+	'Type': 'نوع',
+	'Logging': 'ثبت گزارش',
+	'Service': 'سرویس',
+	'Services': 'سرویس‌ها',
+	'Custom services': 'سرویس‌های ساخته‌شده',
+	'Manage services': 'مدیریت سرویس‌ها',
+	'Add service': 'سرویس اضافه کن',
+	'Edit service': 'سرویس را ویرایش کن',
+	'Delete service': 'سرویس را حذف کن',
+	'Exclusion': 'استثنا',
+	'Inclusion': 'شامل',
+	'Override active': 'تنظیم اختصاصی فعال است',
+	'Custom configuration was rejected': 'تنظیمات سفارشی پذیرفته نشد.',
+	'Custom mode replaces the generated inbound connection and pool blocks. Normal form values remain stored but do not change the active strongSwan profile until generated mode is restored.': 'در حالت سفارشی، تنظیمات اتصال ورودی و محدودهٔ آدرس‌ها از فایل دستی خوانده می‌شوند. مقدارهای این فرم ذخیره می‌شوند، اما تا بازگشت به حالت خودکار، اتصال فعال strongSwan را تغییر نمی‌دهند.',
+	'Custom mode replaces the generated outbound connection. Credentials remain managed separately by the EAP fields above.': 'در حالت سفارشی، تنظیمات اتصال خروجی از فایل دستی خوانده می‌شوند. نام کاربری و رمز EAP همچنان از فیلدهای بالا مدیریت می‌شوند.',
+	'Additional TCP/UDP ports remain available when router access is denied. Use spaces or commas between ports and ranges.': 'اگر دسترسی کلی به روتر ممنوع باشد، پورت‌های TCP/UDP که اینجا مشخص می‌کنی همچنان در دسترس خواهند بود. پورت‌ها و بازه‌ها را با فاصله یا ویرگول جدا کن.',
+	'Allows router services on its LAN, VPN and public addresses. This also enables same-router public-IP loopback.': 'دسترسی به سرویس‌های خود روتر را از آدرس‌های LAN، VPN و عمومی آن مجاز می‌کند. دسترسی از داخل شبکه به IP عمومی همین روتر نیز فعال می‌شود.',
+	'Complete TCP/UDP allowlist used when all ports are off. Keep LuCI and SSH ports in this list or inbound VPN management access will stop.': 'وقتی «همهٔ پورت‌های روتر مجاز باشند» خاموش است، فقط پورت‌های TCP/UDP این فهرست مجازند. برای مدیریت روتر از VPN، پورت‌های LuCI و SSH را در فهرست نگه دار.',
+	'Permit every router service from authenticated inbound VPN clients. The restricted port list is disabled while this is on.': 'به کاربران احراز هویت‌شدهٔ VPN اجازهٔ دسترسی به همهٔ سرویس‌های روتر را می‌دهد. تا وقتی روشن است، فهرست پورت‌های محدود اعمال نمی‌شود.',
+	'Permit forwarding to home WAN and the outbound IKEv2 policy path.': 'به کاربران VPN اجازه می‌دهد ترافیک را از اینترنت روتر یا مسیر تونل خروجی IKEv2 عبور دهند.',
+	'Permit forwarding to the LAN firewall zones listed below.': 'به کاربران VPN اجازهٔ دسترسی به شبکه‌های داخلی انتخاب‌شده در پایین را می‌دهد.',
+	'Global defaults for inbound clients. Individual overrides are configured on the VPN Users page.': 'این‌ها دسترسی پیش‌فرض کاربران VPN ورودی هستند. دسترسی هر کاربر را می‌توانی در برگهٔ کاربران VPN جداگانه تغییر دهی.',
+	'Global values remain defaults; choose an override only where this user differs.': 'تا وقتی تنظیم اختصاصی انتخاب نکنی، تنظیمات عمومی برای این کاربر اعمال می‌شود.',
+	'Individual access policies are stored but are not enforced while a custom inbound profile is active.': 'تنظیمات اختصاصی کاربران ذخیره می‌شوند، اما تا وقتی پروفایل ورودی سفارشی فعال است اعمال نمی‌شوند.',
+	'Manage inbound IKEv2 credentials and current sessions. Traffic counters reset when a session reconnects.': 'کاربران IKEv2 ورودی و اتصال‌های فعلی‌شان را مدیریت کن. شمارندهٔ ترافیک با هر اتصال دوباره از صفر شروع می‌شود.',
+	'Apple and Android downloads contain the VPN password. Store them securely and delete them after installation.': 'فایل‌های دریافتی Apple و Android حاوی رمز VPN هستند. آن‌ها را امن نگه دار و پس از راه‌اندازی حذف کن.',
+	'Profile generated. Treat the downloaded file as a password.': 'پروفایل ساخته شد. فایل دریافتی حاوی اطلاعات حساس است؛ مانند رمز عبور از آن محافظت کن.',
+	'Capture for 60 seconds': 'گزارش ۶۰ ثانیه‌ای بگیر',
+	'Capturing inbound IKE attempts...': 'در حال ثبت تلاش‌های اتصال IKE ورودی...',
+	'Capture completed.': 'ثبت گزارش تمام شد.',
+	'Capture failed.': 'ثبت گزارش ناموفق بود.',
+	'Capture a short, separate strongSwan trace while the affected client tries to connect. The capture stops automatically and does not increase system-log verbosity.': 'هنگام تلاش کاربر برای اتصال، گزارش کوتاه و جداگانه‌ای از strongSwan بگیر. ثبت گزارش پس از ۶۰ ثانیه خودکار متوقف می‌شود و سطح گزارش‌نویسی سیستم را تغییر نمی‌دهد.',
+	'Adds the resolvers published by the WAN provider to the fallback group above. They are not a further tier: the group is used as a whole once the primary group fails, and the provider entries are selected on equal terms with the ones you configured.': 'DNSهای اعلام‌شده از طرف ارائه‌دهندهٔ اینترنت را به گروه سرورهای جایگزین بالا اضافه می‌کند. پس از خرابی گروه اصلی، همهٔ سرورهای این گروه—چه خودت وارد کرده باشی، چه ارائه‌دهنده اعلام کرده باشد—در یک سطح استفاده می‌شوند.',
+	'Off by default. Ordinary names are normally resolved over WAN, which is where per-protocol DNS filtering is applied. Turning this on removes that exposure, but it also removes the fallback group: while the tunnel is down, no name resolves for any client. Selected domains and destination segments are unaffected.': 'این گزینه پیش‌فرض خاموش است. نام‌های عادی معمولاً از مسیر WAN پیدا می‌شوند و فیلتر DNS آنجا اعمال می‌شود. با روشن‌کردن آن، این درخواست‌ها از تونل می‌روند؛ اما هنگام قطع تونل، DNS جایگزین برای کلاینت‌ها وجود ندارد و نامی پیدا نمی‌شود. دامنه‌های انتخاب‌شده و بخش‌های DNS مقصد تغییر نمی‌کنند.',
+	'Client queries currently resolve through the tunnel and do not use this resolver. It still resolves names for the router\'s own direct connections, and destination segments keep working independently.': 'درخواست‌های DNS کلاینت‌ها اکنون از تونل می‌روند و از این حل‌کننده استفاده نمی‌کنند. اتصال‌های مستقیم خود روتر همچنان از آن استفاده می‌کنند و بخش‌های DNS مقصد مستقل کار می‌کنند.',
+	'Send explicit domain suffixes to an independent resolver group. A segment resolves on its own terms whatever the rest of the policy does — including while every other name goes through the tunnel. Each has its own protocol and query strategy; unlisted names keep the global policy. Suffixes cannot overlap between enabled segments, at most eight run at once, and lists are stored locally rather than rebuilt with domain policy.': 'برای پسوندهای دامنهٔ مشخص، سرور DNS مستقلی تعیین کن. هر بخش با پروتکل و روش پاسخ‌گویی خودش کار می‌کند، حتی اگر بقیهٔ دامنه‌ها از تونل پیدا شوند. دامنه‌های بیرون از این فهرست از تنظیمات عمومی پیروی می‌کنند. پسوند بخش‌های فعال نباید هم‌پوشانی داشته باشند و حداکثر ۸ بخش هم‌زمان فعال می‌شوند.',
+	'Empty inherits the global resolver group, providing an independent recovery path.': 'اگر خالی بگذاری، سرورهای DNS عمومی برای این بخش استفاده می‌شوند.',
+	'Fallback DNS servers': 'سرورهای DNS جایگزین',
+	'Use WAN-provided DNS': 'استفاده از DNS ارائه‌دهندهٔ اینترنت',
+	'WAN provider resolvers': 'سرورهای DNS ارائه‌دهندهٔ اینترنت',
+	'Query strategy': 'روش انتخاب پاسخ DNS',
+	'Bootstrap DNS': 'DNS راه‌انداز',
+	'No bootstrap servers added': 'سرور DNS راه‌انداز اضافه نشده است.',
+	'No fallback servers added': 'سرور DNS جایگزین اضافه نشده است.',
+	'Pause stops sending selected destinations into the tunnel and returns them to WAN, keeping everything configured. It gives up the fail-closed guarantee for as long as it lasts, which is why it is a deliberate action rather than a side effect.': 'با توقف مسیریابی تونل، مقصدهای انتخاب‌شده موقتاً از WAN عبور می‌کنند؛ تنظیمات ذخیره‌شده تغییر نمی‌کنند. در این مدت محافظت در برابر نشت ترافیک برقرار نیست.',
+	'Routing is paused. Selected destinations leave through WAN, and the fail-closed guarantee is not in effect. Policies, lists, DNS settings and device overrides stay exactly as configured.': 'مسیریابی تونل متوقف است. مقصدهای انتخاب‌شده از WAN خارج می‌شوند و محافظت در برابر نشت ترافیک برقرار نیست. تنظیمات مسیر، فهرست‌ها، DNS و دستگاه‌ها حفظ شده‌اند.',
+	'Pause tunnel routing': 'مسیریابی تونل را متوقف کن',
+	'Resume tunnel routing': 'مسیریابی تونل را ادامه بده',
+	'All devices use the default PBR, DNS and Zapret policies.': 'برای هیچ دستگاهی تنظیم اختصاصی ثبت نشده است؛ همه از تنظیمات پیش‌فرض PBR، DNS و Zapret پیروی می‌کنند.',
+	'Policy active': 'مسیریابی فعال است',
+	'Policy empty': 'مسیری برای مقصدهای انتخاب‌شده ثبت نشده است',
+	'Build the IPv4 VPN policy from curated services, custom destinations and per-device modes.': 'مسیر ترافیک IPv4 را با انتخاب سرویس‌ها، مقصدهای دلخواه و تنظیمات اختصاصی دستگاه‌ها تعیین کن.',
+	'PBR currently classifies selected services by their resolved public IP addresses. Configure the engine on the Policy Routing page.': 'در حالت استاندارد، PBR سرویس‌های انتخاب‌شده را بر اساس IP عمومی دامنه‌هایشان شناسایی می‌کند. می‌توانید حالت مسیریابی را در برگه مدیریت مسیریابی تنظیم نمایید.',
+	'sing-box FakeIP and nftables TProxy classify selected services. Configure the engine on the Policy Routing page.': 'در حالت پایدار، sing-box FakeIP و nftables TProxy ترافیک سرویس‌های انتخاب‌شده را شناسایی می‌کنند. می‌توانید حالت مسیریابی را در برگه مدیریت مسیریابی تنظیم نمایید.'
+});
+
+Object.assign(fa, {
+	'Advanced connectivity': 'تنظیمات پیشرفتهٔ اتصال',
+	'Advanced timers': 'زمان‌بندی پیشرفته',
+	'Certificate file override': 'مسیر گواهی سفارشی',
+	'Private key override': 'مسیر کلید خصوصی سفارشی',
+	'Certificate paths': 'مسیر فایل‌های گواهی',
+	'Challenge method': 'روش تأیید مالکیت دامنه',
+	'Account email': 'ایمیل حساب',
+	'DNS-01 works behind NAT and without port 80. HTTP-01 needs inbound TCP 80 to this router.': 'روش DNS-01 پشت NAT و بدون بازکردن پورت ۸۰ کار می‌کند. برای HTTP-01 باید پورت TCP 80 از اینترنت به این روتر برسد.',
+	'Used for the Let\'s Encrypt account and expiry notices.': 'برای حساب Let’s Encrypt و دریافت اعلان‌های انقضای گواهی استفاده می‌شود.',
+	'Use the staging CA': 'استفاده از گواهی آزمایشی',
+	'Issues untrusted certificates against the Let\'s Encrypt staging service, which has no rate limits. Clients reject the result; turn it off before issuing the certificate they will use.': 'گواهی این حالت فقط برای آزمایش است و کلاینت‌ها به آن اعتماد نمی‌کنند. پیش از گرفتن گواهی مورد استفادهٔ کاربران، این گزینه را خاموش کن.',
+	'Issue and renew the public certificate used by VPN clients.': 'گواهی عمومیِ مورد استفادهٔ کاربران VPN را بگیر یا تمدید کن.',
+	'The public identity above must be a DNS name pointing to this router.': 'شناسهٔ عمومی بالا باید نام دامنه‌ای باشد که به این روتر اشاره می‌کند.',
+	'Listen on WAN UDP 500 and 4500.': 'در شبکهٔ WAN روی پورت‌های UDP 500 و 4500 به اتصال‌ها پاسخ بده.',
+	'Allowed local addresses': 'آدرس‌های داخلی مجاز',
+	'Advertised IPv4 destinations': 'مقصدهای IPv4 اعلام‌شده به کلاینت‌ها',
+	'Server identity and the address pool handed to inbound clients.': 'شناسهٔ سرور و محدودهٔ آدرس‌هایی که به کلاینت‌های ورودی داده می‌شود.',
+	'Router address and prefix assigned to ipsec-in.': 'آدرس و پیشوند شبکهٔ روتر روی رابط ipsec-in.',
+	'Changing these values reloads the tunnel profile and reconnects it. The PBR policy remains loaded.': 'با تغییر این مقدارها، پروفایل تونل دوباره بارگذاری و اتصال آن برقرار می‌شود؛ تنظیمات PBR همچنان بارگذاری می‌مانند.',
+	'Custom config': 'تنظیمات سفارشی',
+	'Edit raw config': 'تنظیمات متنی را ویرایش کن',
+	'Inspect the generated swanctl connection or replace it with a manually maintained profile.': 'تنظیمات اتصال ساخته‌شده برای swanctl را ببین یا به‌جای آن فایل اتصال دلخواه خودت را نگه دار.',
+	'Certificate identity expected from the VPS.': 'شناسه‌ای که باید در گواهی سرور VPN وجود داشته باشد.',
+	'Reconnect cooldown': 'فاصلهٔ حداقلی میان اتصال‌های دوباره',
+	'Minimum delay between automatic connection attempts, in seconds.': 'حداقل فاصلهٔ زمانی بین تلاش‌های خودکار برای اتصال، بر حسب ثانیه.',
+	'DPD interval': 'فاصلهٔ بررسی زنده‌بودن اتصال',
+	'Dead peer detection in seconds.': 'فاصلهٔ بررسی در دسترس‌بودن طرف مقابل، بر حسب ثانیه.',
+	'IKE rekey': 'زمان تعویض کلید IKE',
+	'CHILD rekey': 'زمان تعویض کلید CHILD',
+	'Block DNS-over-TLS': 'مسدودکردن DNS-over-TLS',
+	'Redirect plain DNS': 'هدایت DNS معمولی به روتر',
+	'Redirect TCP/UDP port 53 from protected zones to the router.': 'درخواست‌های DNS روی پورت TCP/UDP 53 را از شبکه‌های تحت پوشش به روتر هدایت می‌کند.',
+	'Reject TCP/UDP port 853 from protected zones to WAN.': 'اتصال‌های DNS-over-TLS روی پورت TCP/UDP 853 را از شبکه‌های تحت پوشش به WAN مسدود می‌کند.',
+	'Keep existing router DNS': 'DNS فعلی روتر را نگه دار',
+	'Existing settings are preserved until managed DNS is enabled.': 'تا وقتی مدیریت DNS را فعال نکنی، تنظیمات فعلی DNS روتر دست‌نخورده می‌مانند.',
+	'No fallback is available for this segment.': 'برای این بخش، سرور DNS جایگزین تنظیم نشده است.',
+	'No DNS segments configured.': 'بخش DNS مقصدی تنظیم نشده است.',
+	'Only selected addresses': 'فقط آدرس‌های انتخاب‌شده',
+	'Fastest address': 'سریع‌ترین آدرس',
+	'First response': 'اولین پاسخ',
+	'Load balance': 'توزیع بار',
+	'Use global setting': 'از تنظیمات عمومی پیروی کن',
+	'Use standard mode': 'حالت استاندارد را فعال کن',
+	'Enable reliable mode': 'حالت پایدار را فعال کن',
+	'Reliable mode keeps selected domains on the IKEv2 route even when their public addresses change. Other traffic continues through the normal WAN.': 'در حالت پایدار، تغییر IP عمومی دامنه‌های انتخاب‌شده باعث خروج آن‌ها از مسیر IKEv2 نمی‌شود. ترافیک دیگر همچنان از WAN معمولی عبور می‌کند.',
+	'Selected domains receive stable FakeIP addresses. Only connections to those addresses from covered networks enter the IKEv2 path.': 'به دامنه‌های انتخاب‌شده آدرس FakeIP پایدار داده می‌شود. فقط اتصال‌های شبکه‌های تحت پوشش به این آدرس‌ها وارد مسیر IKEv2 می‌شوند.',
+	'dnsmasq currently classifies domains by their public IP addresses. Existing connections may keep an earlier WAN route after an address changes.': 'در حالت استاندارد، dnsmasq دامنه‌ها را بر اساس IP عمومی‌شان شناسایی می‌کند. پس از تغییر IP، اتصال‌های باز ممکن است همچنان از مسیر قبلی WAN استفاده کنند.',
+	'Use project PBR policy': 'از تنظیمات مسیریابی برنامه پیروی کن',
+	'Direct WAN — exclude from PBR': 'اینترنت مستقیم؛ خارج از PBR',
+	'Direct WAN bypasses the project domain policy for this VPN user.': 'برای این کاربر VPN، تنظیمات مسیریابی دامنه‌ها کنار گذاشته می‌شود و ترافیک از WAN مستقیم می‌رود.',
+	'Include — all traffic through VPN': 'همهٔ ترافیک از VPN عبور کند',
+	'Exclude from project PBR': 'از PBR برنامه خارج کن',
+	'Use the device DNS without interception': 'DNS خود دستگاه را بدون هدایت اجباری استفاده کن',
+	'Bypass Zapret processing': 'پردازش Zapret را برای این دستگاه کنار بگذار',
+	'Keep inclusions and exclusions in one list. Excluded devices can independently bypass project PBR, DNS interception and Zapret.': 'دستگاه‌های شامل و مستثنا در یک فهرست مدیریت می‌شوند. برای دستگاه مستثنا می‌توان عبور از PBR، هدایت DNS و پردازش Zapret را جداگانه تنظیم کرد.',
+	'No device rules': 'قانون اختصاصی برای دستگاه‌ها وجود ندارد',
+	'Device rules': 'قوانین اختصاصی دستگاه‌ها',
+	'Device policy runtime': 'وضعیت اجرای قوانین دستگاه‌ها',
+	'Go to Overview': 'به برگهٔ نمای کلی برو',
+	'Open IKEv2 Manager': 'مدیر IKEv2 را باز کن'
+});
+
+Object.assign(fa, {
+	'Install the app safely, prepare dependencies, then enable the managed routing configuration only when the checks are green.': 'ابتدا بسته‌های مورد نیاز را نصب کن و وضعیت روتر را بررسی کن. وقتی بررسی‌ها موفق شدند، مدیریت مسیریابی برنامه را فعال کن.',
+	'Available after runtime dependencies are installed.': 'پس از نصب بسته‌های لازم در دسترس قرار می‌گیرد.',
+	'Available after the runtime check succeeds.': 'پس از موفقیت بررسی وضعیت روتر در دسترس قرار می‌گیرد.',
+	'Runtime dependencies': 'بسته‌های لازم برای اجرا',
+	'Runtime dependencies are not installed': 'بسته‌های لازم برای اجرا نصب نشده‌اند.',
+	'Runtime dependencies could not be checked. Reload the page and try again.': 'وضعیت بسته‌های لازم بررسی نشد. صفحه را بازخوانی کن و دوباره تلاش کن.',
+	'Dependencies missing': 'بسته‌های لازم نصب نیستند',
+	'Dependencies installed. Rechecking...': 'بسته‌های لازم نصب شدند؛ در حال بررسی دوباره...',
+	'Required VPN, routing and DNS components. Only warnings and failures are shown until technical details are opened.': 'وضعیت اجزای VPN، مسیریابی و DNS. در حالت عادی فقط هشدارها و خطاها دیده می‌شوند؛ برای دیدن همهٔ موارد، جزئیات فنی را باز کن.',
+	'Install runtime dependencies': 'بسته‌های لازم را نصب کن',
+	'Install missing runtime packages now? DNS/DHCP may restart briefly while dnsmasq-full replaces dnsmasq.': 'بسته‌های لازم نصب شوند؟ هنگام جایگزینی dnsmasq با dnsmasq-full، سرویس‌های DNS و DHCP ممکن است برای مدت کوتاهی راه‌اندازی شوند.',
+	'Reset app and remove dependencies': 'برنامه را بازنشانی کن و بسته‌های اختصاصی‌اش را حذف کن',
+	'Reset the app and prepare it for removal? All app functions stop; its settings, users, secrets, generated files and app-owned dependencies are removed. Pre-install DNS/DHCP is restored. Shared packages required by other software are kept.': 'برنامه برای حذف بازنشانی شود؟ همهٔ قابلیت‌ها متوقف می‌شوند و تنظیمات، کاربران، رمزها، فایل‌های ساخته‌شده و بسته‌های اختصاصی برنامه حذف می‌شوند. تنظیمات DNS/DHCP پیش از نصب برمی‌گردند؛ بسته‌های مشترک مورد نیاز نرم‌افزارهای دیگر حفظ می‌شوند.',
+	'Application reset completed.': 'بازنشانی برنامه کامل شد.',
+	'Package feeds': 'مخزن‌های بسته‌ها',
+	'Package manager': 'مدیر بسته‌ها',
+	'Persistent storage free': 'فضای خالی حافظهٔ پایدار',
+	'Temporary storage free': 'فضای خالی حافظهٔ موقت',
+	'Flow offloading': 'شتاب‌دهی جریان‌ها',
+	'Firewall zone integration': 'اتصال به محدوده‌های فایروال',
+	'Network integration': 'اتصال اینترنت و شبکه‌های تحت پوشش',
+	'WAN network': 'شبکهٔ WAN',
+	'Protected networks': 'شبکه‌های تحت پوشش',
+	'UPnP reservation for IKEv2': 'رزرو پورت IKEv2 با UPnP',
+	'Routing active': 'مسیریابی فعال است',
+	'Routing state is unavailable.': 'وضعیت مسیریابی در دسترس نیست.',
+	'Fail-closed active': 'جلوگیری از نشت ترافیک فعال است',
+	'Fail-closed missing': 'جلوگیری از نشت ترافیک فعال نیست',
+	'Fail-closed route': 'مسیر جلوگیری از نشت ترافیک',
+	'IPv6 fail-closed route': 'مسیر جلوگیری از نشت IPv6',
+	'IPv6 fail-fast': 'قطع سریع اتصال IPv6 در صورت نبود مسیر',
+	'Broad — may also route unrelated sites': 'گسترده؛ ممکن است سایت‌های نامرتبط را هم وارد تونل کند',
+	'One plain domain per line. Custom entries are never overwritten by service updates.': 'در هر خط یک دامنه وارد کن. به‌روزرسانی سرویس‌ها دامنه‌های دستی تو را بازنویسی نمی‌کند.',
+	'One IPv4 address or CIDR network per line. A single address is stored as /32.': 'در هر خط یک آدرس IPv4 یا شبکهٔ CIDR وارد کن. آدرس تکی با پیشوند ‎/32 ذخیره می‌شود.',
+	'One domain suffix per line. Subdomains are included automatically.': 'در هر خط یک پسوند دامنه وارد کن؛ زیردامنه‌ها هم خودکار شامل می‌شوند.',
+	'Service identifier must contain 2–48 lowercase letters, digits or underscores.': 'شناسهٔ سرویس باید ۲ تا ۴۸ نویسه و فقط شامل حروف کوچک انگلیسی، رقم یا زیرخط باشد.',
+	'Stable internal name; it cannot be changed after creation.': 'نام داخلی سرویس پس از ساخت قابل تغییر نیست.',
+	'Prepared service restored and policy rebuilt.': 'نسخهٔ آمادهٔ سرویس بازیابی شد و تنظیمات مسیریابی دوباره ساخته شدند.',
+	'Custom service deleted and policy rebuilt.': 'سرویس ساخته‌شده حذف شد و تنظیمات مسیریابی دوباره ساخته شدند.',
+	'Service saved. Active policy was rebuilt when required.': 'سرویس ذخیره شد؛ در صورت نیاز، تنظیمات مسیریابی فعال دوباره ساخته شدند.',
+	'The last scheduled update failed; the previous lists are still in use.': 'به‌روزرسانی زمان‌بندی‌شدهٔ اخیر ناموفق بود؛ فهرست‌های قبلی همچنان استفاده می‌شوند.',
+	'Lists have not been updated on this router yet.': 'فهرست‌ها هنوز روی این روتر به‌روز نشده‌اند.',
+	'Unable to start the list update': 'به‌روزرسانی فهرست‌ها شروع نشد.',
+	'List sources': 'منابع فهرست‌ها',
+	'Where each selected service gets its domains and networks. Lists update after every boot and then once a day; a failed download keeps the last good copy.': 'منبع دامنه‌ها و شبکه‌های هر سرویس انتخاب‌شده را اینجا ببین. فهرست‌ها پس از راه‌اندازی روتر و سپس روزی یک‌بار به‌روز می‌شوند. اگر دریافت ناموفق باشد، آخرین نسخهٔ سالم حفظ می‌شود.'
+});
+
+Object.assign(fa, {
+	'ACME certificate directory': 'پوشهٔ گواهی ACME',
+	'Advanced access settings': 'تنظیمات پیشرفتهٔ دسترسی',
+	'Advanced certificate settings': 'تنظیمات پیشرفتهٔ گواهی',
+	'Automatic from identity': 'خودکار بر اساس شناسه',
+	'Bootstrap DNS must contain IPv4:port entries': 'سرور DNS راه‌انداز باید به صورت IPv4:port وارد شود.',
+	'Bootstrap DNS must contain IPv4:port entries or DoH/DoT/DoQ endpoints with a literal IPv4 address': 'برای DNS راه‌انداز، آدرس IPv4 و پورت یا نشانی DoH/DoT/DoQ با IPv4 مستقیم وارد کن.',
+	'Capturing FakeIP diagnostics...': 'در حال ثبت گزارش عیب‌یابی FakeIP...',
+	'Custom domains': 'دامنه‌های دستی',
+	'Custom IP addresses and networks': 'آدرس‌ها و شبکه‌های IP دستی',
+	'Destination DNS segments': 'بخش‌های DNS مقصد',
+	'Direct WAN — exclude from PBR': 'اینترنت مستقیم؛ خارج از PBR',
+	'DNS for VPN clients': 'DNS کاربران VPN',
+	'DNS remains available even when router access is denied.': 'حتی اگر دسترسی به خود روتر ممنوع باشد، DNS برای کلاینت‌های VPN همچنان در دسترس است.',
+	'Dual-stack clients drop to IPv4 instead of hanging when there is no IPv6 WAN.': 'اگر روتر اینترنت IPv6 نداشته باشد، دستگاه‌های دارای IPv4 و IPv6 به‌جای معطل‌ماندن از IPv4 استفاده می‌کنند.',
+	'Firmware source': 'منبع فریم‌ور',
+	'For Timeweb just paste the API token. Multi-field providers: one VAR="value" per line.': 'برای Timeweb فقط توکن API را وارد کن. برای ارائه‌دهنده‌هایی با چند مقدار، در هر خط یک متغیر به شکل VAR="value" وارد کن.',
+	'Generated': 'ساخته‌شدهٔ خودکار',
+	'In Reliable mode, selected domains requested by services on this router use the outbound tunnel. Tunnel transport and local management addresses remain direct.': 'در حالت پایدار، درخواست‌های خود روتر برای دامنه‌های انتخاب‌شده از تونل خروجی می‌روند. ارتباط لازم برای برقراری تونل و آدرس‌های مدیریت داخلی همچنان مستقیم‌اند.',
+	'Inbound clients (ipsec-in)': 'کاربران ورودی (ipsec-in)',
+	'Inbound strongSwan version': 'نسخهٔ strongSwan سرور ورودی',
+	'Individual access policy': 'دسترسی اختصاصی کاربر',
+	'Inherited from the global groups: ': 'برگرفته از گروه‌های عمومی: ',
+	'No active sessions': 'اتصال فعالی وجود ندارد',
+	'No failed attempts captured.': 'تلاش ناموفق برای اتصال ثبت نشده است.',
+	'No VPN users configured.': 'کاربر VPN تعریف نشده است.',
+	'Not configured': 'هنوز تنظیم نشده است',
+	'Outbound client is disabled.': 'تونل خروجی غیرفعال است.',
+	'Profile generated.': 'پروفایل ساخته شد.',
+	'Public router ports': 'پورت‌های عمومی روتر',
+	'Received': 'دریافت‌شده',
+	'Received %s': 'دریافت‌شده: %s',
+	'Sent': 'ارسال‌شده',
+	'Sent %s': 'ارسال‌شده: %s',
+	'Segment degraded': 'عملکرد بخش DNS مختل است',
+	'Server degraded': 'عملکرد سرور مختل است',
+	'Temporarily switches the FakeIP resolver to debug logging, then restores the selected normal level automatically. Starting and ending the capture restart the resolver.': 'برای ثبت گزارش عیب‌یابی، سطح گزارش FakeIP موقتاً افزایش می‌یابد و سپس خودکار به مقدار قبلی برمی‌گردد. آغاز و پایان ثبت گزارش، حل‌کنندهٔ FakeIP را راه‌اندازی دوباره می‌کند.',
+	'Temporary diagnostics': 'عیب‌یابی موقت',
+	'The first server is primary. Additional servers are ordered fallbacks.': 'سرور اول اصلی است و سرورهای بعدی به ترتیب، جایگزین آن هستند.',
+	'The system log buffer is only %s KiB. Keep the normal level at Warnings and use timed diagnostics for troubleshooting.': 'فضای گزارش سیستم فقط %s کیلوبایت است. برای استفادهٔ روزمره سطح «هشدارها» را نگه دار و هنگام عیب‌یابی از ثبت گزارش زمان‌دار استفاده کن.',
+	'These queries are unencrypted and visible to the provider. They are never used for tunnel-routed destinations.': 'این درخواست‌های DNS رمزگذاری نمی‌شوند و ارائه‌دهندهٔ اینترنت می‌تواند آن‌ها را ببیند. برای مقصدهایی که از تونل می‌روند استفاده نمی‌شوند.',
+	'Warnings are quiet enough for normal operation. Information, debug and trace can quickly evict unrelated system events. Changing this while Reliable mode is active restarts its resolver.': 'سطح «هشدارها» برای استفادهٔ روزمره مناسب است. سطح‌های اطلاعات، اشکال‌زدایی و ردیابی می‌توانند فضای محدود گزارش سیستم را سریع پر کنند. تغییر سطح گزارش در حالت پایدار، حل‌کنندهٔ DNS را راه‌اندازی دوباره می‌کند.',
+	'Visible while editing; leave blank to preserve the saved secret.': 'برای تعیین رمز تازه، آن را اینجا وارد کن؛ برای حفظ رمز ذخیره‌شده، فیلد را خالی بگذار.'
+});
+
+Object.assign(fa, {
+	'Please wait...': 'لطفاً صبر کن...',
+	'%d service groups': '%d گروه سرویس',
+	'Add at least one domain or IPv4 network.': 'دست‌کم یک دامنه یا شبکهٔ IPv4 اضافه کن.',
+	'Add DNS segment': 'بخش DNS اضافه کن',
+	'Apply tunnel DNS': 'DNS تونل را اعمال کن',
+	'Choose a detected ACME name or enter another DNS name.': 'یکی از نام‌های شناسایی‌شدهٔ ACME را انتخاب کن یا نام دامنهٔ دیگری وارد کن.',
+	'Choose a service to inspect or edit, or start a new one.': 'برای دیدن یا ویرایش، یک سرویس انتخاب کن؛ یا سرویس تازه‌ای بساز.',
+	'Choose the public DNS upstream. In reliable mode dnsmasq sends public queries through sing-box, which uses dnsproxy as its upstream; in standard mode dnsmasq uses dnsproxy directly.': 'سرور DNS عمومی روتر را انتخاب کن. در حالت پایدار، dnsmasq درخواست‌ها را از sing-box به dnsproxy می‌فرستد؛ در حالت استاندارد، مستقیم از dnsproxy استفاده می‌کند.',
+	'Client profile for %s': 'پروفایل کاربر %s',
+	'Could not generate client profile': 'پروفایل کاربر ساخته نشد.',
+	'Discard this local override and restore the prepared service?': 'تغییرات محلی این سرویس کنار گذاشته شود و نسخهٔ آمادهٔ آن برگردد؟',
+	'DNS policy': 'تنظیمات DNS',
+	'Download mobileconfig': 'فایل mobileconfig را دریافت کن',
+	'Download the application once, then open any downloaded VPNv2 XML profile in it.': 'برنامهٔ ویندوز را یک‌بار دریافت کن؛ سپس هر پروفایل VPNv2 XML دریافتی را در آن باز کن.',
+	'Download this XML, then select it in Nikitid IKEv2 Setup. The same application works with profiles from any server.': 'این فایل XML را دریافت کن و در Nikitid IKEv2 Setup انتخاب کن. این برنامه پروفایل سرورهای دیگر را هم می‌پذیرد.',
+	'Download VPNv2 XML': 'فایل VPNv2 XML را دریافت کن',
+	'Enable client': 'تونل خروجی را فعال کن',
+	'Enter a service name up to 80 characters.': 'برای سرویس، نامی با حداکثر ۸۰ نویسه وارد کن.',
+	'Enter at least one allowed local address.': 'دست‌کم یک آدرس داخلی مجاز وارد کن.',
+	'Enter at least one allowed router port or enable all router ports.': 'دست‌کم یک پورت مجاز روتر وارد کن یا دسترسی به همهٔ پورت‌ها را فعال کن.',
+	'Enter valid public router ports or ranges.': 'پورت‌ها یا بازه‌های معتبر روتر را وارد کن.',
+	'Inherit global DNS servers': 'از سرورهای DNS عمومی استفاده کن',
+	'Install the mobileconfig in Settings on iPhone, iPad or macOS.': 'فایل mobileconfig را در تنظیمات iPhone، iPad یا macOS نصب کن.',
+	'Invalid fallback DNS endpoint': 'نشانی سرور DNS جایگزین معتبر نیست.',
+	'Last full update: %s': 'آخرین به‌روزرسانی کامل: %s',
+	'Last update failed: %s': 'آخرین به‌روزرسانی ناموفق بود: %s',
+	'Limit access to individual IPv4 addresses or CIDR networks when needed.': 'در صورت نیاز، دسترسی را به آدرس‌های IPv4 یا شبکه‌های CIDR مشخص محدود کن.',
+	'Paste your API token here': 'توکن API را اینجا وارد کن',
+	'Policy error': 'خطای تنظیمات مسیریابی',
+	'Reliable domain routing is still updating.': 'تنظیمات مسیریابی پایدار دامنه‌ها هنوز در حال به‌روزرسانی است.',
+	'Reliable-mode policy routing rule is missing.': 'قانون مسیریابیِ حالت پایدار وجود ندارد.',
+	'Reload the page to refresh the service catalog.': 'برای تازه‌کردن فهرست سرویس‌ها، صفحه را بازخوانی کن.',
+	'Restore prepared service': 'نسخهٔ آمادهٔ سرویس را برگردان',
+	'Restoring generator...': 'در حال بازگرداندن تنظیمات خودکار...',
+	'Route router services by domain policy': 'ترافیک خود روتر را طبق تنظیمات دامنه‌ها مسیریابی کن',
+	'Select services above to see their list sources.': 'برای دیدن منبع فهرست‌ها، سرویس‌های بالا را انتخاب کن.',
+	'Service update failed': 'به‌روزرسانی سرویس ناموفق بود.',
+	'Stored — leave empty to keep, or paste to replace': 'ذخیره شده است؛ برای حفظ آن خالی بگذار یا مقدار تازه‌ای وارد کن',
+	'The certificate request continues in the background. You can use the button again.': 'درخواست گواهی در پس‌زمینه ادامه دارد. می‌توانی دوباره از دکمه استفاده کنی.',
+	'The operation continues in the background. You can use the button again.': 'عملیات در پس‌زمینه ادامه دارد. می‌توانی دوباره از دکمه استفاده کنی.',
+	'The router uses this IPv4 IKEv2 tunnel for domains and devices selected on the Policy Routing page.': 'روتر ترافیک دامنه‌ها و دستگاه‌های انتخاب‌شده در برگهٔ مدیریت مسیریابی را از این تونل IPv4 IKEv2 عبور می‌دهد.',
+	'The service catalog is unavailable. Saved selections and local services are preserved.': 'فهرست سرویس‌ها در دسترس نیست؛ انتخاب‌های ذخیره‌شده و سرویس‌های محلی حفظ شده‌اند.',
+	'Unable to refresh the service catalog': 'فهرست سرویس‌ها بازخوانی نشد.',
+	'Unable to start service update': 'به‌روزرسانی سرویس شروع نشد.',
+	'Unable to update log level': 'سطح ثبت گزارش تغییر نکرد.',
+	'Unable to update router traffic policy': 'تنظیمات مسیریابی ترافیک روتر به‌روزرسانی نشد.',
+	'Use these values in the built-in IKEv2 EAP client.': 'این مقدارها را در کلاینت داخلی IKEv2 EAP وارد کن.',
+	"Client queries currently resolve through the tunnel and do not use this resolver. It still resolves names for the router\\'s own direct connections, and destination segments keep working independently.": 'درخواست‌های DNS کلاینت‌ها اکنون از تونل می‌روند و از این حل‌کننده استفاده نمی‌کنند. اتصال‌های مستقیم خود روتر همچنان از آن استفاده می‌کنند و بخش‌های DNS مقصد مستقل کار می‌کنند.',
+	"Issues untrusted certificates against the Let\\'s Encrypt staging service, which has no rate limits. Clients reject the result; turn it off before issuing the certificate they will use.": 'این حالت گواهی آزمایشی می‌گیرد که کلاینت‌ها به آن اعتماد نمی‌کنند. پیش از گرفتن گواهی اصلی برای کاربران، گزینه را خاموش کن.'
+});
+
+Object.assign(fa, {
+	'%d excluded devices': '%d دستگاه مستثنا',
+	'A newly connected client is blocked until its authenticated identity is matched to its virtual address.': 'دسترسی کلاینت تازه‌متصل‌شده تا زمان تطبیق هویت تأییدشده با آدرس VPN آن موقتاً بسته می‌ماند.',
+	'All local networks': 'همهٔ شبکه‌های داخلی',
+	'Allows normal WAN traffic and selected destinations through the outbound tunnel.': 'ترافیک عادی از WAN می‌گذرد و فقط مقصدهای انتخاب‌شده از تونل خروجی عبور می‌کنند.',
+	'Built into the package': 'همراه بستهٔ برنامه',
+	'Configured': 'تنظیم شده است',
+	'Could not download the Windows installer': 'فایل نصب ویندوز دریافت نشد.',
+	'Could not save the tunnel DNS servers': 'سرورهای DNS تونل ذخیره نشدند.',
+	'Creates and owns routing, firewall and PBR on the router.': 'تنظیمات مسیریابی، فایروال و PBR مربوط به برنامه را روی روتر ایجاد و مدیریت می‌کند.',
+	'DNS is working': 'DNS کار می‌کند',
+	'dnsmasq caching is still enabled in reliable mode.': 'حافظهٔ پنهان dnsmasq در حالت پایدار هنوز فعال است.',
+	'dnsmasq is not using the FakeIP resolver.': 'dnsmasq از حل‌کنندهٔ FakeIP استفاده نمی‌کند.',
+	'Domains, upstreams and bootstrap servers are required.': 'دامنه‌ها، سرورهای DNS اصلی و سرورهای راه‌انداز باید وارد شوند.',
+	'Download Android profile': 'پروفایل Android را دریافت کن',
+	'Download application': 'دانلود برنامه',
+	'Download iOS profile': 'پروفایل iOS را دریافت کن',
+	'Download setup details': 'جزئیات راه‌اندازی را دریافت کن',
+	'Download Windows profile': 'پروفایل Windows را دریافت کن',
+	'Downloaded': 'دریافت شد',
+	'Downloading...': 'در حال دریافت...',
+	'Includes direct service IP networks': 'شبکه‌های IP مستقیم سرویس‌ها را هم شامل می‌شود',
+	'Internal router networks': 'شبکه‌های داخلی روتر',
+	'IPv4 addresses and networks': 'آدرس‌ها و شبکه‌های IPv4',
+	'No DNS servers added': 'سرور DNS اضافه نشده است.',
+	'No tunnel DNS servers added': 'سرور DNS تونل اضافه نشده است.',
+	'Not updated for %s': 'از %s به‌روز نشده است',
+	'Primary DNS servers': 'سرورهای DNS اصلی',
+	'recommended': 'پیشنهادی',
+	'Reliable mode active': 'حالت پایدار فعال است',
+	'Reliable mode degraded': 'عملکرد حالت پایدار مختل است',
+	'Reliable-mode nftables rules are missing.': 'قوانین nftables حالت پایدار وجود ندارند.',
+	'Resolves VPN-routed destinations through the outbound tunnel. Servers are tried in order; failover occurs only after two failed checks and a successful probe of the next server.': 'نام مقصدهایی که از VPN عبور می‌کنند، از داخل تونل پیدا می‌شود. سرورها به ترتیب بررسی می‌شوند؛ پس از دو بررسی ناموفق و پاسخ‌دادن سرور بعدی، برنامه به آن سرور تغییر مسیر می‌دهد.',
+	'Return an empty successful HTTPS DNS response for this segment so browsers safely fall back to A and AAAA. Applies in Reliable mode.': 'در حالت پایدار، برای رکورد HTTPS این بخش پاسخ موفق اما خالی برمی‌گرداند تا مرورگر به رکوردهای A و AAAA مراجعه کند.',
+	'The reliable domain-router service is stopped.': 'سرویس مسیریابی پایدار دامنه‌ها متوقف است.',
+	'Tunnel DNS bootstrap requires IPv4 addresses on port 53.': 'DNS راه‌انداز تونل باید آدرس IPv4 روی پورت ۵۳ داشته باشد.',
+	'Tunnel routing paused; selected traffic uses WAN.': 'مسیریابی تونل متوقف شد؛ ترافیک انتخاب‌شده از WAN عبور می‌کند.',
+	'Unable to save the VPN user: %s': 'کاربر VPN ذخیره نشد: %s',
+	'Warnings (recommended)': 'هشدارها (پیشنهادی)',
+	'Windows application downloaded.': 'برنامهٔ ویندوز دریافت شد.',
+	"Used for the Let\\'s Encrypt account and expiry notices.": 'برای حساب Let’s Encrypt و اعلان‌های انقضای گواهی استفاده می‌شود.'
+});
+
+Object.assign(fa, {
+	'Testing': 'آزمایش',
+	'Phase': 'مرحله',
+	'Debug': 'اشکال‌زدایی',
+	'VPN setup for Windows': 'راه‌اندازی VPN در ویندوز',
+	'FakeIP allocator': 'اختصاص‌دهندهٔ آدرس FakeIP',
+	'FakeIP resolver log level': 'سطح ثبت گزارش حل‌کنندهٔ FakeIP',
+	'No installed outbound CHILD_SA.': 'اتصال دادهٔ خروجی CHILD_SA برقرار نیست.',
+	'Tunnel DNS requires valid HTTPS endpoints.': 'برای DNS تونل باید نشانی‌های معتبر HTTPS وارد شوند.',
+	'Unable to start FakeIP diagnostics': 'ثبت گزارش عیب‌یابی FakeIP شروع نشد.',
+	'OpenWrt release': 'نسخهٔ OpenWrt',
+	'OpenWrt target': 'تارگت OpenWrt',
+	'HTTP-01 (webroot, needs inbound port 80)': 'HTTP-01 (نیازمند دسترسی ورودی به پورت ۸۰)',
+	'DNS-01 (DNS provider API)': 'DNS-01 (از راه API ارائه‌دهندهٔ DNS)',
+	'acme.sh dns_* plugin. Timeweb needs TW_Token.': 'نام افزونهٔ dns_* در acme.sh را وارد کن. برای Timeweb متغیر TW_Token لازم است.'
+});
+
+// Messages emitted by dependency installation/removal and list rebuild jobs.
+Object.assign(fa, {
+	'Installed strongSwan packages do not form one version cohort': 'نسخهٔ بسته‌های نصب‌شدهٔ strongSwan با هم سازگار نیست.',
+	'Required packages do not match this firmware/kernel or are missing from configured feeds': 'بسته‌های لازم با فریم‌ور یا هستهٔ روتر سازگار نیستند، یا در مخزن‌های تنظیم‌شده پیدا نمی‌شوند.',
+	'Waiting for other router actions...': 'در انتظار پایان عملیات دیگر روتر...',
+	'Another router action is still running.': 'عملیات دیگری روی روتر هنوز در حال اجراست.',
+	'This command must run on OpenWrt': 'این فرمان فقط روی OpenWrt اجرا می‌شود.',
+	'Compatibility preflight failed; run ikev2-manager-system preflight': 'بررسی سازگاری ناموفق بود. فرمان ikev2-manager-system preflight را روی روتر اجرا کن.',
+	'Resetting an unsafe legacy dependency ownership record...': 'در حال اصلاح سابقهٔ قدیمی و نامطمئن مالکیت بسته‌ها...',
+	'Recovering an interrupted dependency installation...': 'در حال بازیابی نصب ناتمام بسته‌ها...',
+	'An interrupted installation could not be rolled back; see /tmp/ikev2-manager-deps.log': 'نصب ناتمام به وضعیت قبل برنگشت. جزئیات را در /tmp/ikev2-manager-deps.log ببین.',
+	'Legacy dependency ownership could not be upgraded safely': 'سابقهٔ قدیمی مالکیت بسته‌ها به‌صورت امن ارتقا نیافت.',
+	'Creating a recovery backup...': 'در حال ساخت نسخهٔ پشتیبان برای بازگردانی...',
+	'Unable to create the pre-install sysupgrade backup': 'نسخهٔ پشتیبان sysupgrade پیش از نصب ساخته نشد.',
+	'Updating package lists...': 'در حال به‌روزرسانی فهرست بسته‌ها...',
+	'Package list update failed; check WAN and DNS connectivity': 'فهرست بسته‌ها به‌روز نشد. اتصال WAN و DNS را بررسی کن.',
+	'Checking firmware, kernel ABI, storage and package availability...': 'در حال بررسی فریم‌ور، سازگاری هسته، فضای ذخیره‌سازی و موجودبودن بسته‌ها...',
+	'Installed dependency state is inconsistent with dnsmasq; use Remove Dependencies before reinstalling': 'وضعیت بسته‌های نصب‌شده با dnsmasq سازگار نیست. پیش از نصب دوباره، از گزینهٔ حذف بسته‌های وابسته استفاده کن.',
+	'Repairing missing runtime packages...': 'در حال نصب بسته‌های اجراییِ جامانده...',
+	'Missing packages are unavailable without changing the installed runtime cohort': 'بسته‌های جامانده بدون تغییر مجموعهٔ نسخه‌های نصب‌شده در دسترس نیستند.',
+	'Unable to snapshot installed packages before dependency repair': 'فهرست بسته‌های نصب‌شده پیش از تعمیر ذخیره نشد؛ تعمیر آغاز نشد.',
+	'Dependency repair failed; the previous runtime packages were kept': 'تعمیر بسته‌های لازم ناموفق بود؛ بسته‌های قبلی حفظ شدند.',
+	'Dependency repair failed package checks; the previous runtime packages were kept': 'بسته‌های تعمیرشده بررسی‌های لازم را نگذراندند؛ بسته‌های قبلی حفظ شدند.',
+	'Repaired package ownership could not be saved; newly added packages were removed': 'سابقهٔ مالکیت بسته‌های تعمیرشده ذخیره نشد؛ بسته‌های تازه‌افزوده‌شده حذف شدند.',
+	'All runtime dependencies are installed and verified.': 'همهٔ بسته‌های لازم نصب و تأیید شده‌اند.',
+	'No supported dnsmasq provider is installed; dependency installation stopped': 'نسخهٔ پشتیبانی‌شده‌ای از dnsmasq نصب نیست؛ نصب بسته‌های لازم متوقف شد.',
+	'Downloading DNS rollback packages...': 'در حال دریافت بسته‌های لازم برای بازگرداندن DNS...',
+	'Unable to download dnsmasq packages before replacement': 'بسته‌های dnsmasq پیش از جایگزینی دریافت نشدند؛ عملیات متوقف شد.',
+	'DNS rollback packages were not downloaded': 'بسته‌های لازم برای بازگرداندن DNS دریافت نشدند.',
+	'Unable to save the pre-install package and DNS state': 'وضعیت بسته‌ها و DNS پیش از نصب ذخیره نشد.',
+	'Unable to preserve the original dnsmasq package for rollback': 'بستهٔ اصلی dnsmasq برای بازگردانی حفظ نشد؛ عملیات متوقف شد.',
+	'Replacing dnsmasq with dnsmasq-full...': 'در حال جایگزینی dnsmasq با dnsmasq-full...',
+	'Unable to snapshot packages before replacing dnsmasq': 'فهرست بسته‌ها پیش از جایگزینی dnsmasq ذخیره نشد.',
+	'dnsmasq-full installation failed; previous dnsmasq provider restored': 'نصب dnsmasq-full ناموفق بود؛ نسخهٔ قبلی dnsmasq بازگردانده شد.',
+	'dnsmasq-full installation failed and rollback failed; see /tmp/ikev2-manager-deps.log': 'نصب dnsmasq-full و بازگردانی نسخهٔ قبلی هر دو ناموفق بودند. جزئیات در /tmp/ikev2-manager-deps.log است.',
+	'dnsmasq-full was installed but package ownership could not be saved; previous state restored': 'dnsmasq-full نصب شد، اما سابقهٔ مالکیت بسته‌ها ذخیره نشد؛ وضعیت قبلی بازگردانده شد.',
+	'Unable to restore DHCP configuration after dnsmasq replacement; previous state restored': 'تنظیمات DHCP پس از جایگزینی dnsmasq بازنگشت؛ وضعیت قبلی بازگردانده شد.',
+	'DHCP configuration restore and automatic rollback failed; see /tmp/ikev2-manager-deps.log': 'بازگرداندن DHCP و بازگردانی خودکار هر دو ناموفق بودند. جزئیات در /tmp/ikev2-manager-deps.log است.',
+	'dnsmasq-full verification failed; previous dnsmasq provider restored': 'بررسی dnsmasq-full ناموفق بود؛ نسخهٔ قبلی dnsmasq بازگردانده شد.',
+	'dnsmasq-full verification failed and rollback failed; see /tmp/ikev2-manager-deps.log': 'بررسی dnsmasq-full و بازگردانی نسخهٔ قبلی هر دو ناموفق بودند. جزئیات در /tmp/ikev2-manager-deps.log است.',
+	'dnsmasq-full was installed but DNS service did not restart; previous state restored': 'dnsmasq-full نصب شد، اما سرویس DNS دوباره راه نیفتاد؛ وضعیت قبلی بازگردانده شد.',
+	'Unable to snapshot packages before runtime installation': 'فهرست بسته‌ها پیش از نصب بسته‌های اجرایی ذخیره نشد.',
+	'Package installation failed; the pre-install package and DNS state was restored': 'نصب بسته‌ها ناموفق بود؛ بسته‌ها و DNS به وضعیت پیش از نصب برگشتند.',
+	'Package installation failed; automatic rollback also failed; see /tmp/ikev2-manager-deps.log': 'نصب بسته‌ها و بازگردانی خودکار هر دو ناموفق بودند. جزئیات در /tmp/ikev2-manager-deps.log است.',
+	'Installed package ownership could not be saved; the pre-install state was restored': 'سابقهٔ مالکیت بسته‌های نصب‌شده ذخیره نشد؛ وضعیت پیش از نصب بازگردانده شد.',
+	'Installed package ownership could not be saved and rollback failed; see /tmp/ikev2-manager-deps.log': 'سابقهٔ مالکیت بسته‌ها ذخیره نشد و بازگردانی هم ناموفق بود. جزئیات در /tmp/ikev2-manager-deps.log است.',
+	'Installed packages failed dependency checks; the pre-install state was restored': 'بسته‌های نصب‌شده بررسی وابستگی را نگذراندند؛ وضعیت پیش از نصب بازگردانده شد.',
+	'Installed packages failed dependency checks and rollback failed; see /tmp/ikev2-manager-deps.log': 'بررسی وابستگی بسته‌ها و بازگردانی هر دو ناموفق بودند. جزئیات در /tmp/ikev2-manager-deps.log است.',
+	'Dependency ownership could not be saved; the pre-install state was restored': 'سابقهٔ مالکیت بسته‌های وابسته ذخیره نشد؛ وضعیت پیش از نصب بازگردانده شد.',
+	'Dependency ownership could not be saved and rollback failed; see /tmp/ikev2-manager-deps.log': 'سابقهٔ مالکیت بسته‌های وابسته ذخیره نشد و بازگردانی هم ناموفق بود. جزئیات در /tmp/ikev2-manager-deps.log است.',
+	'All runtime dependencies installed.': 'همهٔ بسته‌های لازم نصب شدند.',
+	'Starting dependency installation...': 'در حال شروع نصب بسته‌های لازم...',
+	'Unable to start dependency installation': 'نصب بسته‌های لازم شروع نشد.',
+	'Dependency ownership is unavailable; install dependencies once with this version before using Remove': 'سابقهٔ مالکیت بسته‌ها موجود نیست. پیش از حذف، یک‌بار بسته‌های لازم را با همین نسخه نصب کن.',
+	'Restoring the DNS configuration used before this application...': 'در حال بازگرداندن تنظیمات DNS پیش از نصب برنامه...',
+	'Original DNS could not be restored; dependency removal stopped before removing packages': 'تنظیمات اصلی DNS بازنگشت؛ حذف بسته‌ها پیش از تغییر بسته‌ها متوقف شد.',
+	'Disabling managed configuration...': 'در حال غیرفعال‌کردن تنظیمات مدیریت‌شده...',
+	'Managed routing could not be disabled; dependency removal stopped before removing packages': 'مسیریابی مدیریت‌شده غیرفعال نشد؛ حذف بسته‌ها پیش از تغییر بسته‌ها متوقف شد.',
+	'XFRM interfaces could not be stopped; dependency removal stopped': 'رابط‌های XFRM متوقف نشدند؛ حذف بسته‌ها متوقف شد.',
+	'XFRM service could not be disabled; dependency removal stopped': 'سرویس XFRM غیرفعال نشد؛ حذف بسته‌ها متوقف شد.',
+	'Restoring the pre-install DNS and package state...': 'در حال بازگرداندن وضعیت DNS و بسته‌ها به پیش از نصب...',
+	'Runtime dependency restore failed; see /tmp/ikev2-manager-deps.log': 'بازگرداندن بسته‌های لازم ناموفق بود. جزئیات در /tmp/ikev2-manager-deps.log است.',
+	'Resetting application settings...': 'در حال پاک‌کردن تنظیمات برنامه...',
+	'Dependencies were restored, but application settings could not be reset completely': 'بسته‌ها بازگردانده شدند، اما پاک‌کردن تنظیمات برنامه کامل نشد.',
+	'Router state restored. Shared packages required by other software were kept.': 'وضعیت روتر بازگردانده شد؛ بسته‌های مشترکِ مورد نیاز برنامه‌های دیگر حفظ شدند.',
+	'Pre-install packages, settings and managed routing state were restored.': 'بسته‌ها، تنظیمات و وضعیت مسیریابی مدیریت‌شده به حالت پیش از نصب برگشتند.',
+	'Starting dependency removal...': 'در حال شروع حذف بسته‌های اختصاصی برنامه...',
+	'Unable to start dependency removal': 'حذف بسته‌ها شروع نشد.',
+	'Preparing selected domain lists...': 'در حال آماده‌کردن فهرست دامنه‌های انتخاب‌شده...',
+	'Downloading selected service lists...': 'در حال دریافت فهرست سرویس‌های انتخاب‌شده...',
+	'Building the combined policy list...': 'در حال ساخت فهرست مشترک برای مسیریابی...',
+	'Queued...': 'در صف اجرا...',
+	'Unable to start the list refresh worker': 'فرایند به‌روزرسانی فهرست‌ها شروع نشد.',
+	'Unable to start the community update worker': 'فرایند به‌روزرسانی فهرست‌های عمومی شروع نشد.'
+});
+
+Object.assign(fa, {
+	'Service update failed': 'به‌روزرسانی سرویس ناموفق بود',
+	'List refresh failed': 'به‌روزرسانی فهرست‌ها ناموفق بود',
+	'Community update failed': 'به‌روزرسانی فهرست دامنه‌ها ناموفق بود',
+	'previous service, selection and policy preserved': 'سرویس، انتخاب‌ها و تنظیمات مسیریابی قبلی حفظ شدند',
+	'previous lists and policy preserved': 'فهرست‌ها و تنظیمات مسیریابی قبلی حفظ شدند',
+	'previous combined list preserved': 'فهرست مشترک قبلی حفظ شد',
+	'the submitted input token is malformed': 'شناسهٔ درخواست معتبر نیست',
+	'configured resource limits are invalid': 'حد مجاز منابع برنامه درست تنظیم نشده است',
+	'no writable temporary directory': 'پوشهٔ موقتِ قابل نوشتن وجود ندارد',
+	'the submitted service token is malformed': 'شناسهٔ درخواست سرویس معتبر نیست',
+	'submitted service input is missing or not a regular file': 'فایل ورودی سرویس وجود ندارد یا فایل معمولی نیست',
+	'submitted service input exceeds its size limit': 'اندازهٔ فایل ورودی سرویس از حد مجاز بیشتر است',
+	'invalid service operation': 'عملیات سرویس معتبر نیست',
+	'invalid service identifier': 'شناسهٔ سرویس معتبر نیست',
+	'invalid service selection state': 'وضعیت انتخاب سرویس معتبر نیست',
+	'invalid service display name': 'نام نمایشی سرویس معتبر نیست',
+	'a service needs at least one valid domain or IPv4 network': 'سرویس باید دست‌کم یک دامنه یا شبکهٔ IPv4 معتبر داشته باشد',
+	'only a prepared service can be reset': 'فقط سرویس آماده را می‌توان به نسخهٔ اولیه برگرداند',
+	'only a user-created service can be deleted': 'فقط سرویس ساخته‌شدهٔ کاربر را می‌توان حذف کرد',
+	'the selected lists could not be rebuilt': 'فهرست‌های انتخاب‌شده دوباره ساخته نشدند'
+});
+
+Object.assign(fa, {
+	'Timed out waiting for another router action.': 'زمان انتظار برای پایان عملیات دیگر روتر تمام شد.',
+	'Applying firewall, PBR and strongSwan...': 'در حال اعمال تنظیمات فایروال، PBR و strongSwan...',
+	'Configuration applied.': 'تنظیمات اعمال شد.',
+	'Apply failed; see /tmp/ikev2-manager-action.log and logread.': 'اعمال تنظیمات ناموفق بود. جزئیات را در /tmp/ikev2-manager-action.log و logread ببین.',
+	'Reconnecting the outbound tunnel...': 'در حال اتصال دوبارهٔ تونل خروجی...',
+	'Outbound tunnel reconnected.': 'تونل خروجی دوباره وصل شد.',
+	'Tunnel did not come up; see /tmp/ikev2-manager-action.log and logread.': 'تونل برقرار نشد. جزئیات را در /tmp/ikev2-manager-action.log و logread ببین.',
+	'Loading settings and reconnecting the outbound tunnel...': 'در حال بارگذاری تنظیمات و اتصال دوبارهٔ تونل خروجی...',
+	'Settings saved and tunnel connected.': 'تنظیمات ذخیره شد و تونل وصل شد.',
+	'Settings were saved, but the tunnel did not come up; see logread.': 'تنظیمات ذخیره شد، اما تونل برقرار نشد. جزئیات را در logread ببین.',
+	'Stopping the outbound tunnel...': 'در حال قطع‌کردن تونل خروجی...',
+	'Settings saved and tunnel disabled.': 'تنظیمات ذخیره شد و تونل غیرفعال شد.',
+	'Settings were saved, but the tunnel could not be stopped cleanly.': 'تنظیمات ذخیره شد، اما تونل به‌درستی متوقف نشد.',
+	'Applying inbound server settings...': 'در حال اعمال تنظیمات سرور ورودی...',
+	'Inbound server settings applied.': 'تنظیمات سرور ورودی اعمال شد.',
+	'Inbound server apply failed; previous configuration was restored.': 'اعمال تنظیمات سرور ورودی ناموفق بود؛ تنظیمات قبلی بازگردانده شد.',
+	'Inbound server apply was superseded by newer settings.': 'تنظیمات تازه‌تری برای سرور ورودی ثبت شده و جای این عملیات را گرفته است.',
+	'Inbound server apply and automatic rollback failed; see /tmp/ikev2-manager-action.log.': 'اعمال تنظیمات سرور ورودی و بازگردانی خودکار هر دو ناموفق بودند. جزئیات در /tmp/ikev2-manager-action.log است.',
+	'Requesting and validating the certificate...': 'در حال درخواست و بررسی گواهی...',
+	'Certificate is valid and installed.': 'گواهی معتبر است و نصب شد.',
+	'Certificate request or installation failed; see /tmp/ikev2-acme.log.': 'درخواست یا نصب گواهی ناموفق بود. جزئیات را در /tmp/ikev2-acme.log ببین.',
+	'Validating and loading the custom profile...': 'در حال بررسی و بارگذاری پروفایل سفارشی...',
+	'Custom profile loaded.': 'پروفایل سفارشی بارگذاری شد.',
+	'Custom profile was rejected; previous profile restored.': 'پروفایل سفارشی پذیرفته نشد؛ پروفایل قبلی بازگردانده شد.',
+	'Restoring the generated profile...': 'در حال بازگرداندن پروفایل خودکار...',
+	'Generated profile restored.': 'پروفایل خودکار بازگردانده شد.',
+	'Unable to restore the generated profile.': 'پروفایل خودکار بازگردانده نشد.',
+	'Inbound diagnostic capture completed.': 'ثبت گزارش عیب‌یابی سرور ورودی کامل شد.',
+	'Inbound diagnostic capture failed.': 'ثبت گزارش عیب‌یابی سرور ورودی ناموفق بود.',
+	'Unknown background action.': 'عملیات پس‌زمینه شناخته‌شده نیست.'
+});
+
+// Messages returned by the system helper are shown while an action runs.
+Object.assign(fa, {
+	'Waiting for other router actions...': 'در انتظار پایان عملیات دیگر روتر...',
+	'Another router action is still running.': 'عملیات دیگری روی روتر هنوز در حال اجراست.',
+	'Applying router configuration...': 'در حال اعمال تنظیمات روتر...',
+	'Router configuration applied.': 'تنظیمات روتر اعمال شد.',
+	'Router apply failed; previous managed configuration was restored.': 'اعمال تنظیمات روتر ناموفق بود؛ تنظیمات مدیریت‌شدهٔ قبلی بازگردانده شد.',
+	'Network added to policy routing.': 'شبکه به مدیریت مسیریابی اضافه شد.',
+	'Unable to add the network; see /tmp/ikev2-system-action.log.': 'شبکه اضافه نشد. جزئیات را در /tmp/ikev2-system-action.log ببین.',
+	'Network removed from policy routing.': 'شبکه از مدیریت مسیریابی حذف شد.',
+	'Unable to remove the network; see /tmp/ikev2-system-action.log.': 'شبکه حذف نشد. جزئیات را در /tmp/ikev2-system-action.log ببین.',
+	'Applying and verifying device routing...': 'در حال اعمال و بررسی مسیر ترافیک دستگاه...',
+	'Device routing updated.': 'مسیر ترافیک دستگاه به‌روز شد.',
+	'Device routing failed; previous PBR configuration was restored.': 'تنظیم مسیر ترافیک دستگاه ناموفق بود؛ تنظیمات قبلی PBR بازگردانده شد.',
+	'Pausing tunnel routing...': 'در حال توقف موقت مسیریابی تونل...',
+	'Could not pause tunnel routing; see /tmp/ikev2-system-action.log.': 'مسیریابی تونل متوقف نشد. جزئیات را در /tmp/ikev2-system-action.log ببین.',
+	'Resuming tunnel routing...': 'در حال ادامهٔ مسیریابی تونل...',
+	'Tunnel routing resumed.': 'مسیریابی تونل از سر گرفته شد.',
+	'Could not resume tunnel routing; see /tmp/ikev2-system-action.log.': 'مسیریابی تونل از سر گرفته نشد. جزئیات را در /tmp/ikev2-system-action.log ببین.',
+	'Applying and testing DNS settings...': 'در حال اعمال و بررسی تنظیمات DNS...',
+	'DNS settings applied.': 'تنظیمات DNS اعمال شد.',
+	'Destination DNS segment input is incomplete.': 'اطلاعات بخش DNS مقصد کامل نیست.',
+	'Destination DNS segment input has extra fields.': 'اطلاعات بخش DNS مقصد، فیلد اضافه دارد.',
+	'Destination DNS segment applied.': 'بخش DNS مقصد اعمال شد.',
+	'Destination DNS segment failed; previous resolver preserved.': 'اعمال بخش DNS مقصد ناموفق بود؛ تنظیمات قبلیِ حل نام حفظ شد.',
+	'Unknown router action.': 'عملیات روتر شناخته‌شده نیست.'
+});
+
+// Short control values must remain legible in narrow select boxes.
+Object.assign(fa, {
+	'Use global setting': 'طبق تنظیمات عمومی',
+	'Use project PBR policy': 'طبق PBR برنامه',
+	'Direct WAN — exclude from PBR': 'WAN مستقیم (بدون PBR)',
+	'Leave blank to keep the current password': 'خالی = حفظ رمز فعلی',
+	'Browse…': 'انتخاب فایل',
+	'Uploading...': 'در حال بارگذاری فایل...',
+	'Choose a PEM file no larger than 64 KiB.': 'یک فایل PEM با اندازهٔ حداکثر ۶۴ کیلوبایت انتخاب کن.',
+	'Unable to read the selected file.': 'فایل انتخاب‌شده خوانده نشد.',
+	'Unable to upload the PEM file.': 'فایل PEM روی روتر بارگذاری نشد.',
+	'The router did not return the uploaded file path.': 'روتر مسیر فایل بارگذاری‌شده را برنگرداند.',
+	'File stored on the router. Save the connection settings to use it.': 'فایل روی روتر ذخیره شد. برای استفاده از آن، تنظیمات اتصال را ذخیره کن.'
+});
+
+Object.assign(fa, {
+	'Iranian destinations via WAN': 'مقصدهای ایرانی از اینترنت مستقیم',
+	'When enabled, Iranian domains and public IP ranges use WAN before VPN rules. The lists include Iranian messengers. Downloads and routing changes are checked; a failed update keeps the previous rules. Shared CDN addresses and unknown destinations cannot be identified with certainty.': 'با فعال‌کردن این گزینه، دامنه‌ها و رنج‌های IP عمومی ایران پیش از قواعد VPN از اینترنت مستقیم عبور می‌کنند. فهرست‌ها نشانی پیام‌رسان‌های ایرانی را هم دربر می‌گیرند. اگر دریافت یا اعمال فهرست‌ها شکست بخورد، تنظیمات قبلی حفظ می‌شوند. تشخیص همهٔ مقصدها، به‌ویژه روی CDN مشترک، قطعی نیست.',
+	'Send Iranian destinations directly': 'ترافیک مقصدهای ایرانی را مستقیم بفرست',
+	'Applies to matching Iranian domains and IP networks; other destinations keep their existing routing.': 'فقط برای دامنه‌ها و شبکه‌های IP شناسایی‌شدهٔ ایرانی اعمال می‌شود؛ مسیر بقیهٔ مقصدها تغییر نمی‌کند.',
+	'Current lists: %s domains, %s IP networks.': 'فهرست فعلی: %s دامنه و %s شبکهٔ IP.',
+	'Downloading and applying Iranian lists...': 'در حال دریافت فهرست‌های ایران و اعمال مسیریابی...',
+	'Disabling Iranian direct routing...': 'در حال غیرفعال‌کردن مسیر مستقیم ایران...',
+	'Unable to update Iranian routing': 'مسیریابی مقصدهای ایرانی به‌روزرسانی نشد.',
+	'Iranian destinations use WAN.': 'مقصدهای شناسایی‌شدهٔ ایرانی از اینترنت مستقیم عبور می‌کنند.',
+	'Iranian direct routing is off.': 'مسیریابی مستقیم مقصدهای ایرانی خاموش است.',
+	'Updating Iranian routing rules...': 'در حال به‌روزرسانی قواعد مسیریابی ایران...',
+	'Another Iranian list update is running.': 'به‌روزرسانی دیگری برای فهرست ایران در حال اجراست.',
+	'Iranian direct routing updated.': 'مسیریابی مستقیم ایران به‌روزرسانی شد.',
+	'Iranian routing failed; previous configuration was preserved.': 'اعمال مسیریابی ایران ناموفق بود؛ تنظیمات قبلی حفظ شدند.'
 });
 
 function defaultLanguage() {
@@ -1784,8 +2364,19 @@ function translate(text) {
 	var value = nativeTranslate ? nativeTranslate(text) : text;
 	if (defaultLanguage() === 'ru' && ru[text])
 		return ru[text];
-	if (defaultLanguage() === 'fa' && fa[text])
-		return fa[text];
+	if (defaultLanguage() === 'fa') {
+		if (fa[text])
+			return fa[text];
+		var failed = /^(Service update failed|List refresh failed|Community update failed)(?:: (.*))?; (previous service, selection and policy preserved|previous lists and policy preserved|previous combined list preserved)$/.exec(text);
+		if (failed)
+			return fa[failed[1]] + (failed[2] ? ': ' + (fa[failed[2]] || failed[2]) : '') + '؛ ' + fa[failed[3]] + '.';
+		var release = /^OpenWrt 24\.10\.x with opkg or 25\.12\.x with apk is required; found (.+) with (.+)$/.exec(text);
+		if (release)
+			return 'OpenWrt 24.10.x با opkg یا 25.12.x با apk لازم است؛ نسخهٔ ' + release[1] + ' با ' + release[2] + ' شناسایی شد.';
+		var tunnel = /^(Tunnel did not come up|Settings were saved, but the tunnel did not come up): (.+)$/.exec(text);
+		if (tunnel)
+			return (tunnel[1] === 'Tunnel did not come up' ? 'تونل برقرار نشد' : 'تنظیمات ذخیره شد، اما تونل برقرار نشد') + ': ' + (fa[tunnel[2]] || tunnel[2]);
+	}
 	return value;
 }
 
@@ -1863,7 +2454,7 @@ function daysUntil(value) {
 	return Math.ceil((date.getTime() - Date.now()) / 86400000);
 }
 
-var STYLE_ID = 'ikev2-manager-styles-v5';
+var STYLE_ID = 'ikev2-manager-styles-v6';
 
 var CSS = `
 			/* A bare custom property is not an animatable type, so the
@@ -1881,21 +2472,16 @@ var CSS = `
 				src: url("/luci-static/resources/ikev2-manager/fonts/Vazirmatn-Regular.woff2") format("woff2");
 				font-style: normal;
 				font-weight: 400 700;
-				font-display: swap;
+				font-display: block;
 			}
-			html.ikev2-persian .main,
-			html.ikev2-persian .main button,
-			html.ikev2-persian .main input,
-			html.ikev2-persian .main select,
-			html.ikev2-persian .main textarea,
-			html.ikev2-persian .main a,
-			html.ikev2-persian .main label,
-			html.ikev2-persian .main h1,
-			html.ikev2-persian .main h2,
-			html.ikev2-persian .main h3,
-			html.ikev2-persian .main h4,
-			html.ikev2-persian ul.tabs a,
-			html.ikev2-persian .cbi-tabmenu a {
+			html.ikev2-persian .ikev2-page,
+			html.ikev2-persian .ikev2-page *,
+			html.ikev2-persian .ikev2-header,
+			html.ikev2-persian .ikev2-header *,
+			html.ikev2-persian ul.tabs,
+			html.ikev2-persian ul.tabs *,
+			html.ikev2-persian .cbi-tabmenu,
+			html.ikev2-persian .cbi-tabmenu * {
 				font-family: "Vazirmatn", sans-serif !important;
 			}
 			html[dir="rtl"] .ikev2-page { direction: rtl; text-align: right; }
@@ -2785,20 +3371,32 @@ var CSS = `
 			}
 			.ikev2-form-grid-compact > .ikev2-field-label { padding-top: .48rem; }
 			html[dir="rtl"] .ikev2-form-grid {
-				grid-template-columns: minmax(0, 1fr) minmax(13rem, 24rem);
+				/* Keep DOM order: label, control, then the next label. RTL
+				   makes the first column the right-hand one automatically. */
+				grid-template-columns: minmax(13rem, 24rem) minmax(0, 1fr);
+				direction: rtl;
 			}
 			html[dir="rtl"] .ikev2-form-grid > .ikev2-field-label {
-				grid-column: 2;
 				text-align: right;
-			}
-			html[dir="rtl"] .ikev2-form-grid > :not(.ikev2-field-label) {
-				grid-column: 1;
 			}
 			.ikev2-form-grid-compact input[type="text"],
 			.ikev2-form-grid-compact input[type="password"],
 			.ikev2-form-grid-compact input[type="number"],
 			.ikev2-form-grid-compact select,
 			.ikev2-form-grid-compact textarea { max-width: none; }
+			.ikev2-file-picker {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) auto;
+				gap: .5rem;
+				align-items: center;
+				min-width: 0;
+			}
+			.ikev2-file-picker > input[type="text"] {
+				width: 100%;
+				min-width: 0;
+				max-width: none;
+			}
+			.ikev2-file-picker > .ikev2-result { grid-column: 1 / -1; }
 			.ikev2-choice-custom {
 				display: grid;
 				gap: .55rem;
@@ -3675,6 +4273,9 @@ var CSS = `
 				.ikev2-card, .ikev2-card.wide { grid-column: 1 / -1; }
 				.ikev2-form-grid { grid-template-columns: 1fr; gap: .4rem; }
 				.ikev2-form-grid-compact { grid-template-columns: 1fr; }
+				html[dir="rtl"] .ikev2-form-grid {
+					grid-template-columns: minmax(0, 1fr);
+				}
 				.ikev2-form-grid-compact > .ikev2-field-label { padding-top: 0; }
 				.ikev2-form-grid > :nth-child(even) { margin-bottom: .8rem; }
 				.ikev2-two-col { grid-template-columns: 1fr; }
@@ -3709,6 +4310,10 @@ var CSS = `
 function styles() {
 	if (typeof document === 'undefined')
 		return '';
+	var oldStyles = document.querySelectorAll('style[id^="ikev2-manager-styles-v"]');
+	for (var i = 0; i < oldStyles.length; i++)
+		if (oldStyles[i].id !== STYLE_ID)
+			oldStyles[i].remove();
 	if (!document.getElementById(STYLE_ID))
 		document.head.appendChild(E('style', { 'id': STYLE_ID }, [ CSS ]));
 	return document.createDocumentFragment();
@@ -3762,19 +4367,24 @@ function languageSwitch() {
 	]);
 }
 
-// LuCI renders the secondary nav titles from menu.json in its own locale,
-// independent of this app's language switch. Relabel the known IKEv2 tabs by
-// their English text so the navigation matches the selected language.
+// LuCI renders menu.json before the view runs. Its default titles are Persian
+// so the initial paint matches the default locale. Adjust them here only when
+// the user explicitly selected another language.
 function localizeNav() {
 	if (typeof document === 'undefined')
 		return;
-	var titles = {
-		'Overview': _('Overview'),
-		'Outbound Tunnel': _('Outbound Tunnel'),
-		'Inbound Server': _('Inbound Server'),
-		'Policy Routing': _('Policy Routing'),
-		'VPN Users': _('VPN Users')
-	};
+	var names = [
+		[ 'نمای کلی', 'Overview' ],
+		[ 'تونل خروجی', 'Outbound Tunnel' ],
+		[ 'مدیریت مسیریابی', 'Policy Routing' ],
+		[ 'سرور ورودی', 'Inbound Server' ],
+		[ 'کاربران VPN', 'VPN Users' ]
+	];
+	var titles = {};
+	names.forEach(function(pair) {
+		titles[pair[0]] = _(pair[1]);
+		titles[pair[1]] = _(pair[1]);
+	});
 	var links = document.querySelectorAll(
 		'ul.tabs a, .cbi-tabmenu a, #mainmenu a, .main a[href*="ikev2-manager"]');
 	for (var i = 0; i < links.length; i++) {
@@ -3806,8 +4416,7 @@ function header(title, subtitle, actions) {
 
 	if (typeof window !== 'undefined') {
 		applyLanguageLayout();
-		window.setTimeout(localizeNav, 0);
-		window.setTimeout(localizeNav, 300);
+		localizeNav();
 	}
 
 	return E('div', { 'class': 'ikev2-header' }, [

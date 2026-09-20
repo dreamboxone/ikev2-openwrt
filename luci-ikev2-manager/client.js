@@ -4,7 +4,7 @@
 'require view';
 'require fs';
 'require poll';
-'require ikev2-manager.shared-v9 as common';
+'require ikev2-manager.shared-v20 as common';
 
 // Shadow the global _() with the project translator for this module only;
 // see the note in shared.js about not replacing window._.
@@ -587,6 +587,58 @@ return view.extend({
 		var clientKey = input('text', value.client_key || '', {
 			'placeholder': '/etc/ikev2-manager/client.key'
 		});
+		function materialPicker(field, kind) {
+			var chosen = E('input', {
+				'type': 'file',
+				'accept': '.pem,.crt,.cer,.key',
+				'style': 'display:none'
+			});
+			var browse = E('button', {
+				'class': 'cbi-button cbi-button-action',
+				'type': 'button'
+			}, [ _('Browse…') ]);
+			var result = common.inlineResult();
+			browse.addEventListener('click', function() { chosen.click(); });
+			chosen.addEventListener('change', function() {
+				var file = chosen.files && chosen.files[0];
+				chosen.value = '';
+				if (!file)
+					return;
+				if (!file.size || file.size > 65536) {
+					result.err(_('Choose a PEM file no larger than 64 KiB.'));
+					return;
+				}
+				common.setBusy(browse, true, _('Uploading...'));
+				return new Promise(function(resolve, reject) {
+					var reader = new FileReader();
+					reader.onload = function() { resolve(reader.result); };
+					reader.onerror = function() { reject(reader.error || new Error(_('Unable to read the selected file.'))); };
+					reader.readAsText(file);
+				}).then(function(content) {
+					var token = common.inputToken();
+					return fs.write('/var/run/ikev2-manager-material-' + token + '.in', content, 384)
+						.then(function() {
+							return common.execChecked(helper, [ 'client-material-import', kind, token ],
+								_('Unable to upload the PEM file.'));
+						});
+				}).then(function(response) {
+					var path = common.parseKeyValues(response.stdout || '').path;
+					if (!path)
+						throw new Error(_('The router did not return the uploaded file path.'));
+					field.value = path;
+					result.ok(_('File stored on the router. Save the connection settings to use it.'));
+				}).catch(function(error) {
+					result.err(error.message || _('Unable to upload the PEM file.'));
+				}).then(function() {
+					common.setBusy(browse, false);
+				});
+			});
+			return E('div', { 'class': 'ikev2-file-picker' }, [
+				field, browse, chosen, result.node
+			]);
+		}
+		var clientCertPicker = materialPicker(clientCert, 'cert');
+		var clientKeyPicker = materialPicker(clientKey, 'key');
 			var password = input('password', '', {
 				'placeholder': _('Leave blank to keep the current password'),
 				'autocomplete': 'new-password'
@@ -595,8 +647,8 @@ return view.extend({
 			var method = authMethodSelect.value;
 			var isEapMschap = method === 'eap-mschapv2';
 			password.style.display = isEapMschap ? '' : 'none';
-			clientCert.style.display = isEapMschap ? 'none' : '';
-			clientKey.style.display = isEapMschap ? 'none' : '';
+			clientCertPicker.style.display = isEapMschap ? 'none' : '';
+			clientKeyPicker.style.display = isEapMschap ? 'none' : '';
 		}
 		authMethodSelect.addEventListener('change', updateAuthFields);
 		updateAuthFields();
@@ -1231,10 +1283,10 @@ return view.extend({
 							authMethodSelect,
 							common.fieldLabel(_('Client certificate path'),
 								_('Path to the PEM-encoded client certificate on the router.')),
-							clientCert,
+							clientCertPicker,
 							common.fieldLabel(_('Client private key path'),
 								_('Path to the PEM-encoded private key on the router.')),
-							clientKey,
+							clientKeyPicker,
 							common.fieldLabel(_('New EAP password'),
 								_('Visible while editing; leave blank to preserve the saved secret.')),
 							password

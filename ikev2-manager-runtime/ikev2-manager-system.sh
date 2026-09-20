@@ -1668,6 +1668,10 @@ sync_pbr() {
 		'file:///etc/pbr-ikev2-domains.txt file:///etc/pbr-ikev2-service-cidrs.txt' ||
 		die 'Unable to remove legacy per-device PBR policies'
 	uci commit pbr
+	if [ -x /usr/libexec/ikev2-iran-direct ]; then
+		/usr/libexec/ikev2-iran-direct sync ||
+			die 'Unable to configure Iranian direct-routing policies'
+	fi
 }
 
 dns_original_dir='/etc/ikev2-manager/dns-original'
@@ -3198,6 +3202,9 @@ remove_managed() {
 	uci -q delete pbr.ikev2pbr_domains || true
 	uci -q delete pbr.ikev2pbr_service_cidrs || true
 	uci -q delete pbr.ikev2pbr_include || true
+	uci -q delete pbr.ikev2_iran_domains || true
+	uci -q delete pbr.ikev2_iran_cidrs || true
+	uci -q delete pbr.ikev2_iran_include || true
 	device_pbr_clear || return 1
 	uci -q del_list pbr.config.supported_interface='ikev2out' || true
 	if [ "$(uci -q get "$config.globals.pbr_saved" 2>/dev/null)" = 1 ]; then
