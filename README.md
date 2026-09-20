@@ -42,10 +42,13 @@ PBR، sing-box، dnsmasq و nftables را فقط پس از انتخاب صریح
 | snapshot، firmware سازنده، firewall3، یا feed غیررسمی | هیچ‌کدام | **ناسازگار و عمداً رد می‌شود.** firmware رسمی پایدار و feedهای رسمی لازم است. |
 | APK برای target/ABI دیگر | هیچ‌کدام | **ناسازگار.** APK را نصب نکنید؛ SDK و خروجی مخصوص همان روتر لازم است. |
 
-هدف APK تعریف‌شده برای آزمون عملی Google WiFi (Gale) با `25.12.5`، target
-`ipq40xx/chromium` و ARMv7 `arm_cortex-a7_neon-vfpv4` است. ARM64 شامل A53 و
-A72، MIPS و x86_64 به SDK، APK و آزمون مستقل نیاز دارند؛ وجود کد مشترک به معنی
-سازگاری تأییدشدهٔ آن‌ها نیست.
+هدف آزمون عملی و APK پیش‌فرض، Google WiFi AC-1304 (Gale) با `25.12.5`، target
+`ipq40xx/chromium` و ARMv7 `arm_cortex-a7_neon-vfpv4` است. برای هر روتر دیگر
+در OpenWrt 25.12، workflow دستی **Build target APK**، SDK و checksum رسمیِ
+همان `target/subtarget` را دریافت می‌کند، معماری واقعی را از SDK می‌خواند و
+APK جداگانه می‌سازد. بنابراین ARM64، MIPS و x86_64 با نام معماری حدس زده
+نمی‌شوند؛ target دقیق روتر معیار است. هر target تازه پیش از انتشار عمومی به
+آزمون وابستگی و آزمون واقعی روتر نیاز دارد.
 
 ### تشخیص روتر پیش از دانلود
 

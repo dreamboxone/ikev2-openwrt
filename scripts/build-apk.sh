@@ -13,6 +13,15 @@ root="$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)"
 . "$root/release.env"
 . "$root/apk-feed.env"
 
+# A normal release uses the checked-in Google WiFi profile. The target builder
+# deliberately overrides these values after sourcing that profile so a second
+# target never needs a source fork or a hand-edited Makefile.
+OPENWRT_APK_VERSION="${OPENWRT_APK_VERSION_OVERRIDE:-$OPENWRT_APK_VERSION}"
+OPENWRT_APK_TARGET="${OPENWRT_APK_TARGET_OVERRIDE:-$OPENWRT_APK_TARGET}"
+OPENWRT_APK_ARCH="${OPENWRT_APK_ARCH_OVERRIDE:-$OPENWRT_APK_ARCH}"
+OPENWRT_APK_SDK_ARCHIVE="${OPENWRT_APK_SDK_ARCHIVE_OVERRIDE:-$OPENWRT_APK_SDK_ARCHIVE}"
+OPENWRT_APK_SDK_SHA256="${OPENWRT_APK_SDK_SHA256_OVERRIDE:-$OPENWRT_APK_SDK_SHA256}"
+
 sdk="${OPENWRT_SDK_DIR:-}"
 signing_key="${OPENWRT_APK_SIGNING_KEY:-}"
 public_key="$root/$OPENWRT_APK_KEY_FILE"
@@ -137,7 +146,7 @@ if grep -Fq '/etc/init.d/rpcd restart' "$tmp/pre-deinstall"; then
 	fail 'built APK restarts rpcd during its package transaction'
 fi
 
-output="$root/dist/apk"
+output="${OPENWRT_APK_OUTPUT_DIR:-$root/dist/apk}"
 mkdir -p "$output"
 rm -f "$output"/*.apk
 cp "$package_path" "$output/$(basename "$package_path")"

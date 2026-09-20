@@ -22,8 +22,28 @@ The currently validated APK target is:
 - `arm_cortex-a7_neon-vfpv4` (ARMv7);
 - Google WiFi (Gale) running official OpenWrt.
 
-ARMv8/ARMv9, MIPS and x86_64 remain planned targets, not verified support,
+ARMv8/ARMv9, MIPS and x86_64 remain buildable candidates, not verified support,
 until their exact SDK builds and router tests have passed.
+
+## Building another target
+
+Google WiFi AC-1304 remains the default release target. To produce an APK for
+another official OpenWrt 25.12 target, run the manual **Build target APK**
+workflow and supply the exact `release` and `target/subtarget` reported by the
+router. The workflow downloads the official target checksum index, selects and
+verifies the matching SDK, reads `CONFIG_TARGET_ARCH_PACKAGES` from that SDK,
+then uploads a separate APK artifact. It does not publish that artifact as a
+public release or claim compatibility.
+
+The same operation is available to a maintainer on a Linux build host:
+
+```sh
+./scripts/build-apk-target.sh 25.12.5 ipq40xx/chromium
+```
+
+Use `ubus call system board` and `/etc/openwrt_release` on the target router;
+do not choose an SDK solely by CPU family. A successful build is only the first
+step: complete the release-validation checklist below before publishing it.
 
 ## Unsigned Release APKs
 
