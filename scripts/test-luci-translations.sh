@@ -44,12 +44,25 @@ if (duplicates.length) {
 	process.exit(1);
 }
 
+const faStart = shared.indexOf('var fa = {');
+const faEnd = shared.indexOf('\nfunction defaultLanguage()', faStart);
+if (faStart < 0 || faEnd < 0) {
+	process.stderr.write('Persian translation dictionary not found in shared.js\n');
+	process.exit(1);
+}
+const faKeys = new Set();
+const faEntry = /(^|[\s,{])(['"])((?:[^'"\\]|\\.)*)\2\s*:/gm;
+let faMatch;
+while ((faMatch = faEntry.exec(shared.slice(faStart, faEnd))) !== null)
+	faKeys.add(faMatch[3].replace(/\\(.)/g, '$1'));
+
 const pages = [
 	[ 'luci-ikev2-manager', 'client.js' ], [ 'luci-ikev2-manager', 'setup.js' ],
 	[ 'luci-ikev2-manager', 'settings.js' ], [ 'luci-ikev2-manager', 'users.js' ],
 	[ 'luci-ikev2-manager', 'status-widget.js' ], [ 'luci-ikev2-domains', 'editor.js' ]
 ];
 let missing = [];
+let missingPersian = [];
 let total = 0;
 pages.forEach(function(page) {
 	const file = path.join(root, page[0], page[1]);
@@ -65,11 +78,17 @@ pages.forEach(function(page) {
 	seen.forEach(function(text) {
 		if (!keys.has(text))
 			missing.push(page[1] + ': ' + text);
+		if (!faKeys.has(text.replace(/\\(.)/g, '$1')))
+			missingPersian.push(page[1] + ': ' + text);
 	});
 });
 if (missing.length) {
 	process.stderr.write('untranslated strings:\n  ' + missing.join('\n  ') + '\n');
 	process.exit(1);
 }
-process.stdout.write('translation coverage OK: ' + total + ' strings\n');
+if (missingPersian.length) {
+	process.stderr.write('Persian untranslated strings:\n  ' + missingPersian.join('\n  ') + '\n');
+	process.exit(1);
+}
+process.stdout.write('Russian and Persian translation coverage OK: ' + total + ' strings\n');
 JS
