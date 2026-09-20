@@ -180,8 +180,8 @@ assert.strictEqual(
 assert.strictEqual(windowStub._, nativeTranslate,
 	'shared.js replaced the global translation function');
 assert.strictEqual(typeof common.t, 'function', 'common.t is not exported');
-assert.strictEqual(common.t('Overview'), 'native:Overview',
-	'the translator does not fall back to the LuCI catalogue');
+assert.strictEqual(common.t('Overview'), 'نمای کلی',
+	'the Persian default translation is not applied');
 
 // Spot-check a couple of exported helpers actually run.
 assert.strictEqual(common.formatBytes(0), '0 B');
