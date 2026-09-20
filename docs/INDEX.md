@@ -136,6 +136,30 @@ those whole is cheap enough.
 145  ensure_device_routing_policy
 161  health_cleanup
 
+## ikev2-manager-runtime/ikev2-iran-direct.sh - 345 lines
+
+27  enabled
+28  count
+29  status
+36  fetch
+47  validate_cidrs  - Shared by the downloaded list and the editable one, so an operator entry can
+73  prepare
+102  merge_extra  - The editable list holds both kinds of entry, one per line. It is validated
+148  sync_pbr
+164  apply
+170  update
+206  disable
+214  state_value
+215  numeric
+216  state_set
+228  refresh_due  - Whether the scheduled refresh should run now. Never while the feature is off,
+248  scheduled_update
+257  write_action_status
+262  schedule
+273  run_async
+291  write_extra  - The page stages its text under a fixed prefix and passes the token, so the ACL
+318  check_lists
+
 ## ikev2-manager-runtime/ikev2-manager-system.sh - 4011 lines
 
 11  uci
