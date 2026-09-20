@@ -7,7 +7,7 @@ PKG_NAME:=luci-app-ikev2-manager
 # canonical build (scripts/build-ipk.sh). These SDK literals are kept in sync
 # manually because OpenWrt's relative include path is unreliable;
 # scripts/check-version-sync.sh fails the canonical build if they drift (B3).
-PKG_VERSION:=1.12.8
+PKG_VERSION:=1.12.9
 PKG_RELEASE:=
 PKG_LICENSE:=MIT
 PKG_MAINTAINER:=nikitid
@@ -20,7 +20,7 @@ define Package/luci-app-ikev2-manager
   CATEGORY:=LuCI
   SUBMENU:=3. Applications
   TITLE:=IKEv2 Manager for OpenWrt
-  URL:=https://github.com/nikitid/ikev2-openwrt
+	URL:=https://github.com/dreamboxone/ikev2-openwrt
   DEPENDS:= \
 	+luci-base \
 	+rpcd-mod-file \
