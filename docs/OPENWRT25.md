@@ -25,6 +25,16 @@ The currently validated APK target is:
 ARMv8/ARMv9, MIPS and x86_64 remain buildable candidates, not verified support,
 until their exact SDK builds and router tests have passed.
 
+The release workflow also builds this ARMv8 candidate:
+
+- `mediatek/filogic`;
+- `aarch64_cortex-a53`;
+- OpenWrt `25.12.x`.
+
+It is a target-matched package for common Filogic routers, not a universal
+package for every ARMv8 router. It remains unverified until it passes the
+router validation checklist below.
+
 ## Building another target
 
 Google WiFi AC-1304 remains the default release target. To produce an APK for
@@ -39,6 +49,9 @@ The same operation is available to a maintainer on a Linux build host:
 
 ```sh
 ./scripts/build-apk-target.sh 25.12.5 ipq40xx/chromium
+
+# ARMv8 Cortex-A53 preset (MediaTek Filogic)
+sh ./scripts/build-apk-aarch64-cortex-a53.sh 25.12.5
 ```
 
 Use `ubus call system board` and `/etc/openwrt_release` on the target router;

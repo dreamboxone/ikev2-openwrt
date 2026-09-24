@@ -49,6 +49,8 @@ jobs:
           . ./apk-feed.env
           OPENWRT_SDK_DIR="$PWD/build/${OPENWRT_APK_SDK_ARCHIVE%.tar.zst}" \
             ./scripts/build-apk.sh
+      - name: Build unsigned ARMv8 Cortex-A53 OpenWrt 25.12 APK
+        run: sh ./scripts/build-apk-aarch64-cortex-a53.sh
       - name: Publish release assets
         uses: softprops/action-gh-release@718ea10b132b3b2eba29c1007bb80653f286566b # v3.0.1
         with:

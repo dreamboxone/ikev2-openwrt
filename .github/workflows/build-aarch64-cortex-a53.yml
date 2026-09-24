@@ -1,0 +1,33 @@
+name: Build ARMv8 Cortex-A53 APK
+
+on:
+  workflow_dispatch:
+    inputs:
+      openwrt_release:
+        description: Official OpenWrt 25.12 release
+        required: true
+        default: "25.12.5"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  build-aarch64-cortex-a53:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - name: Install OpenWrt SDK build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends \
+            build-essential file gawk gettext libncurses-dev libssl-dev \
+            python3 rsync unzip zlib1g-dev zstd
+      - name: Build target-matched ARMv8 APK
+        run: sh ./scripts/build-apk-aarch64-cortex-a53.sh "${{ inputs.openwrt_release }}"
+      - name: Upload ARMv8 APK
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: luci-app-ikev2-manager-${{ inputs.openwrt_release }}-mediatek-filogic-aarch64_cortex-a53
+          path: dist/apk/${{ inputs.openwrt_release }}-mediatek-filogic-aarch64_cortex-a53/**
+          if-no-files-found: error
