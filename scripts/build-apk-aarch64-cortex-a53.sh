@@ -8,6 +8,7 @@ set -eu
 
 root="$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)"
 . "$root/apk-feed.env"
+. "$root/release.env"
 
 release="${1:-$OPENWRT_APK_VERSION}"
 target="${2:-mediatek/filogic}"
@@ -29,4 +30,25 @@ output="$root/dist/apk/$release-mediatek-filogic-$expected_arch"
 	printf '%s\n' "expected $expected_arch APK was not produced" >&2
 	exit 1
 }
+source_apk="$output/$PKG_NAME-$PKG_VERSION.apk"
+[ -f "$source_apk" ] || {
+	printf '%s\n' "expected package was not produced: $source_apk" >&2
+	exit 1
+}
+release_apk="$root/dist/apk/$PKG_NAME-$PKG_VERSION-mediatek-filogic-$expected_arch.apk"
+cp "$source_apk" "$release_apk"
+checksum_file="$root/dist/apk/SHA256SUMS.apk"
+checksum_tmp="$checksum_file.tmp.$$"
+if [ -f "$checksum_file" ]; then
+	awk -v name="$(basename "$release_apk")" '$2 != name' \
+		"$checksum_file" >"$checksum_tmp"
+else
+	: >"$checksum_tmp"
+fi
+(
+	cd "$root/dist/apk"
+	sha256sum "$(basename "$release_apk")" >>"$checksum_tmp"
+)
+mv "$checksum_tmp" "$checksum_file"
 printf '%s\n' "ARMv8 APK: $output"
+printf '%s\n' "Release APK: $release_apk"
